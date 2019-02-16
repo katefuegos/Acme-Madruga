@@ -3,6 +3,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -63,6 +64,7 @@ public class Request extends Actor {
 
 	@NotNull
 	@Valid
+	@ManyToOne(optional = false)
 	public Member getMember() {
 		return member;
 	}
@@ -73,6 +75,7 @@ public class Request extends Actor {
 
 	@NotNull
 	@Valid
+	@ManyToOne(optional = false)
 	public Procession getProcession() {
 		return procession;
 	}

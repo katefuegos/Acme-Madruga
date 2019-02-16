@@ -16,12 +16,12 @@ public class Member extends Actor {
 	// Relationships ---------------------------------------------------------
 	private Finder finder;
 
+	@Valid
+	@OneToOne(optional = true)
 	public Finder getFinder() {
 		return finder;
 	}
-	
-	@Valid
-	@OneToOne(optional=true)
+
 	public void setFinder(Finder finder) {
 		this.finder = finder;
 	}

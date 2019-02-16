@@ -28,6 +28,7 @@ public class Actor extends DomainEntity {
 	private String address;
 	private boolean isSpammer;
 	private boolean isBanned;
+	private Double polarityScore;
 
 	@NotBlank
 	public String getName() {
@@ -95,7 +96,7 @@ public class Actor extends DomainEntity {
 		return this.isSpammer;
 	}
 
-	public void setIsSuspicious(final boolean isSpammer) {
+	public void setIsSpammer(final boolean isSpammer) {
 		this.isSpammer = isSpammer;
 	}
 
@@ -107,10 +108,14 @@ public class Actor extends DomainEntity {
 	public void setIsBanned(final boolean isBanned) {
 		this.isBanned = isBanned;
 	}
-	
-	//TODO MÉTODO SCORE
-	public double getPolarityScore(){
-		return 0.0;
+
+	@NotNull
+	public Double getPolarityScore() {
+		return polarityScore;
+	}
+
+	public void setPolarityScore(Double polarityScore) {
+		this.polarityScore = polarityScore;
 	}
 
 	// Relationships ---------------------------------------------------------

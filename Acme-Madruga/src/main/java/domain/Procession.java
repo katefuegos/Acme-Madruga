@@ -79,16 +79,16 @@ public class Procession extends Actor {
 	}
 
 	// Relationships ---------------------------------------------------------
-	private Collection<Float> floats;
+	private Collection<Floaat> floats;
 
 	@NotNull
 	@Valid
 	@ManyToMany
-	public Collection<Float> getFloats() {
+	public Collection<Floaat> getFloats() {
 		return floats;
 	}
 
-	public void setFloats(Collection<Float> floats) {
+	public void setFloats(Collection<Floaat> floats) {
 		this.floats = floats;
 	}
 }

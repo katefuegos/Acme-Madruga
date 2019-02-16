@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Float extends Actor {
+public class Floaat extends Actor {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS

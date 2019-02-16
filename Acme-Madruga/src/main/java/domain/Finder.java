@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -74,16 +75,16 @@ public class Finder extends Actor {
 	}
 
 	// Relationships ---------------------------------------------------------
-	private Procession processions;
+	private Collection<Procession> processions;
 
 	@NotNull
 	@Valid
 	@ManyToMany
-	public Procession getProcessions() {
+	public Collection<Procession> getProcessions() {
 		return processions;
 	}
 
-	public void setProcessions(Procession processions) {
+	public void setProcessions(Collection<Procession> processions) {
 		this.processions = processions;
 	}
 
