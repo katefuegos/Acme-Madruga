@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -18,8 +17,8 @@ public class Request extends Actor {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 	private String status;
-	private Integer row;
-	private Integer column;
+	private Integer roow;
+	private Integer coluumn;
 	private String reasonReject;
 
 	@NotBlank
@@ -32,22 +31,20 @@ public class Request extends Actor {
 		this.status = status;
 	}
 
-	@Range(min = 1)
-	public Integer getRow() {
-		return row;
+	public Integer getRoow() {
+		return roow;
 	}
 
-	public void setRow(Integer row) {
-		this.row = row;
+	public void setRoow(Integer roow) {
+		this.roow = roow;
 	}
 
-	@Range(min = 1)
-	public Integer getColumn() {
-		return column;
+	public Integer getColuumn() {
+		return coluumn;
 	}
 
-	public void setColumn(Integer column) {
-		this.column = column;
+	public void setColuumn(Integer coluumn) {
+		this.coluumn = coluumn;
 	}
 
 	public String getReasonReject() {
