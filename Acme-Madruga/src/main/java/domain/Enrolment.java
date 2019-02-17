@@ -22,7 +22,8 @@ public class Enrolment extends DomainEntity {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 	private Date	momentEnrol;
-	private String	position;
+	private String	positionEN;
+	private String	positionES;
 	private Date	momentDropOut;
 
 
@@ -38,12 +39,21 @@ public class Enrolment extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getPosition() {
-		return this.position;
+	public String getPositionEN() {
+		return this.positionEN;
 	}
 
-	public void setPosition(final String position) {
-		this.position = position;
+	public void setPositionEN(final String position) {
+		this.positionEN = position;
+	}
+
+	@NotBlank
+	public String getPositionES() {
+		return this.positionES;
+	}
+
+	public void setPositionES(final String position) {
+		this.positionES = position;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

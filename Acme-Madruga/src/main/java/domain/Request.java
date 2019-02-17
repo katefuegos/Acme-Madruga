@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -33,6 +34,7 @@ public class Request extends DomainEntity {
 		this.status = status;
 	}
 
+	@Range(min = 1)
 	public Integer getRoow() {
 		return this.roow;
 	}
@@ -40,7 +42,7 @@ public class Request extends DomainEntity {
 	public void setRoow(final Integer roow) {
 		this.roow = roow;
 	}
-
+	@Range(min = 1)
 	public Integer getColuumn() {
 		return this.coluumn;
 	}
