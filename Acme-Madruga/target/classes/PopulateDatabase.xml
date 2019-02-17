@@ -134,8 +134,8 @@
 			</list>
 		</property>
 	</bean>
-	
-		<bean id="userAccount10" class="security.UserAccount">
+
+	<bean id="userAccount10" class="security.UserAccount">
 		<property name="username" value="administrator2" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="authorities">
@@ -145,9 +145,9 @@
 				</bean>
 			</list>
 		</property>
-		</bean>
-		
-		<bean id="userAccount11" class="security.UserAccount">
+	</bean>
+
+	<bean id="userAccount11" class="security.UserAccount">
 		<property name="username" value="administrator1" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="authorities">
@@ -159,9 +159,9 @@
 		</property>
 	</bean>
 
-	
+
 	<!-- Other domain beans come here -->
-	
+
 	<!-- ACTORES -->
 	<!-- Administrators -->
 
@@ -198,8 +198,8 @@
 		<property name="userAccount" ref="userAccount11" />
 
 	</bean>
-	
-		<bean id="administrator2" class="domain.Administrator">
+
+	<bean id="administrator2" class="domain.Administrator">
 
 		<property name="name" value="Elena" />
 		<property name="middleName" value="super admin" />
@@ -215,10 +215,10 @@
 		<property name="userAccount" ref="userAccount10" />
 
 	</bean>
-	
+
 	<!-- Members -->
-	
-		<bean id="member1" class="domain.Member">
+
+	<bean id="member1" class="domain.Member">
 
 		<property name="name" value="Claudia" />
 		<property name="middleName" value="Diva" />
@@ -232,10 +232,11 @@
 		<property name="isBanned" value="true" />
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount4" />
+		<property name="finder" ref="finder1" />
 
-		</bean>
-		
-		<bean id="member2" class="domain.Member">
+	</bean>
+
+	<bean id="member2" class="domain.Member">
 
 		<property name="name" value="Claudia" />
 		<property name="middleName" value="Diva" />
@@ -249,12 +250,33 @@
 		<property name="isBanned" value="true" />
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount5" />
+		<property name="finder" ref="finder2" />
 
-		</bean>
+	</bean>
 	
+	<bean id="member3" class="domain.Member">
+
+		<property name="name" value="Joselito" />
+		<property name="middleName" value="Diva" />
+		<property name="surname" value="Sa" />
+		<property name="photo"
+			value="http://tinyurl.com/y44cxn8e" />
+		<property name="email" value="joselito@gmail.com" />
+		<property name="phone" value="+34(456)123436789" />
+		<property name="address" value="C/Calle, 53" />
+		<property name="isSpammer" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="polarityScore" value="0.0" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="finder" ref="finder3" />
+
+	</bean>
+	
+	
+
 	<!-- Brotherhoods -->
-	
-		<bean id="brotherhood1" class="domain.Brotherhood">
+
+	<bean id="brotherhood1" class="domain.Brotherhood">
 
 		<property name="name" value="Claudia" />
 		<property name="middleName" value="Diva" />
@@ -271,10 +293,11 @@
 		<property name="title" value="Santa Claudia" />
 		<property name="establishementDate" value="2018/01/02 11:12" />
 		<property name="pictures" value="https://profile.es/" />
-
+		<property name="area" ref="area3" />
+		
 	</bean>
-	
-			<bean id="brotherhood2" class="domain.Brotherhood">
+
+	<bean id="brotherhood2" class="domain.Brotherhood">
 
 		<property name="name" value="Feli" />
 		<property name="middleName" value="Diva" />
@@ -291,38 +314,62 @@
 		<property name="title" value="Santa Felipa" />
 		<property name="establishementDate" value="2018/01/02 11:12" />
 		<property name="pictures" value="https://profile.es/" />
+		<property name="area" ref="area3" />
 
 	</bean>
-	
 
-	
+	<bean id="brotherhood3" class="domain.Brotherhood">
+
+		<property name="name" value="Miguel" />
+		<property name="middleName" value="Diva" />
+		<property name="surname" value="Sa" />
+		<property name="photo"
+			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+		<property name="email" value="miguel@gmail.com" />
+		<property name="phone" value="+34(456)865456789" />
+		<property name="address" value="C/Calle Laraña, 23" />
+		<property name="isSpammer" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="polarityScore" value="15.2" />
+		<property name="userAccount" ref="userAccount10" />
+		<property name="title" value="San Miguel" />
+		<property name="establishementDate" value="2018/07/26 16:17" />
+		<property name="pictures" value="https://profile.es/" />
+		<property name="area" ref="area2" />
+	</bean>
+
+	<bean id="brotherhood4" class="domain.Brotherhood">
+
+		<property name="name" value="Adam" />
+		<property name="middleName" value="Diva" />
+		<property name="surname" value="Sa" />
+		<property name="photo"
+			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+		<property name="email" value="adam@gmail.com" />
+		<property name="phone" value="+34(456)675456789" />
+		<property name="address" value="C/Calle Sierpes, 1" />
+		<property name="isSpammer" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="polarityScore" value="16.9" />
+		<property name="userAccount" ref="userAccount11" />
+		<property name="title" value="San Adam" />
+		<property name="establishementDate" value="2018/11/21 13:47" />
+		<property name="pictures" value="https://profile.es/" />
+		<property name="area" ref="area1" />
+	</bean>
+
+
 	<bean id="socialProfile1" class="domain.SocialProfile">
 
 		<property name="nick" value="Manolete"></property>
 		<property name="nameSocialNetwork" value="Twitter"></property>
 		<property name="actor" ref="administrator1" />
-		<property name="linkSocialNetwork" value="https://profile.es/" ></property>
+		<property name="linkSocialNetwork" value="https://profile.es/"></property>
 	</bean>
-	
+
 	<!-- BOX -->
 
-
-	<bean id="rootBox" class="domain.Box">
-		<property name="name" value="rootBox" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-				<ref bean="box1" />
-				<ref bean="box2" />
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="admin" />
-	</bean>
-
-<!-- Trashbox -->
+	<!-- Trashbox -->
 
 	<bean id="trashBoxM1" class="domain.Box">
 		<property name="name" value="trash box" />
@@ -364,8 +411,8 @@
 		<property name="actor" ref="administrator1" />
 
 	</bean>
-	
-		<bean id="trashBoxA2" class="domain.Box">
+
+	<bean id="trashBoxA2" class="domain.Box">
 		<property name="name" value="trash box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -378,8 +425,8 @@
 		<property name="actor" ref="administrator2" />
 
 	</bean>
-	
-		<bean id="trashBoxB1" class="domain.Box">
+
+	<bean id="trashBoxB1" class="domain.Box">
 		<property name="name" value="trash box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -392,8 +439,8 @@
 		<property name="actor" ref="brotherhood1" />
 
 	</bean>
-	
-		<bean id="trashBoxB2" class="domain.Box">
+
+	<bean id="trashBoxB2" class="domain.Box">
 		<property name="name" value="trash box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -407,7 +454,7 @@
 
 	</bean>
 
-<!-- Inbox -->
+	<!-- Inbox -->
 
 	<bean id="inBoxA1" class="domain.Box">
 		<property name="name" value="in box" />
@@ -422,8 +469,8 @@
 		<property name="actor" ref="administrator1" />
 
 	</bean>
-	
-		<bean id="inBoxA2" class="domain.Box">
+
+	<bean id="inBoxA2" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -436,8 +483,8 @@
 		<property name="actor" ref="administrator2" />
 
 	</bean>
-	
-		<bean id="inBoxM1" class="domain.Box">
+
+	<bean id="inBoxM1" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -450,8 +497,8 @@
 		<property name="actor" ref="member1" />
 
 	</bean>
-	
-		<bean id="inBoxM2" class="domain.Box">
+
+	<bean id="inBoxM2" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -464,8 +511,8 @@
 		<property name="actor" ref="member2" />
 
 	</bean>
-	
-		<bean id="inBoxB1" class="domain.Box">
+
+	<bean id="inBoxB1" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -478,8 +525,8 @@
 		<property name="actor" ref="brotherhood1" />
 
 	</bean>
-	
-		<bean id="inBoxB2" class="domain.Box">
+
+	<bean id="inBoxB2" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -493,7 +540,7 @@
 
 	</bean>
 
-<!-- Outbox -->
+	<!-- Outbox -->
 
 	<bean id="outBoxA1" class="domain.Box">
 		<property name="name" value="out box" />
@@ -508,8 +555,8 @@
 		<property name="actor" ref="administrator1" />
 
 	</bean>
-	
-		<bean id="outBoxA2" class="domain.Box">
+
+	<bean id="outBoxA2" class="domain.Box">
 		<property name="name" value="out box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -536,8 +583,8 @@
 		<property name="actor" ref="member1" />
 
 	</bean>
-	
-		<bean id="outBoxM2" class="domain.Box">
+
+	<bean id="outBoxM2" class="domain.Box">
 		<property name="name" value="out box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -564,8 +611,8 @@
 		<property name="actor" ref="brotherhood1" />
 
 	</bean>
-	
-		<bean id="outBoxB2" class="domain.Box">
+
+	<bean id="outBoxB2" class="domain.Box">
 		<property name="name" value="out box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -578,7 +625,7 @@
 		<property name="actor" ref="brotherhood2" />
 
 	</bean>
-	
+
 	<!-- Spambox -->
 
 	<bean id="spamBoxA1" class="domain.Box">
@@ -612,8 +659,7 @@
 	</bean>
 
 
-<!-- BOX
- -->
+	<!-- BOX -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="box1" />
 		<property name="isSystem" value="false" />
@@ -621,7 +667,9 @@
 			<list>
 			</list>
 		</property>
-		<property name="rootbox" ref="rootBox" />
+		<property name="rootbox">
+			<null />
+		</property>
 		<property name="actor" ref="administrator1" />
 	</bean>
 
@@ -634,11 +682,11 @@
 			<list>
 			</list>
 		</property>
-		<property name="rootbox" ref="rootBox" />
+		<property name="rootbox" ref="box1" />
 		<property name="actor" ref="administrator1" />
 	</bean>
 
-<!-- Message -->
+	<!-- Message -->
 
 	<bean id="message1" class="domain.Message">
 		<property name="subject" value="subject1" />
@@ -691,6 +739,195 @@
 		<property name="recipient" ref="administrator1" />
 
 	</bean>
+
+
+	<!-- FINDER -->
+
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyword" value="search1" />
+		<property name="nameArea" value="area1" />
+		<property name="dateMin" value="2018/03/15 17:45" />
+		<property name="dateMax" value="2018/06/07 12:00" />
+		<property name="lastUpdate" value="2019/02/16 12:00" />
 	
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder2" class="domain.Finder">
+		<property name="keyword" value="search2" />
+		<property name="nameArea" value="area2" />
+		<property name="dateMin" value="2018/04/07 17:00" />
+		<property name="dateMax" value="2018/05/21 14:00" />
+		<property name="lastUpdate" value="2019/02/05 22:32" />
+
+		<property name="processions">
+			<list>
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder3" class="domain.Finder">
+		<property name="keyword" value="search3" />
+		<property name="nameArea" value="area3" />
+		<property name="dateMin" value="2017/03/15 13:45" />
+		<property name="dateMax" value="2017/05/23 11:00" />
+		<property name="lastUpdate" value="2019/01/06 10:06" />
+
+		<property name="processions">
+			<list>
+				<ref bean="procession4" />
+			</list>
+		</property>
+	</bean>
+<!-- 
+	<bean id="finder4" class="domain.Finder">
+		<property name="keyword" value="search4" />
+		<property name="nameArea" value="area4" />
+		<property name="dateMin" value="2018/02/11 19:15" />
+		<property name="dateMax" value="2018/05/26 13:56" />
+		<property name="lastUpdate" value="2019/01/09 18:41" />
+
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+			</list>
+		</property>
+	</bean> -->
+
+
+	<!-- PROCESSION -->
+
+	<bean id="procession1" class="domain.Procession">
+		<property name="ticker" value="180411-ABCDE" />   <!-- ticker: "YYMMDD-XXXXX" -->
+		<property name="title" value="La Cena" />
+		<property name="description"
+			value="Procesion donde se representa el momento de la ultima cena de Jesus" />
+		<property name="moment" value="2018/04/11 19:15" />
+		<property name="draftMode" value="false" />
+		<property name="floats">
+			<list>
+				<ref bean="float1" />
+				<ref bean="float3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="procession2" class="domain.Procession">
+		<property name="ticker" value="180416-MNOPQ" />   <!-- ticker: "YYMMDD-XXXXX" -->
+		<property name="title" value="El Silencio" />
+		<property name="description"
+			value="Procesion donde se representa a Jesus llevando la cruz" />
+		<property name="moment" value="2018/04/16 21:42" />
+		<property name="draftMode" value="false" />
+		<property name="floats">
+			<list>
+				<ref bean="float2" />
+				<ref bean="float4" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="procession3" class="domain.Procession">
+		<property name="ticker" value="180414-LALNZ" />   <!-- ticker: "YYMMDD-XXXXX" -->
+		<property name="title" value="La Lanzada" />
+		<property name="description"
+			value="Procesion donde se representa a Jesus crucificado y un romano montado en un caballo con una lanza" />
+		<property name="moment" value="2018/04/14 17::55" />
+		<property name="draftMode" value="false" />
+		<property name="floats">
+			<list>
+				<ref bean="float2" />
+				<ref bean="float3" />
+				<ref bean="float4" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="procession4" class="domain.Procession">
+		<property name="ticker" value="180416-STOEN" />   <!-- ticker: "YYMMDD-XXXXX" -->
+		<property name="title" value="El Santo Entierro" />
+		<property name="description"
+			value="Procesion donde se representa a Jesus defunto" />
+		<property name="moment" value="2018/04/19 15:21" />
+		<property name="draftMode" value="true" />
+		<property name="floats">
+			<list>
+				<ref bean="float1" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- FLOAAT -->
+
+	<bean id="float1" class="domain.Floaat">
+		<property name="title" value="float 1" />
+		<property name="description" value="Description of float 1" />
+		<property name="pictures"
+			value="https://www.sevillainfo.es/wp-content/uploads/2017/11/maxresdefault-8.jpg" />
+		<property name="brotherhood">
+			<ref bean="brotherhood1"/>
+		</property>
+	</bean>
+
+	<bean id="float2" class="domain.Floaat">
+		<property name="title" value="float 2" />
+		<property name="description" value="Description of float 2" />
+		<property name="pictures"
+			value="https://sevilla.abc.es/pasionensevilla//wp-content/uploads/2017/04/misterio-lanzada-sevilla.jpg" />
+		<property name="brotherhood">
+			<ref bean="brotherhood2"/>	
+		</property>
+	</bean>
+
+	<bean id="float3" class="domain.Floaat">
+		<property name="title" value="float 3" />
+		<property name="description" value="Description of float 3" />
+		<property name="pictures"
+			value="https://i.ytimg.com/vi/38FeYd75XCU/maxresdefault.jpg" />
+		<property name="brotherhood">
+			<ref bean="brotherhood3"/>
+		</property>
+	</bean>
+
+	<bean id="float4" class="domain.Floaat">
+		<property name="title" value="float 4" />
+		<property name="description" value="Description of float 4" />
+		<property name="pictures"
+			value="https://sevilla.abc.es/pasionensevilla//wp-content/uploads/2014/11/hermandad-silencio-cristo.jpg" />
+		<property name="brotherhood">
+			<ref bean="brotherhood4"/>
+		</property>
+	</bean>
+
+	<!-- AREA -->
+	
+	<bean id="area1" class="domain.Area">
+		<property name="name" value="Itinerario de nuestras hermandades 2013" />
+		<property name="pictures" value="http://2.bp.blogspot.com/--QxfoXHpdJg/UU3QwoXUSxI/AAAAAAAABDg/zOn8azdv-ik/s1600/mapa+cautivo.jpg" />
+	</bean>
+	
+	<bean id="area2" class="domain.Area">
+		<property name="name" value="Itinerario de nuestras hermandades 2013" />
+		<property name="pictures" value="http://practicopedia.lainformacion.com/files/jueves_santo_madrugada.jpg" />
+	</bean>
+	
+	
+	<bean id="area3" class="domain.Area">
+		<property name="name" value="Parque alcosa" />
+	</bean>
+	
+	
+
 
 </beans>

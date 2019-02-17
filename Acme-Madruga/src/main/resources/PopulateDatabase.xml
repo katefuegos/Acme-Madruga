@@ -232,6 +232,7 @@
 		<property name="isBanned" value="true" />
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount4" />
+		<property name="finder" ref="finder1" />
 
 	</bean>
 
@@ -249,8 +250,29 @@
 		<property name="isBanned" value="true" />
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount5" />
+		<property name="finder" ref="finder2" />
 
 	</bean>
+	
+	<bean id="member3" class="domain.Member">
+
+		<property name="name" value="Joselito" />
+		<property name="middleName" value="Diva" />
+		<property name="surname" value="Sa" />
+		<property name="photo"
+			value="http://tinyurl.com/y44cxn8e" />
+		<property name="email" value="joselito@gmail.com" />
+		<property name="phone" value="+34(456)123436789" />
+		<property name="address" value="C/Calle, 53" />
+		<property name="isSpammer" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="polarityScore" value="0.0" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="finder" ref="finder3" />
+
+	</bean>
+	
+	
 
 	<!-- Brotherhoods -->
 
@@ -271,7 +293,8 @@
 		<property name="title" value="Santa Claudia" />
 		<property name="establishementDate" value="2018/01/02 11:12" />
 		<property name="pictures" value="https://profile.es/" />
-
+		<property name="area" ref="area3" />
+		
 	</bean>
 
 	<bean id="brotherhood2" class="domain.Brotherhood">
@@ -291,6 +314,7 @@
 		<property name="title" value="Santa Felipa" />
 		<property name="establishementDate" value="2018/01/02 11:12" />
 		<property name="pictures" value="https://profile.es/" />
+		<property name="area" ref="area3" />
 
 	</bean>
 
@@ -311,6 +335,7 @@
 		<property name="title" value="San Miguel" />
 		<property name="establishementDate" value="2018/07/26 16:17" />
 		<property name="pictures" value="https://profile.es/" />
+		<property name="area" ref="area2" />
 	</bean>
 
 	<bean id="brotherhood4" class="domain.Brotherhood">
@@ -330,6 +355,7 @@
 		<property name="title" value="San Adam" />
 		<property name="establishementDate" value="2018/11/21 13:47" />
 		<property name="pictures" value="https://profile.es/" />
+		<property name="area" ref="area1" />
 	</bean>
 
 
@@ -342,22 +368,6 @@
 	</bean>
 
 	<!-- BOX -->
-
-
-	<bean id="rootBox" class="domain.Box">
-		<property name="name" value="rootBox" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-				<ref bean="box1" />
-				<ref bean="box2" />
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="admin" />
-	</bean>
 
 	<!-- Trashbox -->
 
@@ -657,7 +667,9 @@
 			<list>
 			</list>
 		</property>
-		<property name="rootbox" ref="rootBox" />
+		<property name="rootbox">
+			<null />
+		</property>
 		<property name="actor" ref="administrator1" />
 	</bean>
 
@@ -670,7 +682,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="rootbox" ref="rootBox" />
+		<property name="rootbox" ref="box1" />
 		<property name="actor" ref="administrator1" />
 	</bean>
 
@@ -737,17 +749,7 @@
 		<property name="dateMin" value="2018/03/15 17:45" />
 		<property name="dateMax" value="2018/06/07 12:00" />
 		<property name="lastUpdate" value="2019/02/16 12:00" />
-		<property name="name" value="Claudia" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="claudia@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="polarityScore" value="20" />
-		<property name="userAccount" ref="userAccount4" />
+	
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -762,17 +764,7 @@
 		<property name="dateMin" value="2018/04/07 17:00" />
 		<property name="dateMax" value="2018/05/21 14:00" />
 		<property name="lastUpdate" value="2019/02/05 22:32" />
-		<property name="name" value="Feli" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="feli@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="polarityScore" value="25" />
-		<property name="userAccount" ref="userAccount6" />
+
 		<property name="processions">
 			<list>
 				<ref bean="procession2" />
@@ -787,41 +779,21 @@
 		<property name="dateMin" value="2017/03/15 13:45" />
 		<property name="dateMax" value="2017/05/23 11:00" />
 		<property name="lastUpdate" value="2019/01/06 10:06" />
-		<property name="name" value="Miguel" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="miguel@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="18" />
-		<property name="userAccount" ref="userAccount10" />
+
 		<property name="processions">
 			<list>
 				<ref bean="procession4" />
 			</list>
 		</property>
 	</bean>
-
+<!-- 
 	<bean id="finder4" class="domain.Finder">
 		<property name="keyword" value="search4" />
 		<property name="nameArea" value="area4" />
 		<property name="dateMin" value="2018/02/11 19:15" />
 		<property name="dateMax" value="2018/05/26 13:56" />
 		<property name="lastUpdate" value="2019/01/09 18:41" />
-		<property name="name" value="Adam" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="adam@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="15" />
-		<property name="userAccount" ref="userAccount11" />
+
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -830,7 +802,7 @@
 				<ref bean="procession4" />
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 
 
 	<!-- PROCESSION -->
@@ -842,17 +814,6 @@
 			value="Procesion donde se representa el momento de la ultima cena de Jesus" />
 		<property name="moment" value="2018/04/11 19:15" />
 		<property name="draftMode" value="false" />
-		<property name="name" value="Claudia" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="claudia@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="polarityScore" value="20" />
-		<property name="userAccount" ref="userAccount4" />
 		<property name="floats">
 			<list>
 				<ref bean="float1" />
@@ -868,17 +829,6 @@
 			value="Procesion donde se representa a Jesus llevando la cruz" />
 		<property name="moment" value="2018/04/16 21:42" />
 		<property name="draftMode" value="false" />
-		<property name="name" value="Feli" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="feli@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="polarityScore" value="25" />
-		<property name="userAccount" ref="userAccount6" />
 		<property name="floats">
 			<list>
 				<ref bean="float2" />
@@ -894,17 +844,6 @@
 			value="Procesion donde se representa a Jesus crucificado y un romano montado en un caballo con una lanza" />
 		<property name="moment" value="2018/04/14 17::55" />
 		<property name="draftMode" value="false" />
-		<property name="name" value="Miguel" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="miguel@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="18" />
-		<property name="userAccount" ref="userAccount10" />
 		<property name="floats">
 			<list>
 				<ref bean="float2" />
@@ -921,17 +860,6 @@
 			value="Procesion donde se representa a Jesus defunto" />
 		<property name="moment" value="2018/04/19 15:21" />
 		<property name="draftMode" value="true" />
-		<property name="name" value="Adam" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="adam@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="15" />
-		<property name="userAccount" ref="userAccount11" />
 		<property name="floats">
 			<list>
 				<ref bean="float1" />
@@ -950,17 +878,6 @@
 		<property name="brotherhood">
 			<ref bean="brotherhood1"/>
 		</property>
-		<property name="name" value="Claudia" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="claudia@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="polarityScore" value="20" />
-		<property name="userAccount" ref="userAccount4" />
 	</bean>
 
 	<bean id="float2" class="domain.Floaat">
@@ -971,17 +888,6 @@
 		<property name="brotherhood">
 			<ref bean="brotherhood2"/>	
 		</property>
-		<property name="name" value="Feli" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="feli@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="polarityScore" value="25" />
-		<property name="userAccount" ref="userAccount6" />
 	</bean>
 
 	<bean id="float3" class="domain.Floaat">
@@ -992,17 +898,6 @@
 		<property name="brotherhood">
 			<ref bean="brotherhood3"/>
 		</property>
-		<property name="name" value="Miguel" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="miguel@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="18" />
-		<property name="userAccount" ref="userAccount10" />
 	</bean>
 
 	<bean id="float4" class="domain.Floaat">
@@ -1013,18 +908,26 @@
 		<property name="brotherhood">
 			<ref bean="brotherhood4"/>
 		</property>
-		<property name="name" value="Adam" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Sa" />
-		<property name="photo" value="" />
-		<property name="email" value="adam@gmail.com" />
-		<property name="phone" value="" />
-		<property name="address" value="" />
-		<property name="isSpammer" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="15" />
-		<property name="userAccount" ref="userAccount11" />
 	</bean>
+
+	<!-- AREA -->
+	
+	<bean id="area1" class="domain.Area">
+		<property name="name" value="Itinerario de nuestras hermandades 2013" />
+		<property name="pictures" value="http://2.bp.blogspot.com/--QxfoXHpdJg/UU3QwoXUSxI/AAAAAAAABDg/zOn8azdv-ik/s1600/mapa+cautivo.jpg" />
+	</bean>
+	
+	<bean id="area2" class="domain.Area">
+		<property name="name" value="Itinerario de nuestras hermandades 2013" />
+		<property name="pictures" value="http://practicopedia.lainformacion.com/files/jueves_santo_madrugada.jpg" />
+	</bean>
+	
+	
+	<bean id="area3" class="domain.Area">
+		<property name="name" value="Parque alcosa" />
+	</bean>
+	
+	
 
 
 </beans>

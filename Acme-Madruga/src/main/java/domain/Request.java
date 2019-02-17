@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -12,61 +13,64 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Request extends Actor {
+public class Request extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String status;
-	private Integer roow;
-	private Integer coluumn;
-	private String reasonReject;
+	private String	status;
+	private Integer	roow;
+	private Integer	coluumn;
+	private String	reasonReject;
+
 
 	@NotBlank
 	@Pattern(regexp = "^(PENDING|APPROVED|REJECTED)$")
 	public String getStatus() {
-		return status;
+		return this.status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
 
 	public Integer getRoow() {
-		return roow;
+		return this.roow;
 	}
 
-	public void setRoow(Integer roow) {
+	public void setRoow(final Integer roow) {
 		this.roow = roow;
 	}
 
 	public Integer getColuumn() {
-		return coluumn;
+		return this.coluumn;
 	}
 
-	public void setColuumn(Integer coluumn) {
+	public void setColuumn(final Integer coluumn) {
 		this.coluumn = coluumn;
 	}
 
 	public String getReasonReject() {
-		return reasonReject;
+		return this.reasonReject;
 	}
 
-	public void setReasonReject(String reasonReject) {
+	public void setReasonReject(final String reasonReject) {
 		this.reasonReject = reasonReject;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Member member;
-	private Procession procession;
+	private Member		member;
+	private Procession	procession;
+
 
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Member getMember() {
-		return member;
+		return this.member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(final Member member) {
 		this.member = member;
 	}
 
@@ -74,10 +78,10 @@ public class Request extends Actor {
 	@Valid
 	@ManyToOne(optional = false)
 	public Procession getProcession() {
-		return procession;
+		return this.procession;
 	}
 
-	public void setProcession(Procession procession) {
+	public void setProcession(final Procession procession) {
 		this.procession = procession;
 	}
 }

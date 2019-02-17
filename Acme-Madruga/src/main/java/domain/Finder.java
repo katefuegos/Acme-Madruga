@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -17,49 +18,50 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Finder extends Actor {
+public class Finder extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String keyword;
-	private String nameArea;
-	private Date dateMin;
-	private Date dateMax;
-	private Date lastUpdate;
+	private String	keyword;
+	private String	nameArea;
+	private Date	dateMin;
+	private Date	dateMax;
+	private Date	lastUpdate;
+
 
 	public String getKeyword() {
-		return keyword;
+		return this.keyword;
 	}
 
-	public void setKeyword(String keyword) {
+	public void setKeyword(final String keyword) {
 		this.keyword = keyword;
 	}
 
 	public String getNameArea() {
-		return nameArea;
+		return this.nameArea;
 	}
 
-	public void setNameArea(String nameArea) {
+	public void setNameArea(final String nameArea) {
 		this.nameArea = nameArea;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getDateMin() {
-		return dateMin;
+		return this.dateMin;
 	}
 
-	public void setDateMin(Date dateMin) {
+	public void setDateMin(final Date dateMin) {
 		this.dateMin = dateMin;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getDateMax() {
-		return dateMax;
+		return this.dateMax;
 	}
 
-	public void setDateMax(Date dateMax) {
+	public void setDateMax(final Date dateMax) {
 		this.dateMax = dateMax;
 	}
 
@@ -67,24 +69,26 @@ public class Finder extends Actor {
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	@Past
 	public Date getLastUpdate() {
-		return lastUpdate;
+		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Date lastUpdate) {
+	public void setLastUpdate(final Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Collection<Procession> processions;
+	private Collection<Procession>	processions;
+
 
 	@NotNull
 	@Valid
 	@ManyToMany
 	public Collection<Procession> getProcessions() {
-		return processions;
+		return this.processions;
 	}
 
-	public void setProcessions(Collection<Procession> processions) {
+	public void setProcessions(final Collection<Procession> processions) {
 		this.processions = processions;
 	}
 

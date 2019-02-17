@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -11,51 +12,54 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Floaat extends Actor {
+public class Floaat extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String title;
-	private String description;
-	private String pictures;
+	private String	title;
+	private String	description;
+	private String	pictures;
+
 
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
 	@NotBlank
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
 	@URL
 	public String getPictures() {
-		return pictures;
+		return this.pictures;
 	}
 
-	public void setPictures(String pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Brotherhood brotherhood;
+	private Brotherhood	brotherhood;
+
 
 	@Valid
 	@ManyToOne(optional = false)
 	public Brotherhood getBrotherhood() {
-		return brotherhood;
+		return this.brotherhood;
 	}
 
-	public void setBrotherhood(Brotherhood brotherhood) {
+	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
 	}
 
