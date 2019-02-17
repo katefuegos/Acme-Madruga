@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -23,38 +24,39 @@ public class Procession extends Actor {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String ticker;
-	private String title;
-	private String description;
-	private Date moment;
-	private boolean draftMode;
+	private String	ticker;
+	private String	title;
+	private String	description;
+	private Date	moment;
+	private boolean	draftMode;
+
 
 	@Column(unique = true)
 	@NotBlank
-	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
+	@Pattern(regexp = "^\\d{6}-(\\d?\\w){5}$")
 	public String getTicker() {
-		return ticker;
+		return this.ticker;
 	}
 
-	public void setTicker(String ticker) {
+	public void setTicker(final String ticker) {
 		this.ticker = ticker;
 	}
 
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
 	@NotBlank
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -62,33 +64,35 @@ public class Procession extends Actor {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
 
 	@NotNull
 	public boolean isDraftMode() {
-		return draftMode;
+		return this.draftMode;
 	}
 
-	public void setDraftMode(boolean draftMode) {
+	public void setDraftMode(final boolean draftMode) {
 		this.draftMode = draftMode;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Collection<Floaat> floats;
+	private Collection<Floaat>	floats;
+
 
 	@NotNull
 	@Valid
 	@ManyToMany
 	public Collection<Floaat> getFloats() {
-		return floats;
+		return this.floats;
 	}
 
-	public void setFloats(Collection<Floaat> floats) {
+	public void setFloats(final Collection<Floaat> floats) {
 		this.floats = floats;
 	}
 }
