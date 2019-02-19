@@ -55,4 +55,7 @@ public class MemberService {
 
 	// Other Methods--------------------------------------------
 
+	public Member findByUserAccountId(int userAccountId) {
+		return memberRepository.findByUserAccountId(userAccountId);
+	}
 }

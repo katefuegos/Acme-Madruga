@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.RequestRepository;
+import security.LoginService;
 import domain.Request;
 
 @Service
@@ -22,6 +23,9 @@ public class RequestService {
 
 	// Services-------------------------------------------------
 
+	@Autowired
+	private MemberService memberService;
+
 	// Constructor----------------------------------------------
 
 	public RequestService() {
@@ -32,6 +36,9 @@ public class RequestService {
 
 	public Request create() {
 		final Request res = new Request();
+		res.setStatus("PENDING");
+		res.setMember(memberService.findByUserAccountId(LoginService
+				.getPrincipal().getId()));
 		return res;
 	}
 
@@ -40,11 +47,25 @@ public class RequestService {
 	}
 
 	public Request findOne(final Integer requestId) {
+		Assert.isTrue(requestId != null, "EL ID DE FINDONE NO PUEDE SER NULL");
 		return this.requestRepository.findOne(requestId);
 	}
 
 	public Request save(final Request request) {
 		Assert.notNull(request);
+		if (request.getStatus().equals("REJECTED")) {
+			Assert.notNull(request.getReasonReject(),
+					"SI UN REQUEST ES RECHAZADO DEBE DE DECIRSE LA RAZÓN");
+		}
+		if (request.getStatus().equals("ACCEPTED")) {
+			Assert.isTrue(request.getRoow() != null
+					&& request.getColuumn() != null,
+					"SI SE ACEPTA UN REQUEST SE DEBE INTRODUCIR ROOW Y COLUUMN");
+			Assert.isTrue(
+					this.findRequestByPosition(request.getRoow(), request
+							.getColuumn(), request.getProcession().getId()) == null,
+					"ESTA POSICION YA ESTÁ OCUPADA EN ESA PROCESION");
+		}
 		final Request saved = this.requestRepository.save(request);
 		return saved;
 	}
@@ -54,5 +75,8 @@ public class RequestService {
 	}
 
 	// Other Methods--------------------------------------------
-
+	public Request findRequestByPosition(int roow, int coluumn, int processionId) {
+		return requestRepository.findRequestByPosition(roow, coluumn,
+				processionId);
+	}
 }
