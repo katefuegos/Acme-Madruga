@@ -808,6 +808,7 @@
 				<ref bean="float3" />
 			</list>
 		</property>
+		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
 	<bean id="procession2" class="domain.Procession">
@@ -823,6 +824,7 @@
 				<ref bean="float4" />
 			</list>
 		</property>
+		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
 	<bean id="procession3" class="domain.Procession">
@@ -839,6 +841,7 @@
 				<ref bean="float4" />
 			</list>
 		</property>
+		<property name="brotherhood" ref="brotherhood3" />
 	</bean>
 
 	<bean id="procession4" class="domain.Procession">
@@ -853,6 +856,7 @@
 				<ref bean="float1" />
 			</list>
 		</property>
+		<property name="brotherhood" ref="brotherhood4" />
 	</bean>
 
 
@@ -981,7 +985,8 @@
 						<value>EN</value>
 					</key>
 					<value>Welcome to Acme Madrugá, the site to organise your
-						processions.</value>
+						processions.
+					</value>
 				</entry>
 				<entry>
 					<key>
@@ -1115,8 +1120,8 @@
 				<value>Vocal</value>
 			</list>
 		</property>
-		
-		
+
+
 	</bean>
 
 

@@ -54,5 +54,7 @@ public class BrotherhoodService {
 	}
 
 	// Other Methods--------------------------------------------
-
+	public Brotherhood findByUserAccountId(int userAccountId) {
+		return brotherhoodRepository.findByUserAccountId(userAccountId);
+	}
 }

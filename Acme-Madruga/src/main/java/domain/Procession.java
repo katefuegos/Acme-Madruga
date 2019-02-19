@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Collection;
@@ -9,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -24,12 +24,11 @@ public class Procession extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	ticker;
-	private String	title;
-	private String	description;
-	private Date	moment;
-	private boolean	draftMode;
-
+	private String ticker;
+	private String title;
+	private String description;
+	private Date moment;
+	private boolean draftMode;
 
 	@Column(unique = true)
 	@NotBlank
@@ -80,10 +79,20 @@ public class Procession extends DomainEntity {
 		this.draftMode = draftMode;
 	}
 
-
 	// Relationships ---------------------------------------------------------
-	private Collection<Floaat>	floats;
+	private Collection<Floaat> floats;
+	private Brotherhood brotherhood;
 
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Brotherhood getBrotherhood() {
+		return brotherhood;
+	}
+
+	public void setBrotherhood(Brotherhood brotherhood) {
+		this.brotherhood = brotherhood;
+	}
 
 	@NotNull
 	@Valid

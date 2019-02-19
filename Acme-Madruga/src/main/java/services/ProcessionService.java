@@ -1,6 +1,10 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ProcessionRepository;
+import security.LoginService;
+import domain.Floaat;
 import domain.Procession;
 
 @Service
@@ -21,6 +27,8 @@ public class ProcessionService {
 	private ProcessionRepository processionRepository;
 
 	// Services-------------------------------------------------
+	@Autowired
+	private BrotherhoodService brotherhoodService;
 
 	// Constructor----------------------------------------------
 
@@ -32,6 +40,13 @@ public class ProcessionService {
 
 	public Procession create() {
 		final Procession res = new Procession();
+		String ticker = generateTicker();
+		final Collection<Floaat> floaats = new ArrayList<>();
+		res.setTicker(ticker);
+		res.setDraftMode(true);
+		res.setBrotherhood(brotherhoodService.findByUserAccountId(LoginService
+				.getPrincipal().getId()));
+		res.setFloats(floaats);
 		return res;
 	}
 
@@ -40,11 +55,19 @@ public class ProcessionService {
 	}
 
 	public Procession findOne(final Integer processionId) {
+		Assert.notNull(processionId);
 		return this.processionRepository.findOne(processionId);
 	}
 
 	public Procession save(final Procession procession) {
 		Assert.notNull(procession);
+		Assert.isTrue(
+				LoginService.getPrincipal().getAuthorities()
+						.contains("BROTHERHOOD"),
+				"SOLO BROTHERHOOD PUEDE CREAR/EDITAR PROCESSIONS");
+		if (procession.getId() == 0) {
+			procession.setMoment(new Date(System.currentTimeMillis() - 1000));
+		}
 		final Procession saved = this.processionRepository.save(procession);
 		return saved;
 	}
@@ -55,4 +78,30 @@ public class ProcessionService {
 
 	// Other Methods--------------------------------------------
 
+	@SuppressWarnings("deprecation")
+	public String generateTicker() {
+		final Date date = new Date();
+		final Integer s1 = date.getDate();
+		String day = s1.toString();
+		if (day.length() == 1)
+			day = "0" + day;
+		final Integer s2 = date.getMonth() + 1;
+		String month = s2.toString();
+		if (month.length() == 1)
+			month = "0" + month;
+		final Integer s3 = date.getYear();
+		final String year = s3.toString().substring(1);
+
+		return year + month + day + "-" + this.generateStringAux();
+	}
+
+	private String generateStringAux() {
+		final int length = 6;
+		final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		final Random rng = new Random();
+		final char[] text = new char[length];
+		for (int i = 0; i < 6; i++)
+			text[i] = characters.charAt(rng.nextInt(characters.length()));
+		return new String(text);
+	}
 }
