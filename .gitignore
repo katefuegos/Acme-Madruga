@@ -1,2 +1,14 @@
 
 *.map
+Acme-Madruga/target/classes/services/AdministratorService.class
+Acme-Madruga/target/classes/services/MessageService.class
+Acme-Madruga/target/classes/services/BoxService.class
+Acme-Madruga/target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme-Madruga/pom.properties
+Acme-Madruga/target/test-classes/services/BoxServiceTest.class
+Acme-Madruga/target/classes/services/AdministratorService.class
+*.class
+*.map
+Acme-Madruga/target/classes/Entities.map
+Acme-Madruga/target/classes/PopulateDatabase.xml
+*.class
+Acme-Madruga/target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme-Madruga/pom.properties
