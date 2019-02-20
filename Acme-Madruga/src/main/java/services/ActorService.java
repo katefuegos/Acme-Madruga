@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 
@@ -20,7 +22,8 @@ public class ActorService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private ActorRepository actorRepository;
+	private ActorRepository	actorRepository;
+
 
 	// Services-------------------------------------------------
 
@@ -65,8 +68,11 @@ public class ActorService {
 	public Actor findByUserAccount(final UserAccount userAccount) {
 		return this.actorRepository.findByUserAccount(userAccount.getId());
 	}
-
-	public Collection<Actor> findSuspiciousActors() {
-		return this.actorRepository.findSuspiciousActors();
+	public Actor findPrincipal() {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		return this.actorRepository.findByUserAccount(userAccount.getId());
+	}
+	public Collection<Actor> findSpammersActors() {
+		return this.actorRepository.findSpammersActors();
 	}
 }

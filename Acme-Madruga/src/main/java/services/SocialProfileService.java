@@ -1,6 +1,7 @@
+
 package services;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
@@ -8,51 +9,80 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.ActorRepository;
 import repositories.SocialProfileRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.SocialProfile;
 
 @Service
 @Transactional
 public class SocialProfileService {
 
-	// Repository-----------------------------------------------
+	// Repository
 
 	@Autowired
-	private SocialProfileRepository socialProfileRepository;
+	private SocialProfileRepository	repository;
+	@Autowired
+	private ActorRepository			actorRepository;
 
-	// Services-------------------------------------------------
+	// Services
 
-	// Constructor----------------------------------------------
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private ServiceUtils			serviceUtils;
+
+
+	//Constructor----------------------------------------------------------------------------
 
 	public SocialProfileService() {
 		super();
 	}
 
-	// Simple CRUD----------------------------------------------
-
-	public SocialProfile create() {
-		final SocialProfile res = new SocialProfile();
-		return res;
+	// Simple CRUD methods -------------------------------------------------------------------
+	public SocialProfile create(final int actorId) {
+		final SocialProfile profile = new SocialProfile();
+		profile.setActor(this.actorRepository.findOne(actorId));
+		return profile;
 	}
 
-	public List<SocialProfile> findAll() {
-		return this.socialProfileRepository.findAll();
+	public Collection<SocialProfile> findAll() {
+		Collection<SocialProfile> profiles;
+
+		profiles = this.repository.findAll();
+		Assert.notNull(profiles);
+
+		return profiles;
+	}
+	public SocialProfile findOne(final int profileId) {
+		SocialProfile profile;
+		profile = this.repository.findOne(profileId);
+		Assert.notNull(profileId);
+
+		return profile;
 	}
 
-	public SocialProfile findOne(final Integer socialProfileId) {
-		return this.socialProfileRepository.findOne(socialProfileId);
+	public SocialProfile save(final SocialProfile profile) {
+		Assert.notNull(profile);
+		this.checkPrincipal(profile);
+		SocialProfile result;
+
+		result = this.repository.save(profile);
+
+		return result;
 	}
+	public void delete(final SocialProfile profile) {
 
-	public SocialProfile save(final SocialProfile socialProfile) {
-		Assert.notNull(socialProfile);
-		final SocialProfile saved = this.socialProfileRepository.save(socialProfile);
-		return saved;
+		Assert.notNull(profile);
+		this.checkPrincipal(profile);
+		this.repository.delete(profile);
 	}
-
-	public void delete(final SocialProfile socialProfile) {
-		this.socialProfileRepository.delete(socialProfile);
+	//Other Methods-----------------------------------------------------------------
+	public Boolean checkPrincipal(final SocialProfile profile) {
+		final UserAccount u = profile.getActor().getUserAccount();
+		Assert.isTrue(u.equals(LoginService.getPrincipal()), "este perfil no corresponde con este actor");
+		return true;
 	}
-
-	// Other Methods--------------------------------------------
-
 }
