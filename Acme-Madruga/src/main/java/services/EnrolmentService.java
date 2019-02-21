@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -54,5 +55,10 @@ public class EnrolmentService {
 	}
 
 	// Other Methods--------------------------------------------
+	
+	public Collection<Enrolment> findByBrotherhoodAndAccepted(int brotherhoodId){
+		Assert.notNull(brotherhoodId);
+		return enrolmentRepository.findByBrotherhoodAndAccepted(brotherhoodId);
+	}
 
 }

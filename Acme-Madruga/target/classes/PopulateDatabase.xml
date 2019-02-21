@@ -233,7 +233,12 @@
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="finder" ref="finder1" />
-
+		<property name="enrolments">
+			<list>
+			<ref bean="enrolment2" />
+			<ref bean="enrolment5" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="member2" class="domain.Member">
@@ -251,7 +256,11 @@
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="finder" ref="finder2" />
-
+		<property name="enrolments">
+			<list>
+			<ref bean="enrolment3" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="member3" class="domain.Member">
@@ -268,7 +277,12 @@
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount6" />
 		<property name="finder" ref="finder3" />
-
+		<property name="enrolments">
+			<list>
+			<ref bean="enrolment1" />
+			<ref bean="enrolment4" />
+			</list>
+		</property>
 	</bean>
 
 
@@ -954,7 +968,7 @@
 		<property name="positionES" value="Secretario" />
 		<property name="momentDropOut" value="2018/03/02 11:12" />
 		<property name="brotherhood" ref="brotherhood1" />
-		<property name="member" ref="member3" />
+		<property name="accepted" value="true" />
 	</bean>
 
 
@@ -963,23 +977,23 @@
 		<property name="positionEN" value="President" />
 		<property name="positionES" value="Presidente" />
 		<property name="brotherhood" ref="brotherhood2" />
-		<property name="member" ref="member1" />
+		<property name="accepted" value="true" />
 	</bean>
-	
+
 	<bean id="enrolment3" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:13" />
 		<property name="positionEN" value="Secretary" />
 		<property name="positionES" value="Secretario" />
 		<property name="brotherhood" ref="brotherhood2" />
-		<property name="member" ref="member2" />
+		<property name="accepted" value="false" />
 	</bean>
-	
+
 	<bean id="enrolment4" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:15" />
 		<property name="positionEN" value="Treasure" />
 		<property name="positionES" value="Tesorero" />
 		<property name="brotherhood" ref="brotherhood2" />
-		<property name="member" ref="member3" />
+		<property name="accepted" value="true" />
 	</bean>
 
 	<bean id="enrolment5" class="domain.Enrolment">
@@ -987,10 +1001,10 @@
 		<property name="positionEN" value="Secretary" />
 		<property name="positionES" value="Secretario" />
 		<property name="brotherhood" ref="brotherhood3" />
-		<property name="member" ref="member1" />
+		<property name="accepted" value="false" />
 	</bean>
-	
-	
+
+
 
 	<!-- CONFIGURATION -->
 	<bean id="configuration1" class="domain.Configuration">
