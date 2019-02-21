@@ -52,6 +52,8 @@
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
+		
+		<security:intercept-url pattern="/brotherhood/list.do" access="permitAll" /> 
 
 		<security:form-login 
 			login-page="/security/login.do"

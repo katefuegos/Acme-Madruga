@@ -48,7 +48,7 @@ public class RequestServiceTest extends AbstractTest {
 
 		// LOGIN COMO BROTHERHOOD Y ACCEPTO REQUEST
 		authenticate("brotherhood1");
-		saved.setStatus("ACCEPTED");
+		saved.setStatus("APPROVED");
 		saved.setRoow(1);
 		saved.setColuumn(2);
 		Request saved2 = requestService.save(saved);

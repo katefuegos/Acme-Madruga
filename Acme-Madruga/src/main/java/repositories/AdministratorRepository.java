@@ -42,7 +42,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select a.status,(count(a)*1.0)/(select count(aa) from Request aa) from Request a group by a.status")
 	Object[][] queryC4();
 	//C5 - The processions that are going to be organised in 30 days or less.
-	@Query("select p from Procession p where p.moment BETWEEN current_timestamp and :currentDayPlus30Days;")
+	@Query("select p from Procession p where p.moment BETWEEN current_timestamp and :currentDayPlus30Days")
 	Collection<Procession> queryC5(@Param("currentDayPlus30Days") Date date);
 	//C6 - The ratio of requests to march grouped by status.
 	// Duplicate

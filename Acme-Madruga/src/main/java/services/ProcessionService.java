@@ -61,10 +61,9 @@ public class ProcessionService {
 
 	public Procession save(final Procession procession) {
 		Assert.notNull(procession);
-		Assert.isTrue(
-				LoginService.getPrincipal().getAuthorities()
-						.contains("BROTHERHOOD"),
-				"SOLO BROTHERHOOD PUEDE CREAR/EDITAR PROCESSIONS");
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities()
+				.toString().contains("BROTHERHOOD"),
+				"SOLO UN BROTHERHOOD PUEDE CREAR/EDITAR PROCESSION");
 		if (procession.getId() == 0) {
 			procession.setMoment(new Date(System.currentTimeMillis() - 1000));
 		}

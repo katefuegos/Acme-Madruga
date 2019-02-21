@@ -45,7 +45,7 @@ public class ProcessionServiceTest extends AbstractTest {
 		//EDITO PROCESSION
 		saved.setDescription("description1 edited");
 		Procession saved2 = processionService.save(saved);
-		Assert.isTrue(!processionService.findOne(saved2.getId()).getDescription().equals("description1 edited"));
+		Assert.isTrue(processionService.findOne(saved2.getId()).getDescription().equals("description1 edited"));
 		
 		// BORRO PROCESSION
 		processionService.delete(saved2);
