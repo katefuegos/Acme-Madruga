@@ -26,14 +26,8 @@ public class SocialProfileService {
 	@Autowired
 	private ActorRepository			actorRepository;
 
+
 	// Services
-
-	@Autowired
-	private ActorService			actorService;
-
-	@Autowired
-	private ServiceUtils			serviceUtils;
-
 
 	//Constructor----------------------------------------------------------------------------
 
