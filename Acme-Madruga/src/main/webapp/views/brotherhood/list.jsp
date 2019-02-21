@@ -13,7 +13,7 @@
 <display:table name="brotherhoods" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<display:column property="brotherhood.title"
+	<display:column property="title"
 		titleKey="brotherhood.title" />
 		
 </display:table>
