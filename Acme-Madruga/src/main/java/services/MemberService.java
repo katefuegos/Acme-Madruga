@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.MemberRepository;
+import domain.Enrolment;
 import domain.Member;
 
 @Service
@@ -56,6 +57,12 @@ public class MemberService {
 	// Other Methods--------------------------------------------
 
 	public Member findByUserAccountId(int userAccountId) {
+		Assert.notNull(userAccountId);
 		return memberRepository.findByUserAccountId(userAccountId);
+	}
+
+	public Member findByEnrolment(Enrolment enrolment) {
+		Assert.notNull(enrolment);
+		return memberRepository.findByEnrolment(enrolment);
 	}
 }

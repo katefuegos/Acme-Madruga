@@ -15,20 +15,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.BrotherhoodRepository;
-import domain.Brotherhood;
+import repositories.MemberRepository;
+import domain.Member;
 
 @Component
 @Transactional
-public class StringToBrotherhoodConverter implements Converter<String, Brotherhood> {
+public class StringToMemberConverter implements Converter<String, Member> {
 
 	@Autowired
-	BrotherhoodRepository	brotherhoodRepository;
+	MemberRepository	memberRepository;
 
 
 	@Override
-	public Brotherhood convert(final String text) {
-		Brotherhood result;
+	public Member convert(final String text) {
+		Member result;
 		int id;
 
 		try {
@@ -36,7 +36,7 @@ public class StringToBrotherhoodConverter implements Converter<String, Brotherho
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.brotherhoodRepository.findOne(id);
+				result = this.memberRepository.findOne(id);
 			}
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);

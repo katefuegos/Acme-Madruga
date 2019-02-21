@@ -25,7 +25,16 @@ public class Enrolment extends DomainEntity {
 	private String	positionEN;
 	private String	positionES;
 	private Date	momentDropOut;
+	private boolean accepted;
 
+	@NotNull
+	public boolean isAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
+	}
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -69,7 +78,6 @@ public class Enrolment extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	private Brotherhood	brotherhood;
-	private Member		member;
 
 
 	@Valid
@@ -80,15 +88,5 @@ public class Enrolment extends DomainEntity {
 
 	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
-	}
-
-	@Valid
-	@ManyToOne(optional = false)
-	public Member getMember() {
-		return this.member;
-	}
-
-	public void setMember(final Member member) {
-		this.member = member;
 	}
 }
