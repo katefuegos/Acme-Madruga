@@ -1,6 +1,8 @@
+
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EnrolmentRepository;
+import security.LoginService;
 import domain.Enrolment;
 
 @Service
@@ -19,9 +22,12 @@ public class EnrolmentService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private EnrolmentRepository enrolmentRepository;
+	private EnrolmentRepository	enrolmentRepository;
 
 	// Services-------------------------------------------------
+
+	private BrotherhoodService	brotherhoodService;
+
 
 	// Constructor----------------------------------------------
 
@@ -33,6 +39,12 @@ public class EnrolmentService {
 
 	public Enrolment create() {
 		final Enrolment res = new Enrolment();
+		final Date momentEnrol = new Date();
+		res.setMomentEnrol(momentEnrol);
+		res.setPositionEN("");
+		res.setPositionES("");
+		res.setBrotherhood(this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()));
+
 		return res;
 	}
 
@@ -41,11 +53,15 @@ public class EnrolmentService {
 	}
 
 	public Enrolment findOne(final Integer enrolmentId) {
+		Assert.notNull(enrolmentId);
 		return this.enrolmentRepository.findOne(enrolmentId);
 	}
 
 	public Enrolment save(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("BROTHERHOOD"), "SOLO UN BROTHERHOOD PUEDE CREAR/EDITAR PROCESSION");
+		if (enrolment.getId() == 0)
+			enrolment.setMomentEnrol(new Date(System.currentTimeMillis() - 1000));
 		final Enrolment saved = this.enrolmentRepository.save(enrolment);
 		return saved;
 	}
@@ -55,10 +71,10 @@ public class EnrolmentService {
 	}
 
 	// Other Methods--------------------------------------------
-	
-	public Collection<Enrolment> findByBrotherhoodAndAccepted(int brotherhoodId){
+
+	public Collection<Enrolment> findByBrotherhoodAndAccepted(final int brotherhoodId) {
 		Assert.notNull(brotherhoodId);
-		return enrolmentRepository.findByBrotherhoodAndAccepted(brotherhoodId);
+		return this.enrolmentRepository.findByBrotherhoodAndAccepted(brotherhoodId);
 	}
 
 }

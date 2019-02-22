@@ -1,5 +1,8 @@
+
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.MemberRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Enrolment;
 import domain.Member;
 
@@ -19,7 +24,8 @@ public class MemberService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private MemberRepository memberRepository;
+	private MemberRepository	memberRepository;
+
 
 	// Services-------------------------------------------------
 
@@ -33,6 +39,23 @@ public class MemberService {
 
 	public Member create() {
 		final Member res = new Member();
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+
+		final Authority a = new Authority();
+		a.setAuthority("MEMBER");
+		authorities.add(a);
+		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
+		res.setUserAccount(userAccount);
+
+		res.setIsBanned(false);
+		res.setIsSpammer(false);
+
+		final Collection<Enrolment> enrolments = new ArrayList<Enrolment>();
+		res.setEnrolments(enrolments);
+		//al no ser obligatorio tener un finder en un member, no se le añade
+
 		return res;
 	}
 
@@ -41,6 +64,7 @@ public class MemberService {
 	}
 
 	public Member findOne(final Integer memberId) {
+		Assert.notNull(memberId);
 		return this.memberRepository.findOne(memberId);
 	}
 
@@ -56,13 +80,13 @@ public class MemberService {
 
 	// Other Methods--------------------------------------------
 
-	public Member findByUserAccountId(int userAccountId) {
+	public Member findByUserAccountId(final int userAccountId) {
 		Assert.notNull(userAccountId);
-		return memberRepository.findByUserAccountId(userAccountId);
+		return this.memberRepository.findByUserAccountId(userAccountId);
 	}
 
-	public Member findByEnrolment(Enrolment enrolment) {
+	public Member findByEnrolment(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
-		return memberRepository.findByEnrolment(enrolment);
+		return this.memberRepository.findByEnrolment(enrolment);
 	}
 }
