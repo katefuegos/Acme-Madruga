@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -54,5 +55,10 @@ public class FloaatService {
 	}
 
 	// Other Methods--------------------------------------------
+
+	public Collection<Floaat> findByBrotherhoodId(int brotherhoodId) {
+		Assert.notNull(brotherhoodId);
+		return floaatRepository.findByBrotherhoodId(brotherhoodId);
+	}
 
 }

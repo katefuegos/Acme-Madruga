@@ -29,6 +29,8 @@
 		
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/member/tiles.xml</value>
+		<value>/views/procession/tiles.xml</value>
+		<value>/views/floaat/tiles.xml</value>
 	</util:list>
 
 </beans>

@@ -63,6 +63,10 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/member/list.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/procession/list.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/float/list.do"
+			access="permitAll" />
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />
 

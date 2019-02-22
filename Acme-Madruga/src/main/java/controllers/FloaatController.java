@@ -1,6 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,28 +11,23 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.BrotherhoodService;
-import services.EnrolmentService;
-import services.MemberService;
-import domain.Enrolment;
-import domain.Member;
+import services.FloaatService;
+import domain.Floaat;
 
 @Controller
-@RequestMapping("/member")
-public class MemberController extends AbstractController {
+@RequestMapping("/procession")
+public class FloaatController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
-	private MemberService memberService;
+	private FloaatService floaatService;
 
 	@Autowired
 	private BrotherhoodService brotherhoodService;
 
-	@Autowired
-	private EnrolmentService enrolmentService;
-
 	// Constructor---------------------------------------------------------
 
-	public MemberController() {
+	public FloaatController() {
 		super();
 	}
 
@@ -45,24 +39,16 @@ public class MemberController extends AbstractController {
 
 		try {
 			Assert.notNull(brotherhoodService.findOne(brotherhoodId));
-			final Collection<Enrolment> enrolments = enrolmentService
-					.findByBrotherhoodAndAccepted(brotherhoodId);
-			final Collection<Member> members = new ArrayList<Member>();
-			if (!enrolments.isEmpty()) {
-				for (Enrolment e : enrolments) {
-					members.add(memberService.findByEnrolment(e));
-				}
-			}
-
-			result = new ModelAndView("member/list");
-			result.addObject("members", members);
-			result.addObject("requestURI", "members/list.do?brotherhoodId="
+			final Collection<Floaat> floaats= floaatService.findByBrotherhoodId(brotherhoodId);
+			result = new ModelAndView("floaat/list");
+			result.addObject("floaats", floaats);
+			result.addObject("requestURI", "float/list.do?brotherhoodId="
 					+ brotherhoodId);
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (brotherhoodService.findOne(brotherhoodId) == null)
 				redirectAttrs.addFlashAttribute("message1",
-						"member.error.unexist");
+						"floaat.error.unexist");
 		}
 		return result;
 	}

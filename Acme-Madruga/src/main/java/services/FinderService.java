@@ -173,10 +173,10 @@ public class FinderService {
 		final Finder finder = this.checkPrincipal(f);
 
 		Page<Procession> p;
-		p = this.finderRepository.searchProcessions(finder.getKeyword(), finder.getNameArea(), finder.getDateMin(), finder.getDateMax(), new PageRequest(0, maxResult));
-
-		if (p.getContent() != null)
-			result = new ArrayList<>(p.getContent());
+//		p = this.finderRepository.searchProcessions(finder.getKeyword(), finder.getNameArea(), finder.getDateMin(), finder.getDateMax(), new PageRequest(0, maxResult));
+//
+//		if (p.getContent() != null)
+//			result = new ArrayList<>(p.getContent());
 
 		return result;
 	}
