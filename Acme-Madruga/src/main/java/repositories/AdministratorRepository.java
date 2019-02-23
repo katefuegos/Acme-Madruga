@@ -34,7 +34,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 
 	//C2 - The largest brotherhood, minimum 1
 	@Query("select e.brotherhood.id,e.brotherhood.title, count(e) from Enrolment e group by e.brotherhood order by 1 desc")
-	Object[][] queryC2();
+	Collection<Object[]> queryC2();
 	//C3 - The smallest brotherhood, minimum 1
 	@Query("select e.brotherhood.id,e.brotherhood.title, count(e) from Enrolment e group by e.brotherhood order by 1")
 	Object[][] queryC3();

@@ -115,4 +115,13 @@ public class AdministratorService {
 	public Administrator findAdminByUsername(final String username) {
 		return this.administratorRepository.findAdminByUsername(username);
 	}
+
+	public Collection<Object[]> queryC2() {
+		Collection<Object[]> result = null;
+
+		result = this.administratorRepository.queryC2();
+
+		return result;
+	}
+
 }
