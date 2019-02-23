@@ -15,7 +15,7 @@ import services.FloaatService;
 import domain.Floaat;
 
 @Controller
-@RequestMapping("/procession")
+@RequestMapping("/float")
 public class FloaatController extends AbstractController {
 
 	// Services-----------------------------------------------------------
