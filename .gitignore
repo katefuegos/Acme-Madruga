@@ -13,3 +13,5 @@ Acme-Madruga/target/classes/PopulateDatabase.xml
 *.class
 Acme-Madruga/target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme-Madruga/pom.properties
 *.class
+*.properties
+*.map
