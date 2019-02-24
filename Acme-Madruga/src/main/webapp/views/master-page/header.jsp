@@ -53,12 +53,35 @@
 				</ul></li>
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
 						code="master.page.brotherhood" /></a></li>
+
+			<li><a class="fNiv" href="box/actor/list.do"><spring:message
+						code="master.page.box" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="message/actor/exchangeMessage.do"><spring:message
+								code="master.page.message.exchange" /></a></li>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="message/administrator/broadcastMessage.do"><spring:message
+									code="master.page.message.broadcast" /></a></li>
+					</security:authorize>
+
+				</ul></li>
+
+
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a class="fNiv" href="procession/brotherhood/list.do"><spring:message
 						code="master.page.myProcessions" /></a></li>
+			<li><a class="fNiv" href="request/brotherhood/list.do"><spring:message
+						code="master.page.request" /></a></li>
+			<li><a class="fNiv" href="enrolment/brotherhood/list.do"><spring:message
+						code="master.page.enrolment" /></a></li>
 		</security:authorize>
+
+
+
+
 	</ul>
 </div>
 

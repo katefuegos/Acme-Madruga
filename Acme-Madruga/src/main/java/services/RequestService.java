@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -78,5 +79,10 @@ public class RequestService {
 	public Request findRequestByPosition(int roow, int coluumn, int processionId) {
 		return requestRepository.findRequestByPosition(roow, coluumn,
 				processionId);
+	}
+
+	public Collection<Request> findRequestByProcessionId(int processionId) {
+		Assert.notNull(processionId);
+		return requestRepository.findRequestByProcessionId(processionId);
 	}
 }
