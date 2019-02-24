@@ -16,3 +16,5 @@ Acme-Madruga/target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme
 *.properties
 *.map
 *.properties
+*.class
+*.properties
