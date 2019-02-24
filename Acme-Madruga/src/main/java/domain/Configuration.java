@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Collection;
@@ -21,18 +20,17 @@ public class Configuration extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private int								countryCode;
-	private Map<String, String>				welcomeMessage;
-	private String							banner;
-	private Map<String, Collection<String>>	spamWords;
-	private int								finderCacheTime;
-	private int								finderMaxResults;
-	private Map<String, Collection<String>>	negativeWords;
-	private Map<String, Collection<String>>	positiveWords;
-	private Collection<String>				priorities;
-	private Collection<String>				positionEN;
-	private Collection<String>				positionES;
-
+	private int countryCode;
+	private Map<String, String> welcomeMessage;
+	private String banner;
+	private Map<String, Collection<String>> spamWords;
+	private int finderCacheTime;
+	private int finderMaxResults;
+	private Map<String, Collection<String>> negativeWords;
+	private Map<String, Collection<String>> positiveWords;
+	private Collection<String> priorities;
+	private Collection<String> positionEN;
+	private Collection<String> positionES;
 
 	@NotNull
 	@ElementCollection
@@ -121,7 +119,8 @@ public class Configuration extends DomainEntity {
 		return this.negativeWords;
 	}
 
-	public void setNegativeWords(final Map<String, Collection<String>> negativeWords) {
+	public void setNegativeWords(
+			final Map<String, Collection<String>> negativeWords) {
 		this.negativeWords = negativeWords;
 	}
 
@@ -131,7 +130,8 @@ public class Configuration extends DomainEntity {
 		return this.positiveWords;
 	}
 
-	public void setPositiveWords(final Map<String, Collection<String>> positiveWords) {
+	public void setPositiveWords(
+			final Map<String, Collection<String>> positiveWords) {
 		this.positiveWords = positiveWords;
 	}
 

@@ -10,8 +10,11 @@ import domain.Enrolment;
 
 @Repository
 public interface EnrolmentRepository extends JpaRepository<Enrolment, Integer> {
-	
+
 	@Query("select e from Enrolment e where e.accepted = true and e.brotherhood.id=?1")
 	Collection<Enrolment> findByBrotherhoodAndAccepted(int brotherhoodId);
+
+	@Query("select e from Enrolment e where e.brotherhood.id=?1")
+	Collection<Enrolment> findByBrotherhood(int brotherhoodId);
 
 }

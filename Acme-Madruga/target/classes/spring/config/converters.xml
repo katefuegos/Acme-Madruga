@@ -31,6 +31,9 @@
 		<bean class="converters.FloaatToStringConverter" />
 		<bean class="converters.StringToFloaatConverter" />
 		
+		<bean class="converters.RequestToStringConverter" />
+		<bean class="converters.StringToRequestConverter" />
+		
 	</util:list>
 	
 </beans>
