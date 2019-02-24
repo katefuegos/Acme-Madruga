@@ -12,5 +12,5 @@ public interface BrotherhoodRepository extends
 
 	@Query("select b from Brotherhood b where b.userAccount.id=?1")
 	Brotherhood findByUserAccountId(int userAccountId);
-
+	
 }

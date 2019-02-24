@@ -40,7 +40,7 @@ public class FloaatController extends AbstractController {
 		try {
 			Assert.notNull(brotherhoodService.findOne(brotherhoodId));
 			final Collection<Floaat> floaats= floaatService.findByBrotherhoodId(brotherhoodId);
-			result = new ModelAndView("floaat/list");
+			result = new ModelAndView("float/list");
 			result.addObject("floaats", floaats);
 			result.addObject("requestURI", "float/list.do?brotherhoodId="
 					+ brotherhoodId);
