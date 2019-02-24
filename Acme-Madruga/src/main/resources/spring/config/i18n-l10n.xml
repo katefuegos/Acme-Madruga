@@ -33,6 +33,8 @@
 		<value>/views/floaat/messages</value>
 		<value>/views/request/messages</value>
 		<value>/views/enrolment/messages</value>
+		<value>/views/box/messages</value>
+		<value>/views/message/messages</value>
 	</util:list>
 
 </beans>
