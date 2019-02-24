@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -18,6 +19,7 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
 import domain.Member;
+import domain.Procession;
 
 @Service
 @Transactional
@@ -115,4 +117,59 @@ public class AdministratorService {
 	public Administrator findAdminByUsername(final String username) {
 		return this.administratorRepository.findAdminByUsername(username);
 	}
+
+	public Object[] queryC1() {
+		Object[] result = null;
+
+		result = this.administratorRepository.queryC1();
+
+		return result;
+	}
+
+	public Collection<Object[]> queryC2() {
+		Collection<Object[]> result = null;
+
+		result = this.administratorRepository.queryC2();
+
+		return result;
+	}
+
+	public Collection<Object[]> queryC3() {
+		Collection<Object[]> result = null;
+
+		result = this.administratorRepository.queryC3();
+
+		return result;
+	}
+
+	public Collection<Object[]> queryC4() {
+		Collection<Object[]> result = null;
+
+		result = this.administratorRepository.queryC4();
+
+		return result;
+	}
+
+	public Collection<Procession> queryC5() {
+		Collection<Procession> result = null;
+
+		result = this.administratorRepository.queryC5(new Date(new Date().getTime() + 2592000000L));
+
+		return result;
+	}
+
+	public Collection<Member> queryC7() {
+		Collection<Member> result = null;
+
+		result = this.administratorRepository.queryC7();
+		return result;
+	}
+
+	public Collection<Object[]> queryC8() {
+		Collection<Object[]> result = null;
+
+		result = this.administratorRepository.queryC8();
+		return result;
+	}
+
 }
