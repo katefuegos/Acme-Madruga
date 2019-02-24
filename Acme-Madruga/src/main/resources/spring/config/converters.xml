@@ -31,6 +31,12 @@
 		<bean class="converters.FloaatToStringConverter" />
 		<bean class="converters.StringToFloaatConverter" />
 		
+		<bean class="converters.ConfigurationToStringConverter" />
+		<bean class="converters.StringToConfigurationConverter" />
+		
+		<bean class="converters.SocialProfileToStringConverter" />
+		<bean class="converters.StringToSocialProfileConverter" />
+		
 	</util:list>
 	
 </beans>
