@@ -14,5 +14,25 @@
 		<put-attribute name="title" value="Processions list" />
 		<put-attribute name="body" value="/views/procession/list.jsp" />
 	</definition>
+	
+	<definition name="procession/list2" extends="master.page">
+		<put-attribute name="title" value="My processions" />
+		<put-attribute name="body" value="/views/procession/list2.jsp" />
+	</definition>
+	
+	<definition name="procession/create" extends="master.page">
+		<put-attribute name="title" value="Create procession" />
+		<put-attribute name="body" value="/views/procession/edit.jsp" />
+	</definition>
+	
+	<definition name="procession/edit" extends="master.page">
+		<put-attribute name="title" value="Edit procession" />
+		<put-attribute name="body" value="/views/procession/edit.jsp" />
+	</definition>
+	
+	<definition name="procession/show" extends="master.page">
+		<put-attribute name="title" value="Show procession" />
+		<put-attribute name="body" value="/views/procession/edit.jsp" />
+	</definition>
 
 </tiles-definitions>

@@ -64,9 +64,6 @@ public class ProcessionService {
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString()
 				.contains("BROTHERHOOD"),
 				"SOLO UN BROTHERHOOD PUEDE CREAR/EDITAR PROCESSION");
-		if (procession.getId() == 0) {
-			procession.setMoment(new Date(System.currentTimeMillis() - 1000));
-		}
 		final Procession saved = this.processionRepository.save(procession);
 		return saved;
 	}
@@ -109,5 +106,10 @@ public class ProcessionService {
 		Assert.notNull(brotherhoodId);
 		return processionRepository
 				.findByBrotherhoodIdAndNotDraft(brotherhoodId);
+	}
+
+	public Collection<Procession> findByBrotherhoodId(int brotherhoodId) {
+		Assert.notNull(brotherhoodId);
+		return processionRepository.findByBrotherhoodId(brotherhoodId);
 	}
 }
