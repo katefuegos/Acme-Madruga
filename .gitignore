@@ -28,3 +28,5 @@ Acme-Madruga/target/classes/repositories/ProcessionRepository.class
 Acme-Madruga/target/classes/repositories/FloaatRepository.class
 Acme-Madruga/target/classes/PopulateDatabase.xml
 Acme-Madruga/target/classes/Entities.map
+Acme-Madruga/target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme-Madruga/pom.properties
+Acme-Madruga/src/main/resources/Entities.map
