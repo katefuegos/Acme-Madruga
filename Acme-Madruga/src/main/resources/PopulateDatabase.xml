@@ -382,6 +382,61 @@
 
 	<!-- BOX -->
 
+	<bean id="trashBoxA" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="inBoxA" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="outBoxA" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="spamBoxA" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
 	<!-- Trashbox -->
 
 	<bean id="trashBoxM1" class="domain.Box">

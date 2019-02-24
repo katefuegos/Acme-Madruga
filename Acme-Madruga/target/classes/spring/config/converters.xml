@@ -31,6 +31,20 @@
 		<bean class="converters.FloaatToStringConverter" />
 		<bean class="converters.StringToFloaatConverter" />
 		
+		
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
+		
+		<bean class="converters.BoxToStringConverter" />
+		<bean class="converters.StringToBoxConverter" />
+
+		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.StringToMessageConverter" />
+
+		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.StringToUserAccountConverter" />
+		
+		
 	</util:list>
 	
 </beans>

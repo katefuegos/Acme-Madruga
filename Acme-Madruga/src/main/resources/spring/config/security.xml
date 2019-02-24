@@ -75,13 +75,59 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/procession/brotherhood/show.do"
 			access="hasRole('BROTHERHOOD')" />
+			
+		
+		<!-- Message -->
+		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/message/administrator/broadcastMessage.do"
+			access="hasRole('ADMIN')" />
+
+		<security:intercept-url pattern="/message/actor/list.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/message/actor/show.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/message/actor/move.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/message/actor/edit.do"
+			access="isAuthenticated()" />
+
+		<!-- Box -->
+		<security:intercept-url pattern="/box/actor/list.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/box/actor/edit.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/box/actor/create.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/edit.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/list.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/show.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/create.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/actor/edit.do"
+			access="isAuthenticated()" />
+		
+			
+			
+			
+			
+			
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />
-
-
-
-
-
 		<security:form-login login-page="/security/login.do"
 			password-parameter="password" username-parameter="username"
 			authentication-failure-url="/security/loginFailure.do" />
