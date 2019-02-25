@@ -35,18 +35,18 @@
 	<form:errors cssClass="error" path="nick" />
 	<br />
 
-	<form:label path="name">
-		<spring:message code="socialProfile.name" />
+	<form:label path="nameSocialNetwork">
+		<spring:message code="socialProfile.nameSocialNetwork" />
 	</form:label>
-	<form:input path="name" readonly="${isRead }"/>
-	<form:errors cssClass="error" path="name" />
+	<form:input path="nameSocialNetwork" readonly="${isRead }"/>
+	<form:errors cssClass="error" path="nameSocialNetwork" />
 	<br />
 
-	<form:label path="link">
-		<spring:message code="socialProfile.link" />
+	<form:label path="linkSocialNetwork">
+		<spring:message code="socialProfile.linkSocialNetwork" />
 	</form:label>
-	<form:input path="link" readonly="${isRead }"/>
-	<form:errors cssClass="error" path="link" />
+	<form:input path="linkSocialNetwork" readonly="${isRead }"/>
+	<form:errors cssClass="error" path="linkSocialNetwork" />
 	<br />
 
 	<jstl:if test="${isRead==false }">

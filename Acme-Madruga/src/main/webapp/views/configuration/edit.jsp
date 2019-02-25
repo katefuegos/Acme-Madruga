@@ -121,10 +121,24 @@
 	<form:errors cssClass="error" path="positiveWordsEN" />
 	<br />
 
+	<form:label path="positionES">
+		<spring:message code="configuration.positionES" />
+	</form:label>
+	<form:input path="positionES" readonly="${isRead}" />
+	<form:errors cssClass="error" path="positionES" />
+	<br />
+	
+	<form:label path="positionEN">
+		<spring:message code="configuration.positionEN" />
+	</form:label>
+	<form:input path="positionEN" readonly="${isRead}" />
+	<form:errors cssClass="error" path="positionEN" />
+	<br />
 
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
-			value="<spring:message code="configuration.save" />" />
+			value="<spring:message code="configuration.save" />" 
+			onclick="javascript: relativeRedir('configuration/administrator/list.do');" />
 
 		<input type="button" name="cancel"
 			value="<spring:message code="configuration.cancel" />"
@@ -133,7 +147,7 @@
 
 	<jstl:if test="${isRead == true}">
 		<input type="button" name="cancel"
-			value="<spring:message code="complaint.back" />"
+			value="<spring:message code="configuration.back" />"
 			onclick="javascript: relativeRedir('configuration/administrator/list.do');" />
 	</jstl:if>
 </form:form>
