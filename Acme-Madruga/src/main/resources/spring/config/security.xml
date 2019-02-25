@@ -75,14 +75,14 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/procession/brotherhood/show.do"
 			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/configuration/administrator/list.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/socialProfile/**"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />
 			
-		<security:intercept-url pattern="/configuration/administrator/list.do"
-			access="hasRole('ADMIN')" />
-			
-		<security:intercept-url pattern="/socialProfile/**"
-			access="isAuthenticated()" />
+		
 			
 	
 
