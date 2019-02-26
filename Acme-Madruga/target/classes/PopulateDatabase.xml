@@ -15,6 +15,7 @@
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="enabled" value="true" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -125,6 +126,7 @@
 	<bean id="userAccount10" class="security.UserAccount">
 		<property name="username" value="brotherhood3" />
 		<property name="password" value="cb8f36c7d5bbbc6aa5798a0e5796ebd5" />
+		<property name="enabled" value="true" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -137,6 +139,7 @@
 	<bean id="userAccount11" class="security.UserAccount">
 		<property name="username" value="brotherhood4" />
 		<property name="password" value="ddeb3302b54a2e0dbc83f2bd3c866124" />
+		<property name="enabled" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -163,7 +166,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="28.2" />
 		<property name="userAccount" ref="userAccount1" />
 
@@ -180,7 +183,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="28.2" />
 		<property name="userAccount" ref="userAccount11" />
 
@@ -197,7 +200,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="28.2" />
 		<property name="userAccount" ref="userAccount10" />
 
@@ -216,7 +219,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="finder" ref="finder1" />
@@ -239,7 +242,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="finder" ref="finder2" />
@@ -259,8 +262,8 @@
 		<property name="email" value="joselito@gmail.com" />
 		<property name="phone" value="+34(456)123436789" />
 		<property name="address" value="C/Calle, 53" />
-		<property name="isSpammer" value="false" />
-		<property name="isBanned" value="false" />
+		<property name="isSpammer" value="true" />
+		<property name="isBanned" value="true" />
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount6" />
 		<property name="finder" ref="finder3" />
@@ -287,7 +290,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="title" value="Santa Claudia" />
@@ -308,7 +311,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="18.2" />
 		<property name="userAccount" ref="userAccount8" />
 		<property name="title" value="Santa Felipa" />

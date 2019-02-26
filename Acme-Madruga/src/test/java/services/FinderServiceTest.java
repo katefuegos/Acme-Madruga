@@ -119,7 +119,7 @@ public class FinderServiceTest extends AbstractTest {
 		try {
 
 			final Finder finder = this.finderService.findOne(this.getEntityId("finder2"));
-
+			Assert.notNull(finder.getProcessions(), "Procession must be not null");
 			Assert.notNull(finder);
 			this.finderService.delete(finder);
 			final Collection<Finder> finders = this.finderService.findAll();
