@@ -17,4 +17,9 @@
 	
 	<display:column property="description" titleKey="floaat.description" />
 	
+	<display:column >
+			<a href="floaat/brotherhood/display.do?floaatId=${floaat.id}">
+			<spring:message code="floaat.display"></spring:message></a>
+	</display:column>
+	
 </display:table>
