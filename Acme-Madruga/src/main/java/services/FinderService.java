@@ -21,6 +21,7 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Configuration;
 import domain.Finder;
+import domain.Member;
 import domain.Procession;
 
 @Service
@@ -33,12 +34,15 @@ public class FinderService {
 	private FinderRepository		finderRepository;
 
 	// Services-------------------------------------------------
-
+	@Autowired
 	private ConfigurationService	configurationService;
-
+	@Autowired
 	private ActorService			actorService;
-
+	@Autowired
 	private MemberService			memberService;
+
+	@Autowired
+	private ProcessionService		processionService;
 
 
 	// Constructor----------------------------------------------
@@ -76,24 +80,36 @@ public class FinderService {
 		return this.finderRepository.findOne(finderId);
 	}
 
-	public Finder save(final Finder finder) {
+	public Finder save(Finder finder) {
 		Assert.notNull(finder);
 
-		//		finder.setLastUpdate(this.updateTime());
-		//		finder = this.updateFinder(finder);
+		finder.setLastUpdate(this.updateTime());
+		finder = this.updateFinder(finder);
 
 		final Finder saved = this.finderRepository.save(finder);
-		//		if (finder.getId() == 0) {
-		//			final UserAccount userAccount = LoginService.getPrincipal();
-		//			final Member member = this.memberService.findByUserAccountId(userAccount.getId());
-		//			member.setFinder(saved);
-		//			this.memberService.save(member);
-		//		}
+		if (finder.getId() == 0) {
+			final UserAccount userAccount = LoginService.getPrincipal();
+			final Member member = this.memberService.findByUserAccountId(userAccount.getId());
+			member.setFinder(saved);
+			this.memberService.save(member);
+		}
 		return saved;
 	}
 
-	public void delete(final Finder finder) {
-		this.finderRepository.delete(finder);
+	public Finder clear(final Finder f) {
+		final Date currentDate = new Date();
+		f.setKeyword("");
+		f.setNameArea("");
+		f.setDateMin(currentDate);
+		f.setDateMax(new Date(currentDate.getTime() + 315360000000L * 2));
+		f.setLastUpdate(new Date(currentDate.getTime() - 1000));
+		final Collection<Procession> processions = new ArrayList<>(this.processionService.findAll());
+		f.setProcessions(processions);
+
+		this.save(f);
+
+		return f;
+
 	}
 
 	// Other Methods--------------------------------------------
@@ -169,7 +185,7 @@ public class FinderService {
 		final Finder finder = this.checkPrincipal(f);
 
 		final Page<Procession> p;
-		p = this.finderRepository.searchProcessions(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), new PageRequest(0, maxResult));
+		p = this.finderRepository.searchProcessions(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), finder.getNameArea(), new PageRequest(0, maxResult));
 
 		if (p.getContent() != null)
 			result = new ArrayList<>(p.getContent());
