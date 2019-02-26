@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -20,36 +21,37 @@ public class Configuration extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private int countryCode;
-	private Map<String, String> welcomeMessage;
-	private String banner;
-	private Map<String, Collection<String>> spamWords;
-	private int finderCacheTime;
-	private int finderMaxResults;
-	private Map<String, Collection<String>> negativeWords;
-	private Map<String, Collection<String>> positiveWords;
-	private Collection<String> priorities;
-	private Collection<String> positionEN;
-	private Collection<String> positionES;
+	private int								countryCode;
+	private Map<String, String>				welcomeMessage;
+	private String							banner;
+	private Map<String, Collection<String>>	spamWords;
+	private int								finderCacheTime;
+	private int								finderMaxResults;
+	private Map<String, Collection<String>>	negativeWords;
+	private Map<String, Collection<String>>	positiveWords;
+	private Collection<String>				priorities;
+	private Map<String, Collection<String>>	positionEN;
+	private Map<String, Collection<String>>	positionES;
 
-	@NotNull
-	@ElementCollection
-	public Collection<String> getPositionEN() {
-		return this.positionEN;
-	}
 
-	public void setPositionEN(final Collection<String> positionEN) {
-		this.positionEN = positionEN;
-	}
-
-	@NotNull
-	@ElementCollection
-	public Collection<String> getPositionES() {
+	@NotEmpty
+	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
+	public Map<String, Collection<String>> getPositionES() {
 		return this.positionES;
 	}
 
-	public void setPositionES(final Collection<String> positionES) {
+	public void setPositionES(final Map<String, Collection<String>> positionES) {
 		this.positionES = positionES;
+	}
+
+	@NotEmpty
+	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
+	public Map<String, Collection<String>> getPositionEN() {
+		return this.positionEN;
+	}
+
+	public void setPositionEN(final Map<String, Collection<String>> positionEN) {
+		this.positionEN = positionEN;
 	}
 
 	@NotNull
@@ -119,8 +121,7 @@ public class Configuration extends DomainEntity {
 		return this.negativeWords;
 	}
 
-	public void setNegativeWords(
-			final Map<String, Collection<String>> negativeWords) {
+	public void setNegativeWords(final Map<String, Collection<String>> negativeWords) {
 		this.negativeWords = negativeWords;
 	}
 
@@ -130,8 +131,7 @@ public class Configuration extends DomainEntity {
 		return this.positiveWords;
 	}
 
-	public void setPositiveWords(
-			final Map<String, Collection<String>> positiveWords) {
+	public void setPositiveWords(final Map<String, Collection<String>> positiveWords) {
 		this.positiveWords = positiveWords;
 	}
 
