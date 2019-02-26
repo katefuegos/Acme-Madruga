@@ -116,4 +116,8 @@ public class ConfigurationService {
 
 	}
 
+	public Configuration findDefault() {
+		return this.configurationRepository.findAll().get(0);
+	}
+
 }

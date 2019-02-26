@@ -16,6 +16,7 @@ import security.Authority;
 import security.UserAccount;
 import domain.Enrolment;
 import domain.Member;
+import domain.Request;
 
 @Service
 @Transactional
@@ -75,6 +76,9 @@ public class MemberService {
 	}
 
 	public void delete(final Member member) {
+		//		final Collection<Request> request = this.findRequestsByMemberId(member.getId());
+		//		for (final Request r : request)
+		//			this.requestService.delete(r);
 		this.memberRepository.delete(member);
 	}
 
@@ -88,5 +92,9 @@ public class MemberService {
 	public Member findByEnrolment(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
 		return this.memberRepository.findByEnrolment(enrolment);
+	}
+
+	public Collection<Request> findRequestsByMemberId(final int memberId) {
+		return this.memberRepository.findRequestsByMemberId(memberId);
 	}
 }
