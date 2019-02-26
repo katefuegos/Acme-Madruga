@@ -1,6 +1,7 @@
+
 package services;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
@@ -18,7 +19,8 @@ public class AreaService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private AreaRepository areaRepository;
+	private AreaRepository	areaRepository;
+
 
 	// Services-------------------------------------------------
 
@@ -35,12 +37,21 @@ public class AreaService {
 		return res;
 	}
 
-	public List<Area> findAll() {
-		return this.areaRepository.findAll();
+	public Collection<Area> findAll() {
+		Collection<Area> areas;
+
+		areas = this.areaRepository.findAll();
+		Assert.notNull(areas);
+
+		return areas;
 	}
 
 	public Area findOne(final Integer areaId) {
-		return this.areaRepository.findOne(areaId);
+		Area area;
+		area = this.areaRepository.findOne(areaId);
+		Assert.notNull(area);
+
+		return area;
 	}
 
 	public Area save(final Area area) {
@@ -50,9 +61,9 @@ public class AreaService {
 	}
 
 	public void delete(final Area area) {
+		Assert.notNull(area);
 		this.areaRepository.delete(area);
 	}
-
 	// Other Methods--------------------------------------------
 
 }

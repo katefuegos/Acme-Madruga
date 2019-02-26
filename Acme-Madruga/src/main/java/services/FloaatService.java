@@ -1,7 +1,7 @@
+
 package services;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -19,7 +19,8 @@ public class FloaatService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private FloaatRepository floaatRepository;
+	private FloaatRepository	floaatRepository;
+
 
 	// Services-------------------------------------------------
 
@@ -36,12 +37,21 @@ public class FloaatService {
 		return res;
 	}
 
-	public List<Floaat> findAll() {
-		return this.floaatRepository.findAll();
+	public Collection<Floaat> findAll() {
+		Collection<Floaat> floaats;
+
+		floaats = this.floaatRepository.findAll();
+		Assert.notNull(floaats);
+
+		return floaats;
 	}
 
 	public Floaat findOne(final Integer floaatId) {
-		return this.floaatRepository.findOne(floaatId);
+		Floaat floaat;
+		floaat = this.floaatRepository.findOne(floaatId);
+		Assert.notNull(floaat);
+
+		return floaat;
 	}
 
 	public Floaat save(final Floaat floaat) {
@@ -51,14 +61,15 @@ public class FloaatService {
 	}
 
 	public void delete(final Floaat floaat) {
+		Assert.notNull(floaat);
 		this.floaatRepository.delete(floaat);
 	}
 
 	// Other Methods--------------------------------------------
 
-	public Collection<Floaat> findByBrotherhoodId(int brotherhoodId) {
+	public Collection<Floaat> findByBrotherhoodId(final int brotherhoodId) {
 		Assert.notNull(brotherhoodId);
-		return floaatRepository.findByBrotherhoodId(brotherhoodId);
+		return this.floaatRepository.findByBrotherhoodId(brotherhoodId);
 	}
 
 }
