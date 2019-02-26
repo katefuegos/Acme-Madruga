@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -21,16 +22,17 @@ public class Brotherhood extends Actor {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String title;
-	private Date establishementDate;
-	private String pictures;
+	private String	title;
+	private Date	establishmentDate;
+	private String	pictures;
+
 
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
@@ -38,33 +40,35 @@ public class Brotherhood extends Actor {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getEstablishementDate() {
-		return establishementDate;
+		return this.establishmentDate;
 	}
 
-	public void setEstablishementDate(Date establishementDate) {
-		this.establishementDate = establishementDate;
+	public void setEstablishementDate(final Date establishementDate) {
+		this.establishmentDate = establishementDate;
 	}
 
 	@URL
 	@NotBlank
 	public String getPictures() {
-		return pictures;
+		return this.pictures;
 	}
 
-	public void setPictures(String pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Area area;
+	private Area	area;
+
 
 	@Valid
 	@ManyToOne(optional = true)
 	public Area getArea() {
-		return area;
+		return this.area;
 	}
 
-	public void setArea(Area area) {
+	public void setArea(final Area area) {
 		this.area = area;
 	}
 
