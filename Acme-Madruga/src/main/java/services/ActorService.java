@@ -75,4 +75,18 @@ public class ActorService {
 	public Collection<Actor> findSpammersActors() {
 		return this.actorRepository.findSpammersActors();
 	}
+
+	public void ban(final Actor actor) {
+		actor.setIsBanned(true);
+		actor.getUserAccount().setEnabled(false);
+		this.save(actor);
+	}
+
+	public void unban(final Actor actor) {
+		actor.setIsBanned(false);
+		actor.setIsSpammer(false);
+		actor.getUserAccount().setEnabled(true);
+		this.save(actor);
+
+	}
 }
