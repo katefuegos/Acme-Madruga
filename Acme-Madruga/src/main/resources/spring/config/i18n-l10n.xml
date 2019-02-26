@@ -31,10 +31,8 @@
 		<value>/views/member/messages</value>
 		<value>/views/procession/messages</value>
 		<value>/views/floaat/messages</value>
-		<value>/views/request/messages</value>
-		<value>/views/enrolment/messages</value>
-		<value>/views/box/messages</value>
-		<value>/views/message/messages</value>
+		<value>/views/configuration/messages</value>
+		<value>/views/socialProfile/messages</value>
 	</util:list>
 
 </beans>

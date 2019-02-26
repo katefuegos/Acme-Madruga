@@ -31,21 +31,11 @@
 		<bean class="converters.FloaatToStringConverter" />
 		<bean class="converters.StringToFloaatConverter" />
 		
-		<bean class="converters.RequestToStringConverter" />
-		<bean class="converters.StringToRequestConverter" />
+		<bean class="converters.ConfigurationToStringConverter" />
+		<bean class="converters.StringToConfigurationConverter" />
 		
-		<bean class="converters.ActorToStringConverter" />
-		<bean class="converters.StringToActorConverter" />
-		
-		<bean class="converters.BoxToStringConverter" />
-		<bean class="converters.StringToBoxConverter" />
-
-		<bean class="converters.MessageToStringConverter" />
-		<bean class="converters.StringToMessageConverter" />
-
-		<bean class="converters.UserAccountToStringConverter" />
-		<bean class="converters.StringToUserAccountConverter" />
-		
+		<bean class="converters.SocialProfileToStringConverter" />
+		<bean class="converters.StringToSocialProfileConverter" />
 		
 	</util:list>
 	

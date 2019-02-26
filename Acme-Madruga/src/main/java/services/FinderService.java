@@ -21,7 +21,6 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Configuration;
 import domain.Finder;
-import domain.Member;
 import domain.Procession;
 
 @Service
@@ -77,19 +76,19 @@ public class FinderService {
 		return this.finderRepository.findOne(finderId);
 	}
 
-	public Finder save(Finder finder) {
+	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
 
-		finder.setLastUpdate(this.updateTime());
-		finder = this.updateFinder(finder);
+		//		finder.setLastUpdate(this.updateTime());
+		//		finder = this.updateFinder(finder);
 
-		final Finder saved = this.finderRepository.save(this.updateFinder(finder));
-		if (finder.getId() == 0) {
-			final UserAccount userAccount = LoginService.getPrincipal();
-			final Member member = this.memberService.findByUserAccountId(userAccount.getId());
-			member.setFinder(saved);
-			this.memberService.save(member);
-		}
+		final Finder saved = this.finderRepository.save(finder);
+		//		if (finder.getId() == 0) {
+		//			final UserAccount userAccount = LoginService.getPrincipal();
+		//			final Member member = this.memberService.findByUserAccountId(userAccount.getId());
+		//			member.setFinder(saved);
+		//			this.memberService.save(member);
+		//		}
 		return saved;
 	}
 
@@ -101,9 +100,8 @@ public class FinderService {
 
 	private Date updateTime() {
 		final Date currentDate = new Date();
-		final List<Configuration> configurations = new ArrayList<Configuration>();
-		configurations.addAll(this.configurationService.findAll());
-		final Date updateFinder = new Date(currentDate.getTime() - configurations.get(0).getFinderCacheTime() * 1000 * 60 * 60);
+		final Configuration configuration = this.configurationService.findDefault();
+		final Date updateFinder = new Date(currentDate.getTime() - configuration.getFinderCacheTime() * 1000 * 60 * 60);
 		final Date lastUpdate = new Date(updateFinder.getTime() - 1000);
 
 		return lastUpdate;
@@ -137,10 +135,8 @@ public class FinderService {
 
 		final Finder finder = this.findFinderByMemberId(actor.getId());
 
-		//		Assert.isTrue(											//No es necesaria esta comprobacion
-		//				actor.getUserAccount().getAuthorities()
-		//						.contains(memberAuthority),
-		//				"Solo los member tiene finder");
+		Assert.isTrue(											//No es necesaria esta comprobacion
+			actor.getUserAccount().getAuthorities().contains(memberAuthority), "Solo los member tiene finder");
 
 		Assert.isTrue(f.equals(finder) || (f.getId() == 0 && finder == null), "Un finder solo puede ser modificado por su dueño");
 
@@ -172,11 +168,11 @@ public class FinderService {
 		List<Procession> result = new ArrayList<>();
 		final Finder finder = this.checkPrincipal(f);
 
-		Page<Procession> p;
-//		p = this.finderRepository.searchProcessions(finder.getKeyword(), finder.getNameArea(), finder.getDateMin(), finder.getDateMax(), new PageRequest(0, maxResult));
-//
-//		if (p.getContent() != null)
-//			result = new ArrayList<>(p.getContent());
+		final Page<Procession> p;
+		p = this.finderRepository.searchProcessions(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), new PageRequest(0, maxResult));
+
+		if (p.getContent() != null)
+			result = new ArrayList<>(p.getContent());
 
 		return result;
 	}
