@@ -91,7 +91,7 @@ public class FinderServiceTest extends AbstractTest {
 
 		try {
 
-			final Finder finder = this.finderService.create();
+			final Finder finder = this.finderService.findFinderByMemberId(this.getEntityId("member1"));
 			Assert.notNull(finder);
 			final Collection<Procession> processions = new ArrayList<>();
 			finder.setKeyword("new Finder");
@@ -113,18 +113,15 @@ public class FinderServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testDelete() {
-		System.out.println("========== testDelete() ==========");
+	public void testClear() {
+		System.out.println("========== testClear() ==========");
 
 		try {
 
 			final Finder finder = this.finderService.findOne(this.getEntityId("finder2"));
 			Assert.notNull(finder.getProcessions(), "Procession must be not null");
 			Assert.notNull(finder);
-			this.finderService.delete(finder);
-			final Collection<Finder> finders = this.finderService.findAll();
-			Assert.isTrue(!finders.contains(finder));
-
+			this.finderService.clear(finder);
 			System.out.println("¡Exito!");
 
 		} catch (final Exception e) {
