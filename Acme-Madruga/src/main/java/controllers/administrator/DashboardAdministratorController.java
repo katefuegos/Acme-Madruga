@@ -2,8 +2,9 @@
 package controllers.administrator;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,10 +43,10 @@ public class DashboardAdministratorController extends AbstractController {
 		//QueryC1
 		final Object[] result = this.administratorService.queryC1();
 
-		final Double avgC1 = Double.valueOf((String) result[0]);
-		final Double minC1 = Double.valueOf((String) result[1]);
-		final Double maxC1 = Double.valueOf((String) result[2]);
-		final Double stddevC1 = Double.valueOf((String) result[3]);
+		final Double avgC1 = (Double) result[0];
+		final Double minC1 = (Double) result[1];
+		final Double maxC1 = (Double) result[2];
+		final Double stddevC1 = (Double) result[3];
 
 		if (avgC1 != null)
 			modelAndView.addObject("avgC1", df.format(avgC1));
@@ -72,9 +73,9 @@ public class DashboardAdministratorController extends AbstractController {
 
 		final Object[] largest = resultC2.iterator().next();
 
-		final Integer idLargest = Integer.valueOf((String) largest[0]);
+		final Integer idLargest = (Integer) largest[0];
 		final String nameLargest = String.valueOf(largest[1]);
-		final Integer countLargest = Integer.valueOf((String) largest[3]);
+		final Long countLargest = (Long) largest[2];
 
 		if (idLargest != null && nameLargest != null && countLargest != null) {
 			modelAndView.addObject("idLargest", idLargest);
@@ -87,9 +88,9 @@ public class DashboardAdministratorController extends AbstractController {
 
 		final Object[] smallest = resultC3.iterator().next();
 
-		final Integer idSmallest = Integer.valueOf((String) smallest[0]);
+		final Integer idSmallest = (Integer) smallest[0];
 		final String nameSmallest = String.valueOf(smallest[1]);
-		final Integer countSmallest = Integer.valueOf((String) smallest[3]);
+		final Long countSmallest = (Long) smallest[2];
 
 		if (idSmallest != null && nameSmallest != null && countSmallest != null) {
 			modelAndView.addObject("idSmallest", idSmallest);
@@ -100,19 +101,12 @@ public class DashboardAdministratorController extends AbstractController {
 		//QueryC4 - The ratio of requests to march in a procession, grouped by their status.
 
 		try {
-			final Collection<Object[]> resultC4 = this.administratorService.queryC4();
 
-			final ArrayList<Object[]> r = new ArrayList<>(resultC4);
-			for (int i = 0; i < r.size(); i++) {
-				final String statusC4String = "statusC4" + i;
-				final String countC4String = "countC4" + i;
-				final String status = String.valueOf(r.get(i)[0]);
-				final String count = String.valueOf(r.get(i)[1]);
+			final Map<String, String> statusCount = new TreeMap<>();
+			for (final Object[] resultC : this.administratorService.queryC4())
+				statusCount.put(((String) resultC[0]).toUpperCase(), df.format(resultC[1]));
 
-				modelAndView.addObject("sizeC4", r.size());
-				modelAndView.addObject(statusC4String, status);
-				modelAndView.addObject(countC4String, count);
-			}
+			modelAndView.addObject("statusCount", statusCount);
 
 		} catch (final Exception e) {
 			modelAndView.addObject("sizeC4", 0);

@@ -2,6 +2,8 @@
 package services;
 
 import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.transaction.Transactional;
 
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Request;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -34,14 +37,15 @@ public class AdministratorServiceTest extends AbstractTest {
 
 		try {
 
-			final Collection<Object[]> result = this.administratorService.queryC2();
+			final Collection<Object[]> result = this.administratorService.queryC4();
 			Assert.notNull(result);
 			System.out.println(result);
-
+			final Map<Integer, Double> statusCount = new TreeMap<>();
 			for (final Object[] objects : result) {
-				for (int i = 0; i < objects.length; i++)
-					System.out.println(String.valueOf(objects[i]));
-				System.out.println("--------------");
+				final domain.Request r1 = (Request) objects[0];
+				statusCount.put(r1.getId(), Double.valueOf(String.valueOf(objects[1])));
+
+				System.out.println(r1 + " --- " + statusCount.get(r1.getId()));
 
 			}
 			System.out.println("¡Exito!");
@@ -50,5 +54,4 @@ public class AdministratorServiceTest extends AbstractTest {
 			System.out.println("¡Fallo," + e.getMessage() + "!");
 		}
 	}
-
 }

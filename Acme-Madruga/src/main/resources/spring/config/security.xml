@@ -87,9 +87,7 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/enrolment/brotherhood/dropout.do"
 			access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/**"
-			access="hasRole('NONE')" />
-			
+
 		
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
@@ -134,6 +132,9 @@
 
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
+			
+		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
+			access="hasRole('ADMIN')" />
 		
 			
 			
