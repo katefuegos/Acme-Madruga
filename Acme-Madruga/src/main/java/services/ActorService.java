@@ -66,11 +66,11 @@ public class ActorService {
 	}
 
 	public Actor findByUserAccount(final UserAccount userAccount) {
-		return this.actorRepository.findByUserAccount(userAccount.getId());
+		return this.actorRepository.findByUserAccountId(userAccount.getId());
 	}
 	public Actor findPrincipal() {
 		final UserAccount userAccount = LoginService.getPrincipal();
-		return this.actorRepository.findByUserAccount(userAccount.getId());
+		return this.actorRepository.findByUserAccountId(userAccount.getId());
 	}
 	public Collection<Actor> findSpammersActors() {
 		return this.actorRepository.findSpammersActors();
@@ -88,5 +88,9 @@ public class ActorService {
 		actor.getUserAccount().setEnabled(true);
 		this.save(actor);
 
+	}
+
+	public Actor findByUserAccountId(final int id) {
+		return this.actorRepository.findByUserAccountId(id);
 	}
 }

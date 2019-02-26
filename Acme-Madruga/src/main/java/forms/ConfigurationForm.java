@@ -45,9 +45,9 @@ public class ConfigurationForm {
 
 	private Collection<String>	positiveWordsEN;
 
-	private Collection<String>	positionES;
-
 	private Collection<String>	positionEN;
+
+	private Collection<String>	positionES;
 
 
 	//Constructor------------------------------------------------------------------
@@ -250,20 +250,6 @@ public class ConfigurationForm {
 
 	@NotEmpty
 	@ElementCollection
-	public Collection<String> getPositionEN() {
-
-		return this.positionEN;
-
-	}
-
-	public void setPositionEN(final Collection<String> positionEN) {
-
-		this.positionEN = positionEN;
-
-	}
-
-	@NotEmpty
-	@ElementCollection
 	public Collection<String> getPositionES() {
 
 		return this.positionES;
@@ -273,6 +259,20 @@ public class ConfigurationForm {
 	public void setPositionES(final Collection<String> positionES) {
 
 		this.positionES = positionES;
+
+	}
+
+	@NotEmpty
+	@ElementCollection
+	public Collection<String> getPositionEN() {
+
+		return this.positionEN;
+
+	}
+
+	public void setPositionEN(final Collection<String> positionEN) {
+
+		this.positionEN = positionEN;
 
 	}
 

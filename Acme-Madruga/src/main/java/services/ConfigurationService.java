@@ -47,8 +47,7 @@ public class ConfigurationService {
 		final Map<String, Collection<String>> negativeWords = new HashMap<>();
 		final Map<String, Collection<String>> positiveWords = new HashMap<>();
 		final Map<String, String> welcomeMessage = new HashMap<>();
-		final Map<String, Collection<String>> positionEN = new HashMap<>();
-		final Map<String, Collection<String>> positionES = new HashMap<>();
+		final Map<String, Collection<String>> positions = new HashMap<>();
 		final Collection<String> priorities = new ArrayList<String>();
 
 		configuration.setFinderMaxResults(21);
@@ -61,8 +60,7 @@ public class ConfigurationService {
 		configuration.setNegativeWords(negativeWords);
 		configuration.setPositiveWords(positiveWords);
 		configuration.setPriorities(priorities);
-		configuration.setPositionEN(positionEN);
-		configuration.setPositionES(positionES);
+		configuration.setPositions(positions);
 
 		return configuration;
 	}

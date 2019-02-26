@@ -1398,7 +1398,7 @@
 				<value>NEUTRAL</value>
 			</list>
 		</property>
-		<property name="positionEN">
+		<property name="positions">
 			<map>
 				<entry>
 					<key>
@@ -1415,13 +1415,9 @@
 				<value>Officer</value>
 			</list>
 			</entry>
-			</map>
-		</property>
-		<property name="positionES">
-		<map>
 			<entry>
 				<key>
-					<value>EN</value>
+					<value>ES</value>
 				</key>
 
 			<list>
