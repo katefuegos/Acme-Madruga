@@ -45,7 +45,14 @@
 	<form:input path="pictures" />
 	<form:errors cssClass="error" path="pictures" />
 	<br />
-
+	
+	<form:label path="brotherhood">
+		<spring:message code="floaat.brotherhood"></spring:message>
+	</form:label>
+	<form:select id="brotherhood" path="brotherhood">
+		<form:options items="${brotherhoods}" />
+	</form:select>
+	<br />
 		<input type="submit" name="save"
 			value="<spring:message code="floaat.save" />" 
 			onclick="javascript: relativeRedir('float/brotherhood/list.do');" />
