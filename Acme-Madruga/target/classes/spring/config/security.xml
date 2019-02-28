@@ -139,6 +139,12 @@
 
 		<security:intercept-url pattern="/actor/administrator/list.do"
 			access="hasRole('ADMIN')" />
+					<security:intercept-url pattern="/actor/administrator/listSpammers.do"
+			access="hasRole('ADMIN')" />
+					<security:intercept-url pattern="/actor/administrator/findSpammers.do"
+			access="hasRole('ADMIN')" />
+					<security:intercept-url pattern="/actor/administrator/calculatePolarity.do"
+			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/ban.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/unban.do"

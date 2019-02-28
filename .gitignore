@@ -34,3 +34,14 @@ Acme-Madruga/target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme
 Acme-Madruga/target/classes/spring/config/security.xml
 Acme-Madruga/target/classes/Entities.map
 *.properties
+Acme-Madruga/target/classes/Entities.map
+Acme-Madruga/target/classes/Entities.map
+Acme-Madruga/target/classes/PopulateDatabase.xml
+Acme-Madruga/target/classes/repositories/ActorRepository.class
+Acme-Madruga/target/classes/repositories/MessageRepository.class
+Acme-Madruga/target/classes/services/ActorService.class
+Acme-Madruga/target/classes/services/MessageService.class
+Acme-Madruga/target/classes/spring/config/security.xml
+Acme-Madruga/target/classes/spring/config/i18n-l10n.xml
+Acme-Madruga/target/classes/spring/config/tiles.xml
+Acme-Madruga/target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme-Madruga/pom.properties

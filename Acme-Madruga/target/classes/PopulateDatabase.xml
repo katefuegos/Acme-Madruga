@@ -167,7 +167,7 @@
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="28.2" />
+		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount1" />
 
 	</bean>
@@ -184,7 +184,7 @@
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="28.2" />
+		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount11" />
 
 	</bean>
@@ -201,7 +201,7 @@
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="28.2" />
+		<property name="polarityScore" value="-1.0" />
 		<property name="userAccount" ref="userAccount10" />
 
 	</bean>
@@ -220,7 +220,7 @@
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="18.2" />
+		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="finder" ref="finder1" />
 		<property name="enrolments">
@@ -243,7 +243,7 @@
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="18.2" />
+		<property name="polarityScore" value="-1.0" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="finder" ref="finder2" />
 		<property name="enrolments">
@@ -291,7 +291,7 @@
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="18.2" />
+		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="title" value="Santa Claudia" />
 		<property name="establishementDate" value="2018/01/02 11:12" />
@@ -312,7 +312,7 @@
 		<property name="address" value="C/Calle, 54" />
 		<property name="isSpammer" value="true" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="18.2" />
+		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount8" />
 		<property name="title" value="Santa Felipa" />
 		<property name="establishementDate" value="2018/01/02 11:12" />
@@ -333,7 +333,7 @@
 		<property name="address" value="C/Calle Laraña, 23" />
 		<property name="isSpammer" value="false" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="15.2" />
+		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount10" />
 		<property name="title" value="San Miguel" />
 		<property name="establishementDate" value="2018/07/26 16:17" />
@@ -353,7 +353,7 @@
 		<property name="address" value="C/Calle Sierpes, 1" />
 		<property name="isSpammer" value="false" />
 		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="16.9" />
+		<property name="polarityScore" value="-1.0" />
 		<property name="userAccount" ref="userAccount11" />
 		<property name="title" value="San Adam" />
 		<property name="establishementDate" value="2018/11/21 13:47" />
@@ -970,8 +970,8 @@
 	<!-- Message -->
 
 	<bean id="message1" class="domain.Message">
-		<property name="subject" value="subject1" />
-		<property name="body" value="body1" />
+		<property name="subject" value="mediocre" />
+		<property name="body" value="horrible" />
 		<property name="moment" value="2018/01/02 11:12" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tags1" />
@@ -983,8 +983,8 @@
 
 
 	<bean id="message2" class="domain.Message">
-		<property name="subject" value="subject2" />
-		<property name="body" value="body2" />
+		<property name="subject" value="good" />
+		<property name="body" value="bueno" />
 		<property name="moment" value="2018/02/04 12:12" />
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="tags2" />
@@ -996,20 +996,46 @@
 
 
 	<bean id="message3" class="domain.Message">
-		<property name="subject" value="subject3" />
-		<property name="body" value="body3" />
+		<property name="subject" value="horrible" />
+		<property name="body" value="cialis" />
 		<property name="moment" value="2018/09/09 09:13" />
 		<property name="priority" value="LOW" />
 		<property name="tags" value="tags3" />
-		<property name="box" ref="box2" />
-		<property name="sender" ref="administrator2" />
-		<property name="recipient" ref="administrator1" />
+		<property name="box" ref="outBoxA1" />
+		<property name="sender" ref="administrator1" />
+		<property name="recipient" ref="administrator2" />
 
 	</bean>
 
 
-
 	<bean id="message4" class="domain.Message">
+		<property name="subject" value="horrible" />
+		<property name="body" value="cialis" />
+		<property name="moment" value="2018/04/02 13:33" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags4" />
+		<property name="box" ref="spamBoxA2" />
+		<property name="sender" ref="administrator1" />
+		<property name="recipient" ref="administrator2" />
+
+	</bean>
+	
+	
+	
+	
+	<bean id="message5" class="domain.Message">
+		<property name="subject" value="very good cialis" />
+		<property name="body" value="cialis" />
+		<property name="moment" value="2018/04/02 13:33" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags4" />
+		<property name="box" ref="spamBoxA1" />
+		<property name="sender" ref="administrator2" />
+		<property name="recipient" ref="administrator1" />
+
+	</bean>
+	
+	<bean id="message6" class="domain.Message">
 		<property name="subject" value="subject4" />
 		<property name="body" value="body4" />
 		<property name="moment" value="2018/04/02 13:33" />
@@ -1020,6 +1046,57 @@
 		<property name="recipient" ref="administrator1" />
 
 	</bean>
+	
+	<bean id="message7" class="domain.Message">
+		<property name="subject" value="subject4" />
+		<property name="body" value="body4" />
+		<property name="moment" value="2018/04/02 13:33" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags4" />
+		<property name="box" ref="box1" />
+		<property name="sender" ref="administrator2" />
+		<property name="recipient" ref="administrator1" />
+
+	</bean>
+	
+	
+	<bean id="message8" class="domain.Message">
+		<property name="subject" value="subject4" />
+		<property name="body" value="horrible" />
+		<property name="moment" value="2018/04/02 13:33" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags4" />
+		<property name="box" ref="inBoxB1" />
+		<property name="sender" ref="administrator2" />
+		<property name="recipient" ref="brotherhood1" />
+
+	</bean>
+	
+	
+	<bean id="message9" class="domain.Message">
+		<property name="subject" value="good" />
+		<property name="body" value="mediocre bueno" />
+		<property name="moment" value="2018/04/02 13:33" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags4" />
+		<property name="box" ref="inBoxM1" />
+		<property name="sender" ref="member2" />
+		<property name="recipient" ref="member1" />
+
+	</bean>
+	
+	<bean id="message10" class="domain.Message">
+		<property name="subject" value="subject4" />
+		<property name="body" value="good" />
+		<property name="moment" value="2018/04/02 13:33" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags4" />
+		<property name="box" ref="inBoxM2" />
+		<property name="sender" ref="member1" />
+		<property name="recipient" ref="member2" />
+
+	</bean>
+	
 
 
 	<!-- FINDER -->

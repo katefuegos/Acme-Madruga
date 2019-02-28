@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,6 +16,8 @@ import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Configuration;
+import domain.Message;
 
 @Service
 @Transactional
@@ -22,10 +26,15 @@ public class ActorService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private ActorRepository	actorRepository;
-
+	private ActorRepository			actorRepository;
 
 	// Services-------------------------------------------------
+	@Autowired
+	private MessageService			messageService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
+
 
 	// Constructor----------------------------------------------
 
@@ -89,4 +98,86 @@ public class ActorService {
 		this.save(actor);
 
 	}
+
+	public Collection<Actor> findActorsNegativePolarity() {
+
+		return this.actorRepository.findActorsNegativePolarity();
+
+	}
+
+	public Collection<Actor> asignSpammers() {
+
+		Collection<Actor> result = this.actorRepository.asignSpammersActors();
+
+		final Collection<Actor> actors = new ArrayList<>();
+		for (final Actor actor : result) {
+			actor.setIsSpammer(true);
+			actors.add(actor);
+		}
+		if (!actors.isEmpty())
+			result = this.actorRepository.save(actors);
+		else
+			result = actors;
+
+		return result;
+	}
+	public void updatePolarity() {
+		final Collection<Actor> allActors = this.actorRepository.findAll();
+
+		//final Collection<Actor> actors = new ArrayList<>();
+		for (final Actor actor : allActors)
+			actor.setPolarityScore(this.updateIndividualPoparity(actor));
+
+		this.actorRepository.save(allActors);
+
+	}
+
+	protected Double updateIndividualPoparity(final Actor actor) {
+		Double result = 0.0;
+
+		final Collection<Message> sentMessages = this.messageService.findSentMessage(actor);
+		if (sentMessages != null && !sentMessages.isEmpty()) {
+			// Se obtiene todas las palabras de todos los mensajes de un actor
+			final StringBuilder strBuilder = new StringBuilder();
+
+			for (final Message message : sentMessages) {
+				strBuilder.append(" ");
+				strBuilder.append(message.getSubject());
+				strBuilder.append(" ");
+				strBuilder.append(message.getBody());
+				strBuilder.append(" ");
+				strBuilder.append(message.getTags());
+				strBuilder.append(" ");
+			}
+
+			String comments = strBuilder.toString();
+
+			final Configuration configuration = this.configurationService.findOne();
+
+			final Collection<String> positiveWords = new LinkedList<>();
+			for (final String string : configuration.getPositiveWords().keySet())
+				positiveWords.addAll(configuration.getPositiveWords().get(string));
+
+			final Collection<String> negativeWords = new LinkedList<>();
+			for (final String string : configuration.getNegativeWords().keySet())
+				negativeWords.addAll(configuration.getNegativeWords().get(string));
+
+			comments = comments.toUpperCase();
+
+			double p = 0.0;
+			for (final String positive : positiveWords)
+				if (comments.contains(" " + positive.toUpperCase() + " "))
+					p++;
+
+			double n = 0.0;
+			for (final String negative : negativeWords)
+				if (comments.contains(" " + negative.toUpperCase() + " "))
+					n++;
+			final double total = p + n;
+			if (total != 0.0)
+				result = (p - n) / total;
+		}
+		return result;
+	}
+
 }

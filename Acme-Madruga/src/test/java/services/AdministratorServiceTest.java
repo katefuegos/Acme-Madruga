@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Request;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -39,13 +38,12 @@ public class AdministratorServiceTest extends AbstractTest {
 
 			final Collection<Object[]> result = this.administratorService.queryC4();
 			Assert.notNull(result);
-			System.out.println(result);
-			final Map<Integer, Double> statusCount = new TreeMap<>();
+			final Map<String, Double> statusCount = new TreeMap<>();
 			for (final Object[] objects : result) {
-				final domain.Request r1 = (Request) objects[0];
-				statusCount.put(r1.getId(), Double.valueOf(String.valueOf(objects[1])));
+				final String data1 = (String) objects[0];
+				statusCount.put(data1, (Double) objects[1]);
 
-				System.out.println(r1 + " --- " + statusCount.get(r1.getId()));
+				System.out.println(data1 + " --- " + statusCount.get(data1));
 
 			}
 			System.out.println("¡Exito!");

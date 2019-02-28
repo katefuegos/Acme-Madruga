@@ -264,4 +264,9 @@ public class MessageService {
 		return result;
 	}
 
+	public Collection<Message> findSentMessage(final Actor a) {
+		final Collection<Message> result = this.messageRepository.findSentMessage(a.getId());
+		return result;
+	}
+
 }

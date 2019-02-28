@@ -21,5 +21,15 @@
 		<put-attribute name="title" value="Registrarse como administrador" />
 		<put-attribute name="body" value="/views/administrator/register.jsp" />
 	</definition>
+	
+		<definition name="administrator/actor/list" extends="master.page">
+		<put-attribute name="title" value="Lista de actores" />
+		<put-attribute name="body" value="/views/administrator/list.jsp" />
+	</definition>
+	
+	<definition name="administrator/banneds/list" extends="master.page">
+		<put-attribute name="title" value="Lista de baneados" />
+		<put-attribute name="body" value="/views/administrator/list.jsp" />
+	</definition>
 
 </tiles-definitions>
