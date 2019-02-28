@@ -21,52 +21,38 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="floaat">
+<form:form action="${requestURI}" modelAttribute="area">
 
 
 
-	<form:label path="title">
-		<spring:message code="floaat.title" />
+	<form:label path="name">
+		<spring:message code="area.name" />
 	</form:label>
-	<form:input path="title"/>
-	<form:errors cssClass="error" path="title" />
-	<br />
-
-	<form:label path="description">
-		<spring:message code="floaat.description" />
-	</form:label>
-	<form:input path="description"/>
-	<form:errors cssClass="error" path="description" />
+	<form:input path="name"/>
+	<form:errors cssClass="error" path="name" />
 	<br />
 
 	<form:label path="pictures">
-		<spring:message code="floaat.pictures" />
+		<spring:message code="area.pictures" />
 	</form:label>
 	<form:input path="pictures" />
 	<form:errors cssClass="error" path="pictures" />
 	<br />
-	
-	<form:label path="brotherhood">
-		<spring:message code="floaat.brotherhood"></spring:message>
-	</form:label>
-	<form:select id="brotherhood" path="brotherhood">
-		<form:options items="${brotherhoods}" />
-	</form:select>
-	<br />
+
 		<input type="submit" name="save"
-			value="<spring:message code="floaat.save" />" 
-			onclick="javascript: relativeRedir('float/brotherhood/list.do');" />
+			value="<spring:message code="area.save" />" 
+			onclick="javascript: relativeRedir('area/administrator/list.do');" />
 			
-		<jstl:if test="${floaat.id != 0}">
+		<jstl:if test="${area.id != 0}">
 
 		<input type="submit" name="delete"
-			value="<spring:message code="floaat.delete" />"
-			onclick="javascript: return confirm('<spring:message code="floaat.confirm.delete" />')" />
+			value="<spring:message code="area.delete" />"
+			onclick="javascript: return confirm('<spring:message code="area.confirm.delete" />')" />
 
 		</jstl:if>
 
 		<input type="button" name="cancel"
-			value="<spring:message code="floaat.cancel" />"
-			onclick="javascript: relativeRedir('float/brotherhood/list.do');" />
+			value="<spring:message code="area.cancel" />"
+			onclick="javascript: relativeRedir('area/administrator/list.do');" />
 
 </form:form>

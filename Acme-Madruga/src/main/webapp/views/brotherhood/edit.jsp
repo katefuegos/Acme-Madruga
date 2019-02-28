@@ -21,35 +21,29 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="configuration" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+<form:form action="${requestURI}" modelAttribute="area">
 
-	<security:authorize access="hasRole('ADMIN')">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="ticker" />
+	<form:hidden path="brotherhood" />
+	<form:hidden path="floats" />
+	
 
+	<form:label path="area">
+		<spring:message code="brotherhood.area"></spring:message>
+	</form:label>
+	<form:select id="area" path="area">
+		<form:options items="${areas}" />
+	</form:select>
+	<br />
+	
+		<input type="submit" name="save"
+			value="<spring:message code="area.save" />" 
+			onclick="javascript: relativeRedir('index.do');" />
+			
+		<input type="button" name="cancel"
+			value="<spring:message code="area.cancel" />"
+			onclick="javascript: relativeRedir('index.do');" />
 
-		<display:column titleKey="configuration.edit">
-			<a
-				href="configuration/administrator/edit.do?configurationId=${row.id}">
-				<spring:message code="configuration.edit" />
-			</a>
-		</display:column>
-		
-		<display:column property= "positions.ES" titleKey="configuration.positionES">
-		</display:column>
-		
-		<display:column property= "positions.EN" titleKey="configuration.positionEN">
-		</display:column>
-
-	</security:authorize>
-
-	<display:column titleKey="configuration.details">
-		<a
-			href="configuration/administrator/show.do?configurationId=${row.id}">
-			<spring:message code="configuration.show" />
-		</a>
-	</display:column>
-
-
-
-</display:table>
-<br />
+</form:form>

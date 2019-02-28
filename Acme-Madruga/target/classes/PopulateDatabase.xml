@@ -1475,7 +1475,13 @@
 				<value>NEUTRAL</value>
 			</list>
 		</property>
-		<property name="positionEN">
+		<property name="positions">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+
 			<list>
 				<value>President</value>
 				<value>Vice President</value>
@@ -1485,8 +1491,12 @@
 				<value>Fundraiser</value>
 				<value>Officer</value>
 			</list>
-		</property>
-		<property name="positionES">
+			</entry>
+			<entry>
+				<key>
+					<value>ES</value>
+				</key>
+
 			<list>
 				<value>Presidente</value>
 				<value>Vicepresidente</value>
@@ -1496,6 +1506,8 @@
 				<value>Promotor</value>
 				<value>Vocal</value>
 			</list>
+			</entry>
+			</map>
 		</property>
 
 

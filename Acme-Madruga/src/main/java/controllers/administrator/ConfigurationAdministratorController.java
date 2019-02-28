@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-
 import services.ConfigurationService;
+import controllers.AbstractController;
 import domain.Configuration;
 import forms.ConfigurationForm;
 
@@ -99,6 +98,10 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		configurationForm.setNegativeWordsEN(configuration.getNegativeWords().get("EN"));
 
+		configurationForm.setPositionES(configuration.getPositions().get("ES"));
+
+		configurationForm.setPositionEN(configuration.getPositions().get("EN"));
+
 		result = this.createEditModelAndView(configurationForm);
 
 		return result;
@@ -146,6 +149,10 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		configurationForm.setNegativeWordsEN(configuration.getNegativeWords().get("EN"));
 
+		configurationForm.setPositionES(configuration.getPositions().get("ES"));
+
+		configurationForm.setPositionEN(configuration.getPositions().get("EN"));
+
 		result = this.createEditModelAndView(configurationForm);
 
 		result.addObject("isRead", true);
@@ -187,6 +194,11 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		negativeWords.put("ES", configurationForm.getNegativeWordsES());
 
+		final Map<String, Collection<String>> positions = new HashMap<String, Collection<String>>();
+		positions.put("EN", configurationForm.getPositionEN());
+
+		positions.put("ES", configurationForm.getPositionES());
+
 		if (binding.hasErrors())
 
 			result = this.createEditModelAndView(configurationForm);
@@ -214,6 +226,8 @@ public class ConfigurationAdministratorController extends AbstractController {
 				configuration.setPositiveWords(positiveWords);
 
 				configuration.setNegativeWords(negativeWords);
+
+				configuration.setPositions(positions);
 
 				this.configurationService.save(configuration);
 

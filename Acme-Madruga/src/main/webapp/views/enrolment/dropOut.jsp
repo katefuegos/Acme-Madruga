@@ -28,7 +28,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="enrolment.cancel" />"
-		onclick="javascript: relativeRedir('enrolment/brotherhood/list.do');" />
+		onclick="javascript: relativeRedir('enrolment/member/list.do');" />
 	<br />
 
 </form:form>

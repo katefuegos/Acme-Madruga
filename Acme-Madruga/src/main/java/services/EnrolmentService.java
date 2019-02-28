@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -21,11 +22,12 @@ public class EnrolmentService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private EnrolmentRepository enrolmentRepository;
+	private EnrolmentRepository	enrolmentRepository;
 
 	// Services-------------------------------------------------
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
-	private BrotherhoodService brotherhoodService;
 
 	// Constructor----------------------------------------------
 
@@ -41,8 +43,7 @@ public class EnrolmentService {
 		res.setMomentEnrol(momentEnrol);
 		res.setPositionEN("");
 		res.setPositionES("");
-		res.setBrotherhood(this.brotherhoodService
-				.findByUserAccountId(LoginService.getPrincipal().getId()));
+		res.setBrotherhood(this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()));
 
 		return res;
 	}
@@ -58,12 +59,9 @@ public class EnrolmentService {
 
 	public Enrolment save(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString()
-				.contains("BROTHERHOOD"),
-				"SOLO UN BROTHERHOOD PUEDE CREAR/EDITAR PROCESSION");
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("BROTHERHOOD"), "SOLO UN BROTHERHOOD PUEDE CREAR/EDITAR PROCESSION");
 		if (enrolment.getId() == 0)
-			enrolment
-					.setMomentEnrol(new Date(System.currentTimeMillis() - 1000));
+			enrolment.setMomentEnrol(new Date(System.currentTimeMillis() - 1000));
 		final Enrolment saved = this.enrolmentRepository.save(enrolment);
 		return saved;
 	}
@@ -74,16 +72,14 @@ public class EnrolmentService {
 
 	// Other Methods--------------------------------------------
 
-	public Collection<Enrolment> findByBrotherhoodAndAccepted(
-			final int brotherhoodId) {
+	public Collection<Enrolment> findByBrotherhoodAndAccepted(final int brotherhoodId) {
 		Assert.notNull(brotherhoodId);
-		return this.enrolmentRepository
-				.findByBrotherhoodAndAccepted(brotherhoodId);
+		return this.enrolmentRepository.findByBrotherhoodAndAccepted(brotherhoodId);
 	}
 
-	public Collection<Enrolment> findByBrotherhood(int brotherhoodId) {
+	public Collection<Enrolment> findByBrotherhood(final int brotherhoodId) {
 		Assert.notNull(brotherhoodId);
-		return enrolmentRepository.findByBrotherhood(brotherhoodId);
+		return this.enrolmentRepository.findByBrotherhood(brotherhoodId);
 	}
 
 }

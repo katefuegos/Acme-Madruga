@@ -54,6 +54,8 @@ public class SocialProfileController extends AbstractController {
 		ModelAndView result;
 		SocialProfile socialProfile;
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		//final Actor a = this.actorService.findByUserAccountId(LoginService.getPrincipal().getId());
+
 		socialProfile = this.socialProfileService.create(a.getId());
 		result = this.createEditModelAndView(socialProfile);
 
