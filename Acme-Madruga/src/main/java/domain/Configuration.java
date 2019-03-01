@@ -32,7 +32,6 @@ public class Configuration extends DomainEntity {
 	private Collection<String>				priorities;
 	private Map<String, Collection<String>>	positions;
 
-
 	@NotEmpty
 	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
 	public Map<String, Collection<String>> getPositions() {

@@ -267,8 +267,6 @@ public class EnrolmentController extends AbstractController {
 			final String message) {
 		final ModelAndView result;
 
-		Map<String, Collection<String>> positions = configurationService.findAll().iterator().next().getPositions();
-
 		result = new ModelAndView("enrolment/dropout");
 		result.addObject("message1", message);
 		result.addObject(
@@ -276,7 +274,7 @@ public class EnrolmentController extends AbstractController {
 				"enrolment/brotherhood/dropout.do?enrolmentId="
 						+ enrolment.getId());
 		result.addObject("enrolment", enrolment);
-		result.addObject("positions", positions);
+		//result.addObject("positions", positions);
 		return result;
 	}
 }
