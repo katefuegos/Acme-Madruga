@@ -27,4 +27,7 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	@Query("select a from Actor a where a.polarityScore = -1.0")
 	Collection<Actor> findActorsNegativePolarity();
 
+	@Query("select a from Actor a where a.isSpammer = true OR a.polarityScore = -1.0")
+	Collection<Actor> findPossibleBanned();
+
 }
