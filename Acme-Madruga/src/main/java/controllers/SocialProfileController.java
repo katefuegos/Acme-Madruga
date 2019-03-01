@@ -1,8 +1,7 @@
+
 package controllers;
 
 import java.util.Collection;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,20 +23,19 @@ import domain.SocialProfile;
 public class SocialProfileController extends AbstractController {
 
 	@Autowired
-	private SocialProfileService socialProfileService;
+	private SocialProfileService	socialProfileService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
+
 
 	// List------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView;
 
-		final Collection<SocialProfile> socialProfiles = this.socialProfileService
-				.findAll();
-		final Actor a = this.actorService.findByUserAccount(LoginService
-				.getPrincipal());
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAll();
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
 		modelAndView = new ModelAndView("socialProfile/list");
 		modelAndView.addObject("socialProfiles", socialProfiles);
@@ -52,7 +50,7 @@ public class SocialProfileController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		SocialProfile socialProfile = socialProfileService.create();
+		final SocialProfile socialProfile = this.socialProfileService.create();
 
 		result = this.createEditModelAndView(socialProfile);
 
@@ -65,13 +63,11 @@ public class SocialProfileController extends AbstractController {
 	public ModelAndView show(@RequestParam final int socialProfileId) {
 		final ModelAndView modelAndView = new ModelAndView("socialProfile/edit");
 
-		final SocialProfile socialProfile = this.socialProfileService
-				.findOne(socialProfileId);
+		final SocialProfile socialProfile = this.socialProfileService.findOne(socialProfileId);
 
 		modelAndView.addObject("socialProfile", socialProfile);
 		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI",
-				"/socialProfile/show.do?socialProfileId=" + socialProfileId);
+		modelAndView.addObject("requestURI", "/socialProfile/show.do?socialProfileId=" + socialProfileId);
 
 		return modelAndView;
 
@@ -83,8 +79,7 @@ public class SocialProfileController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int socialProfileId) {
 		final ModelAndView result;
 		SocialProfile socialProfile;
-		final Actor a = this.actorService.findByUserAccount(LoginService
-				.getPrincipal());
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		socialProfile = this.socialProfileService.findOne(socialProfileId);
 		Assert.notNull(socialProfile);
 		result = this.createEditModelAndView(socialProfile);
@@ -94,8 +89,7 @@ public class SocialProfileController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final SocialProfile socialProfile,
-			final BindingResult binding) {
+	public ModelAndView save(final SocialProfile socialProfile, final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -103,11 +97,13 @@ public class SocialProfileController extends AbstractController {
 			result = this.createEditModelAndView(socialProfile);
 		else
 			try {
+				//Llamar al reconstruct y rellenarlos con los atributos que
+				//no se han modificado en la vista
+				this.socialProfileService.reconstruct(socialProfile, binding);
 				this.socialProfileService.save(socialProfile);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(socialProfile,
-						"socialProfile.commit.error");
+				result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
 
 			}
 		return result;
@@ -115,8 +111,7 @@ public class SocialProfileController extends AbstractController {
 
 	// CreateModelAndView
 
-	protected ModelAndView createEditModelAndView(
-			final SocialProfile socialProfile) {
+	protected ModelAndView createEditModelAndView(final SocialProfile socialProfile) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(socialProfile, null);
@@ -125,8 +120,7 @@ public class SocialProfileController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(
-			final SocialProfile socialProfile, final String message) {
+	protected ModelAndView createEditModelAndView(final SocialProfile socialProfile, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("socialProfile/edit");
