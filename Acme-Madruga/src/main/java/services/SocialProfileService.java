@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ActorRepository;
 import repositories.SocialProfileRepository;
 import security.LoginService;
 import security.UserAccount;
@@ -23,8 +22,9 @@ public class SocialProfileService {
 
 	@Autowired
 	private SocialProfileRepository	repository;
+	
 	@Autowired
-	private ActorRepository			actorRepository;
+	private ActorService actorService;
 
 
 	// Services
@@ -36,9 +36,9 @@ public class SocialProfileService {
 	}
 
 	// Simple CRUD methods -------------------------------------------------------------------
-	public SocialProfile create(final int actorId) {
+	public SocialProfile create() {
 		final SocialProfile profile = new SocialProfile();
-		profile.setActor(this.actorRepository.findOne(actorId));
+		profile.setActor(actorService.findByUserAccountId(LoginService.getPrincipal().getId()));
 		return profile;
 	}
 
