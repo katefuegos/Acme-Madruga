@@ -21,6 +21,7 @@ import services.RequestService;
 import controllers.AbstractController;
 import domain.Procession;
 import domain.Request;
+import forms.RequestForm;
 
 @Controller
 @RequestMapping("/request/brotherhood")
@@ -93,6 +94,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		Request request = requestService.findOne(requestId);
 		final int brotherhoodId = this.brotherhoodService.findByUserAccountId(
 				LoginService.getPrincipal().getId()).getId();
+		RequestForm requestForm = new RequestForm();
 		try {
 			Assert.notNull(brotherhoodId);
 			Assert.isTrue(request != null);
@@ -108,9 +110,11 @@ public class RequestBrotherhoodController extends AbstractController {
 					coluumn = coluumn + 1;
 				}
 			}
-			request.setRoow(roow);
-			request.setColuumn(coluumn);
-			result = this.acceptModelAndView(request);
+			requestForm.setId(request.getId());
+			requestForm.setRoow(roow);
+			requestForm.setColuumn(coluumn);
+			requestForm.setReasonReject("notNeeded");
+			result = this.acceptModelAndView(requestForm);
 
 		} catch (final Throwable e) {
 
@@ -125,26 +129,30 @@ public class RequestBrotherhoodController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message1",
 						"request.error.statusNoPendingAccept");
 			else
-				result = this.acceptModelAndView(request, "commit.error");
+				result = this.acceptModelAndView(requestForm, "commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/accept", method = RequestMethod.POST, params = "save")
-	public ModelAndView acceptSave(@Valid final Request request,
+	public ModelAndView acceptSave(@Valid final RequestForm requestForm,
 			final BindingResult binding, final RedirectAttributes redirectAttrs) {
 		ModelAndView result = null;
 		final int brotherhoodId = this.brotherhoodService.findByUserAccountId(
 				LoginService.getPrincipal().getId()).getId();
 		if (binding.hasErrors())
-			result = this.acceptModelAndView(request, "commit.error");
+			result = this.acceptModelAndView(requestForm, "commit.error");
 		else
 			try {
 				Assert.notNull(brotherhoodId);
-				Assert.isTrue(request != null);
-				Assert.isTrue(request.getProcession().getBrotherhood().getId() == brotherhoodId);
-
+				Assert.isTrue(requestForm != null);
+				Assert.isTrue(requestService.findOne(requestForm.getId()).getProcession().getBrotherhood().getId() == brotherhoodId);
+				
+				Request request = requestService.findOne(requestForm.getId());
+				request.setColuumn(requestForm.getColuumn());
+				request.setRoow(requestForm.getRoow());
+				
 				request.setStatus("APPROVED");
 				this.requestService.save(request);
 
@@ -155,14 +163,14 @@ public class RequestBrotherhoodController extends AbstractController {
 
 				result = new ModelAndView(
 						"redirect:/request/brotherhood/list.do");
-				if (request == null)
+				if (requestService.findOne(requestForm.getId()) == null)
 					redirectAttrs.addFlashAttribute("message1",
 							"request.error.unexist");
-				else if (!(request.getProcession().getBrotherhood().getId() == brotherhoodId))
+				else if (!(requestService.findOne(requestForm.getId()).getProcession().getBrotherhood().getId() == brotherhoodId))
 					redirectAttrs.addFlashAttribute("message1",
 							"request.error.nobrotherhood");
 				else
-					result = this.acceptModelAndView(request, "commit.error");
+					result = this.acceptModelAndView(requestForm, "commit.error");
 			}
 		return result;
 	}
@@ -175,13 +183,15 @@ public class RequestBrotherhoodController extends AbstractController {
 		Request request = requestService.findOne(requestId);
 		final int brotherhoodId = this.brotherhoodService.findByUserAccountId(
 				LoginService.getPrincipal().getId()).getId();
+		RequestForm requestForm = new RequestForm();
 		try {
 			Assert.notNull(brotherhoodId);
 			Assert.isTrue(request != null);
 			Assert.isTrue(request.getProcession().getBrotherhood().getId() == brotherhoodId);
 			Assert.isTrue(request.getStatus().equals("PENDING"));
+			requestForm.setId(request.getId());
 
-			result = this.declineModelAndView(request);
+			result = this.declineModelAndView(requestForm);
 
 		} catch (final Throwable e) {
 
@@ -193,25 +203,29 @@ public class RequestBrotherhoodController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message1",
 						"request.error.nobrotherhood");
 			else if (request.getStatus() != "PENDING")
-				result = this.declineModelAndView(request,
+				result = this.declineModelAndView(requestForm,
 						"request.error.reasonRejectNeed");
 			else
-				result = this.declineModelAndView(request, "commit.error");
+				result = this.declineModelAndView(requestForm, "commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/decline", method = RequestMethod.POST, params = "save")
-	public ModelAndView declineSave(@Valid final Request request,
+	public ModelAndView declineSave(@Valid final RequestForm requestForm,
 			final BindingResult binding, final RedirectAttributes redirectAttrs) {
 		ModelAndView result = null;
 		final int brotherhoodId = this.brotherhoodService.findByUserAccountId(
 				LoginService.getPrincipal().getId()).getId();
 		if (binding.hasErrors())
-			result = this.acceptModelAndView(request, "commit.error");
+			result = this.declineModelAndView(requestForm, "commit.error");
 		else
 			try {
+				Request request = requestService.findOne(requestForm.getId());
+				Assert.notNull(request);
+				request.setReasonReject(requestForm.getReasonReject());
+				
 				Assert.notNull(brotherhoodId);
 				Assert.isTrue(request != null);
 				Assert.isTrue(request.getProcession().getBrotherhood().getId() == brotherhoodId);
@@ -226,55 +240,55 @@ public class RequestBrotherhoodController extends AbstractController {
 
 				result = new ModelAndView(
 						"redirect:/request/brotherhood/list.do");
-				if (request == null)
+				if (requestService.findOne(requestForm.getId()) == null)
 					redirectAttrs.addFlashAttribute("message1",
 							"request.error.unexist");
-				else if (!(request.getProcession().getBrotherhood().getId() == brotherhoodId))
+				else if (!(requestService.findOne(requestForm.getId()).getProcession().getBrotherhood().getId() == brotherhoodId))
 					redirectAttrs.addFlashAttribute("message1",
 							"request.error.nobrotherhood");
-				else if (request.getReasonReject().equals(""))
-					result = this.declineModelAndView(request,
+				else if (requestForm.getReasonReject().equals(""))
+					result = this.declineModelAndView(requestForm,
 							"request.error.reasonRejectNeed");
 				else
-					result = this.declineModelAndView(request, "commit.error");
+					result = this.declineModelAndView(requestForm, "commit.error");
 			}
 		return result;
 	}
 
 	// METHODS
-	protected ModelAndView acceptModelAndView(final Request request) {
+	protected ModelAndView acceptModelAndView(final RequestForm requestForm) {
 		ModelAndView result;
-		result = this.acceptModelAndView(request, null);
+		result = this.acceptModelAndView(requestForm, null);
 		return result;
 	}
 
-	protected ModelAndView acceptModelAndView(final Request request,
+	protected ModelAndView acceptModelAndView(final RequestForm requestForm,
 			final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("request/accept");
 		result.addObject("message1", message);
 		result.addObject("requestURI",
-				"request/brotherhood/accept.do?requestId=" + request.getId());
-		result.addObject("request", request);
+				"request/brotherhood/accept.do?requestId=" + requestForm.getId());
+		result.addObject("requestForm", requestForm);
 		return result;
 	}
 
-	protected ModelAndView declineModelAndView(final Request request) {
+	protected ModelAndView declineModelAndView(final RequestForm requestForm) {
 		ModelAndView result;
-		result = this.declineModelAndView(request, null);
+		result = this.declineModelAndView(requestForm, null);
 		return result;
 	}
 
-	protected ModelAndView declineModelAndView(final Request request,
+	protected ModelAndView declineModelAndView(final RequestForm requestForm,
 			final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("request/decline");
 		result.addObject("message1", message);
 		result.addObject("requestURI",
-				"request/brotherhood/decline.do?requestId=" + request.getId());
-		result.addObject("request", request);
+				"request/brotherhood/decline.do?requestId=" + requestForm.getId());
+		result.addObject("requestForm", requestForm);
 		return result;
 	}
 
