@@ -1180,22 +1180,8 @@
 
 	<bean id="enrolment1" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/02/02 11:12" />
-		<property name="position">
-			<map>
-				<entry>
-					<key>
-						<value>EN</value>
-					</key>
-					<value>President</value>
-				</entry>
-				<entry>
-					<key>
-						<value>ES</value>
-					</key>
-					<value>Presidente</value>
-				</entry>
-			</map>
-		</property>
+		<property name="positionEN" value="President" />
+		<property name="positionES" value="Presidente" />
 		<property name="momentDropOut" value="2018/03/02 11:12" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="accepted" value="true" />
@@ -1204,88 +1190,32 @@
 
 	<bean id="enrolment2" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:12" />
-		<property name="position">
-			<map>
-				<entry>
-					<key>
-						<value>EN</value>
-					</key>
-					<value>Secretary</value>
-				</entry>
-				<entry>
-					<key>
-						<value>ES</value>
-					</key>
-					<value>Secretario</value>
-				</entry>
-			</map>
-		</property>
+		<property name="positionEN" value="Secretary" />
+		<property name="positionES" value="Secretario" />	
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="true" />
 	</bean>
 
 	<bean id="enrolment3" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:13" />
-		<property name="position">
-			<map>
-				<entry>
-					<key>
-						<value>EN</value>
-					</key>
-					<value>Secretary</value>
-				</entry>
-				<entry>
-					<key>
-						<value>ES</value>
-					</key>
-					<value>Secretario</value>
-				</entry>
-			</map>
-		</property>
+		<property name="positionEN" value="Secretary" />
+		<property name="positionES" value="Secretario" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="false" />
 	</bean>
 
 	<bean id="enrolment4" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:15" />
-		<property name="position">
-			<map>
-				<entry>
-					<key>
-						<value>EN</value>
-					</key>
-					<value>President</value>
-				</entry>
-				<entry>
-					<key>
-						<value>ES</value>
-					</key>
-					<value>Presidente</value>
-				</entry>
-			</map>
-		</property>
+		<property name="positionEN" value="Treasure" />
+		<property name="positionES" value="Tesorero" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="true" />
 	</bean>
 
 	<bean id="enrolment5" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/03/02 13:12" />
-		<property name="position">
-			<map>
-				<entry>
-					<key>
-						<value>EN</value>
-					</key>
-					<value>President</value>
-				</entry>
-				<entry>
-					<key>
-						<value>ES</value>
-					</key>
-					<value>Presidente</value>
-				</entry>
-			</map>
-		</property>
+		<property name="positionEN" value="Secretary" />
+		<property name="positionES" value="Secretario" />
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="accepted" value="false" />
 	</bean>
