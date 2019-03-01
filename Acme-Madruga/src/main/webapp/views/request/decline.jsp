@@ -10,13 +10,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="request">
+<form:form action="${requestURI}" modelAttribute="requestForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="member" />
-	<form:hidden path="procession" />
-	<form:hidden path="status" />
 	<form:hidden path="roow" />
 	<form:hidden path="coluumn" />
 

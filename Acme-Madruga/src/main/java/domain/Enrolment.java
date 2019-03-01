@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Date;
@@ -21,10 +20,10 @@ public class Enrolment extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Date	momentEnrol;
-	private String	positionEN;
-	private String	positionES;
-	private Date	momentDropOut;
+	private Date momentEnrol;
+	private String positionEN;
+	private String positionES;
+	private Date momentDropOut;
 	private boolean accepted;
 
 	@NotNull
@@ -75,10 +74,8 @@ public class Enrolment extends DomainEntity {
 		this.momentDropOut = momentDropOut;
 	}
 
-
 	// Relationships ---------------------------------------------------------
-	private Brotherhood	brotherhood;
-
+	private Brotherhood brotherhood;
 
 	@Valid
 	@ManyToOne(optional = false)

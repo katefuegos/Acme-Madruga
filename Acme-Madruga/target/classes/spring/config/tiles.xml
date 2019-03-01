@@ -21,13 +21,15 @@
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 
-		
+
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/member/tiles.xml</value>
 		<value>/views/procession/tiles.xml</value>
 		<value>/views/floaat/tiles.xml</value>
 		<value>/views/configuration/tiles.xml</value>
 		<value>/views/socialProfile/tiles.xml</value>
+		<value>/views/request/tiles.xml</value>
+		<value>/views/enrolment/tiles.xml</value>
 
 	</util:list>
 

@@ -3,6 +3,7 @@ package controllers.Brotherhood;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -266,15 +267,6 @@ public class EnrolmentController extends AbstractController {
 			final String message) {
 		final ModelAndView result;
 
-		Collection<String> positionsES = new ArrayList<String>();
-		positionsES.add("HOLA");
-		positionsES.add("ADIOS");
-		positionsES.add("PORFAVOR");
-		Collection<String> positionsEN = new ArrayList<String>();
-		positionsEN.add("HELLO");
-		positionsEN.add("GOODBYE");
-		positionsEN.add("PLEASE");
-
 		result = new ModelAndView("enrolment/dropout");
 		result.addObject("message1", message);
 		result.addObject(
@@ -282,8 +274,7 @@ public class EnrolmentController extends AbstractController {
 				"enrolment/brotherhood/dropout.do?enrolmentId="
 						+ enrolment.getId());
 		result.addObject("enrolment", enrolment);
-		result.addObject("positionsEN", positionsEN);
-		result.addObject("positionsES", positionsES);
+		//result.addObject("positions", positions);
 		return result;
 	}
 }

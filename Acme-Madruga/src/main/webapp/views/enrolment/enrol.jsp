@@ -22,16 +22,8 @@
 	<form:label path="positionEN">
 		<spring:message code="enrolment.positionEN"></spring:message>
 	</form:label>
-	<form:select id="positionEN" path="positionEN">
-		<form:options items="${positionsEN}" />
-	</form:select>
-	<br />
-
-	<form:label path="positionES">
-		<spring:message code="enrolment.positionES"></spring:message>
-	</form:label>
-	<form:select id="positionES" path="positionES">
-		<form:options items="${positionsES}" />
+	<form:select id="position" path="positionEN">
+		<form:options items="${positions}" />
 	</form:select>
 	<br />
 

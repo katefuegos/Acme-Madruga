@@ -34,6 +34,8 @@
 		<value>/views/floaat/messages</value>
 		<value>/views/configuration/messages</value>
 		<value>/views/socialProfile/messages</value>
+		<value>/views/request/messages</value>
+		<value>/views/enrolment/messages</value>
 	</util:list>
 
 </beans>

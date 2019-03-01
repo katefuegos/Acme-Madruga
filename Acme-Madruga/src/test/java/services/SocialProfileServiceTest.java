@@ -38,10 +38,11 @@ public class SocialProfileServiceTest extends AbstractTest {
 		System.out.println("========== testCreate() ==========");
 
 		final int actorId = this.getEntityId("admin");
+		authenticate("admin");
 
 		try {
 
-			final SocialProfile SocialProfile = this.SocialProfileService.create(actorId);
+			final SocialProfile SocialProfile = this.SocialProfileService.create();
 
 			SocialProfile.setLinkSocialNetwork("http://SocialProfile7.com");
 
@@ -96,10 +97,11 @@ public class SocialProfileServiceTest extends AbstractTest {
 		final Collection<SocialProfile> SocialProfiles;
 
 		final int refereeId = this.getEntityId("administrator1");
+		authenticate("admin");
 
 		try {
 
-			SocialProfile = this.SocialProfileService.create(refereeId);
+			SocialProfile = this.SocialProfileService.create();
 
 			SocialProfile.setLinkSocialNetwork("http://SocialProfile10.com");
 

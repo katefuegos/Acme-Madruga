@@ -41,8 +41,6 @@ public class EnrolmentService {
 		final Enrolment res = new Enrolment();
 		final Date momentEnrol = new Date();
 		res.setMomentEnrol(momentEnrol);
-		res.setPositionEN("");
-		res.setPositionES("");
 		res.setBrotherhood(this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()));
 
 		return res;

@@ -19,6 +19,7 @@ import services.ProcessionService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Procession;
+import forms.ProcessionForm;
 
 @Controller
 @RequestMapping("/procession/brotherhood")
@@ -63,28 +64,34 @@ public class ProcessionBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Procession procession = this.processionService.create();
+		ProcessionForm processionForm = new ProcessionForm();
+		processionForm.setId(0);
 
-		result = this.createModelAndView(procession);
+		result = this.createModelAndView(processionForm);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Procession procession,
+	public ModelAndView save(@Valid final ProcessionForm processionForm,
 			final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createModelAndView(procession, "commit.error");
+			result = this.createModelAndView(processionForm, "commit.error");
 		else
 			try {
+				Procession procession = processionService.create();
+				procession.setTitle(processionForm.getTitle());
+				procession.setDescription(processionForm.getDescription());
+				procession.setMoment(processionForm.getMoment());
+				procession.setDraftMode(processionForm.isDraftMode());
 				this.processionService.save(procession);
 
 				result = new ModelAndView(
 						"redirect:/procession/brotherhood/list.do");
 			} catch (final Throwable oops) {
-				result = this.createModelAndView(procession, "commit.error");
+				result = this.createModelAndView(processionForm, "commit.error");
 			}
 		return result;
 	}
@@ -103,7 +110,16 @@ public class ProcessionBrotherhoodController extends AbstractController {
 			Assert.isTrue(processionService.findOne(processionId)
 					.getBrotherhood().equals(b));
 			Assert.isTrue(processionService.findOne(processionId).isDraftMode());
-			result = this.editModelAndView(procession);
+			
+			
+			ProcessionForm processionForm = new ProcessionForm();
+			processionForm.setId(procession.getId());
+			processionForm.setDescription(procession.getDescription());
+			processionForm.setDraftMode(procession.isDraftMode());
+			processionForm.setMoment(procession.getMoment());
+			processionForm.setTitle(procession.getTitle());
+			
+			result = this.editModelAndView(processionForm);
 
 		} catch (final Throwable e) {
 
@@ -124,48 +140,54 @@ public class ProcessionBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save2(@Valid final Procession procession,
+	public ModelAndView save2(@Valid final ProcessionForm processionForm,
 			final BindingResult binding) {
 		ModelAndView result;
 		final Brotherhood b = this.brotherhoodService
 				.findByUserAccountId(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
-			result = this.editModelAndView(procession, "commit.error");
+			result = this.editModelAndView(processionForm, "commit.error");
 		else
 			try {
-				Assert.notNull(procession);
-				Assert.isTrue(procession.getBrotherhood().equals(b));
-				Assert.isTrue(procession.isDraftMode());
+				Assert.notNull(processionForm);
+				Assert.isTrue(processionService.findOne(processionForm.getId()).getBrotherhood().equals(b));
+				Assert.isTrue(processionForm.isDraftMode());
+				Procession procession = processionService.findOne(processionForm.getId());
+				procession.setDescription(processionForm.getDescription());
+				procession.setDraftMode(processionForm.isDraftMode());
+				procession.setMoment(processionForm.getMoment());
+				procession.setTitle(processionForm.getTitle());
+				
 				this.processionService.save(procession);
 
 				result = new ModelAndView(
 						"redirect:/procession/brotherhood/list.do");
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(procession, "commit.error");
+				result = this.editModelAndView(processionForm, "commit.error");
 			}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Procession procession,
+	public ModelAndView delete(@Valid final ProcessionForm processionForm,
 			final BindingResult binding) {
 		ModelAndView result;
 		final Brotherhood b = this.brotherhoodService
 				.findByUserAccountId(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
-			result = this.editModelAndView(procession, "commit.error");
+			result = this.editModelAndView(processionForm, "commit.error");
 		else
 			try {
-				Assert.notNull(procession);
-				Assert.isTrue(procession.getBrotherhood().equals(b));
-				Assert.isTrue(procession.isDraftMode());
-				this.processionService.delete(procession);
+				Assert.notNull(processionForm);
+				Assert.isTrue(processionService.findOne(processionForm.getId()).getBrotherhood().equals(b));
+				Assert.isTrue(processionForm.isDraftMode());
+				this.processionService.delete(processionService.findOne(processionForm.getId()));
 
 				result = new ModelAndView(
 						"redirect:/procession/brotherhood/list.do");
 			} catch (final Throwable oops) {
 
-				result = this.editModelAndView(procession, "commit.error");
+				result = this.editModelAndView(processionForm, "commit.error");
 			}
 		return result;
 	}
@@ -182,7 +204,15 @@ public class ProcessionBrotherhoodController extends AbstractController {
 			procession = this.processionService.findOne(processionId);
 			Assert.notNull(procession);
 			Assert.isTrue(procession.getBrotherhood().equals(b));
-			result = this.ShowModelAndView(procession);
+			
+			ProcessionForm processionForm = new ProcessionForm();
+			processionForm.setId(procession.getId());
+			processionForm.setDescription(procession.getDescription());
+			processionForm.setDraftMode(procession.isDraftMode());
+			processionForm.setMoment(procession.getMoment());
+			processionForm.setTitle(procession.getTitle());
+			
+			result = this.ShowModelAndView(processionForm);
 
 		} catch (final Throwable e) {
 
@@ -203,32 +233,32 @@ public class ProcessionBrotherhoodController extends AbstractController {
 	}
 
 	// MODEL
-	protected ModelAndView createModelAndView(final Procession procession) {
+	protected ModelAndView createModelAndView(final ProcessionForm processionForm) {
 		ModelAndView result;
-		result = this.createModelAndView(procession, null);
+		result = this.createModelAndView(processionForm, null);
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final Procession procession,
+	protected ModelAndView createModelAndView(final ProcessionForm processionForm,
 			final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("procession/create");
 		result.addObject("message1", message);
 		result.addObject("requestURI", "procession/brotherhood/create.do");
-		result.addObject("procession", procession);
+		result.addObject("processionForm", processionForm);
 		result.addObject("isRead", false);
 
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final Procession procession) {
+	protected ModelAndView editModelAndView(final ProcessionForm processionForm) {
 		ModelAndView result;
-		result = this.editModelAndView(procession, null);
+		result = this.editModelAndView(processionForm, null);
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final Procession procession,
+	protected ModelAndView editModelAndView(final ProcessionForm processionForm,
 			final String message) {
 		final ModelAndView result;
 
@@ -237,20 +267,20 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		result.addObject(
 				"requestURI",
 				"procession/brotherhood/edit.do?processionId="
-						+ procession.getId());
-		result.addObject("procession", procession);
+						+ processionForm.getId());
+		result.addObject("processionForm", processionForm);
 		result.addObject("isRead", false);
 
 		return result;
 	}
 
-	protected ModelAndView ShowModelAndView(final Procession procession) {
+	protected ModelAndView ShowModelAndView(final ProcessionForm processionForm) {
 		ModelAndView result;
-		result = this.ShowModelAndView(procession, null);
+		result = this.ShowModelAndView(processionForm, null);
 		return result;
 	}
 
-	protected ModelAndView ShowModelAndView(Procession procession,
+	protected ModelAndView ShowModelAndView(ProcessionForm processionForm,
 			final String message) {
 		final ModelAndView result;
 
@@ -259,8 +289,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		result.addObject(
 				"requestURI",
 				"procession/brotherhood/show.do?processionId="
-						+ procession.getId());
-		result.addObject("procession", procession);
+						+ processionForm.getId());
+		result.addObject("processionForm", processionForm);
 		result.addObject("isRead", true);
 
 		return result;

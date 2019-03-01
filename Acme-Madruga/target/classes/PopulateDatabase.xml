@@ -194,8 +194,8 @@
 		<property name="finder" ref="finder1" />
 		<property name="enrolments">
 			<list>
-			<ref bean="enrolment2" />
-			<ref bean="enrolment5" />
+				<ref bean="enrolment2" />
+				<ref bean="enrolment5" />
 			</list>
 		</property>
 	</bean>
@@ -217,7 +217,7 @@
 		<property name="finder" ref="finder2" />
 		<property name="enrolments">
 			<list>
-			<ref bean="enrolment3" />
+				<ref bean="enrolment3" />
 			</list>
 		</property>
 	</bean>
@@ -238,8 +238,8 @@
 		<property name="finder" ref="finder3" />
 		<property name="enrolments">
 			<list>
-			<ref bean="enrolment1" />
-			<ref bean="enrolment4" />
+				<ref bean="enrolment1" />
+				<ref bean="enrolment4" />
 			</list>
 		</property>
 	</bean>
@@ -424,7 +424,7 @@
 		</property>
 		<property name="actor" ref="member2" />
 	</bean>
-	
+
 	<bean id="trashBoxM3" class="domain.Box">
 		<property name="name" value="trash box" />
 		<property name="isSystem" value="true" />
@@ -525,7 +525,7 @@
 		<property name="actor" ref="member2" />
 
 	</bean>
-	
+
 	<bean id="inBoxM3" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystem" value="true" />
@@ -567,7 +567,7 @@
 		<property name="actor" ref="brotherhood2" />
 
 	</bean>
-	
+
 	<bean id="inBoxB3" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystem" value="true" />
@@ -627,7 +627,7 @@
 		<property name="actor" ref="member2" />
 
 	</bean>
-	
+
 	<bean id="outBoxM3" class="domain.Box">
 		<property name="name" value="out box" />
 		<property name="isSystem" value="true" />
@@ -669,7 +669,7 @@
 		<property name="actor" ref="brotherhood2" />
 
 	</bean>
-	
+
 	<bean id="outBoxB3" class="domain.Box">
 		<property name="name" value="out box" />
 		<property name="isSystem" value="true" />
@@ -699,7 +699,7 @@
 	</bean>
 
 	<!-- Spambox -->
-		<bean id="spamBoxM1" class="domain.Box">
+	<bean id="spamBoxM1" class="domain.Box">
 		<property name="name" value="spam box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -726,7 +726,7 @@
 		<property name="actor" ref="member2" />
 
 	</bean>
-	
+
 	<bean id="spamBoxM3" class="domain.Box">
 		<property name="name" value="spam box" />
 		<property name="isSystem" value="true" />
@@ -768,7 +768,7 @@
 		<property name="actor" ref="brotherhood2" />
 
 	</bean>
-	
+
 	<bean id="spamBoxB3" class="domain.Box">
 		<property name="name" value="spam box" />
 		<property name="isSystem" value="true" />
@@ -878,10 +878,10 @@
 		<property name="recipient" ref="brotherhood4" />
 
 	</bean>
-	
-	
-	
-	
+
+
+
+
 	<bean id="message5" class="domain.Message">
 		<property name="subject" value="very good cialis" />
 		<property name="body" value="cialis" />
@@ -893,7 +893,7 @@
 		<property name="recipient" ref="brotherhood3" />
 
 	</bean>
-	
+
 	<bean id="message6" class="domain.Message">
 		<property name="subject" value="subject4" />
 		<property name="body" value="body4" />
@@ -905,7 +905,7 @@
 		<property name="recipient" ref="brotherhood3" />
 
 	</bean>
-	
+
 	<bean id="message7" class="domain.Message">
 		<property name="subject" value="subject4" />
 		<property name="body" value="body4" />
@@ -917,8 +917,8 @@
 		<property name="recipient" ref="brotherhood3" />
 
 	</bean>
-	
-	
+
+
 	<bean id="message8" class="domain.Message">
 		<property name="subject" value="subject4" />
 		<property name="body" value="horrible horrible" />
@@ -930,8 +930,8 @@
 		<property name="recipient" ref="brotherhood1" />
 
 	</bean>
-	
-	
+
+
 	<bean id="message9" class="domain.Message">
 		<property name="subject" value="good" />
 		<property name="body" value="mediocre bueno" />
@@ -943,7 +943,7 @@
 		<property name="recipient" ref="member1" />
 
 	</bean>
-	
+
 	<bean id="message10" class="domain.Message">
 		<property name="subject" value="good" />
 		<property name="body" value="mediocre bueno" />
@@ -967,7 +967,7 @@
 		<property name="recipient" ref="member2" />
 
 	</bean>
-	
+
 
 
 	<!-- FINDER -->
@@ -1180,8 +1180,22 @@
 
 	<bean id="enrolment1" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/02/02 11:12" />
-		<property name="positionEN" value="Secretary" />
-		<property name="positionES" value="Secretario" />
+		<property name="position">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>President</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Presidente</value>
+				</entry>
+			</map>
+		</property>
 		<property name="momentDropOut" value="2018/03/02 11:12" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="accepted" value="true" />
@@ -1190,32 +1204,88 @@
 
 	<bean id="enrolment2" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:12" />
-		<property name="positionEN" value="President" />
-		<property name="positionES" value="Presidente" />
+		<property name="position">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Secretary</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Secretario</value>
+				</entry>
+			</map>
+		</property>
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="true" />
 	</bean>
 
 	<bean id="enrolment3" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:13" />
-		<property name="positionEN" value="Secretary" />
-		<property name="positionES" value="Secretario" />
+		<property name="position">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Secretary</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Secretario</value>
+				</entry>
+			</map>
+		</property>
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="false" />
 	</bean>
 
 	<bean id="enrolment4" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:15" />
-		<property name="positionEN" value="Treasure" />
-		<property name="positionES" value="Tesorero" />
+		<property name="position">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>President</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Presidente</value>
+				</entry>
+			</map>
+		</property>
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="true" />
 	</bean>
 
 	<bean id="enrolment5" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/03/02 13:12" />
-		<property name="positionEN" value="Secretary" />
-		<property name="positionES" value="Secretario" />
+		<property name="position">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>President</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Presidente</value>
+				</entry>
+			</map>
+		</property>
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="accepted" value="false" />
 	</bean>
@@ -1353,36 +1423,32 @@
 						<value>EN</value>
 					</key>
 
-			<list>
-				<value>President</value>
-				<value>Vice President</value>
-				<value>Secretary</value>
-				<value>Treasure</value>
-				<value>Historian</value>
-				<value>Fundraiser</value>
-				<value>Officer</value>
-			</list>
-			</entry>
-			<entry>
-				<key>
-					<value>ES</value>
-				</key>
+					<list>
+						<value>President</value>
+						<value>Vice President</value>
+						<value>Secretary</value>
+						<value>Treasure</value>
+						<value>Historian</value>
+						<value>Fundraiser</value>
+						<value>Officer</value>
+					</list>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
 
-			<list>
-				<value>Presidente</value>
-				<value>Vicepresidente</value>
-				<value>Secretario</value>
-				<value>Tesorero</value>
-				<value>Historiador</value>
-				<value>Promotor</value>
-				<value>Vocal</value>
-			</list>
-			</entry>
+					<list>
+						<value>Presidente</value>
+						<value>Vicepresidente</value>
+						<value>Secretario</value>
+						<value>Tesorero</value>
+						<value>Historiador</value>
+						<value>Promotor</value>
+						<value>Vocal</value>
+					</list>
+				</entry>
 			</map>
 		</property>
-
-
 	</bean>
-
-
 </beans>
