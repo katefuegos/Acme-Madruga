@@ -85,4 +85,9 @@ public class RequestService {
 		Assert.notNull(processionId);
 		return requestRepository.findRequestByProcessionId(processionId);
 	}
+
+	public Collection<Request> findRequestByMemberId(int memberId) {
+		Assert.notNull(memberId);
+		return requestRepository.findRequestByMemberId(memberId);
+	}
 }

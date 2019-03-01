@@ -28,10 +28,10 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="actor/administrator/list.do"><spring:message
-						code="master.page.administrator.actors" /></a></li>
+								code="master.page.administrator.actors" /></a></li>
 					<li><a href="configuration/administrator/list.do"><spring:message
-						code="master.page.administrator.configuration" /></a></li>
-					
+								code="master.page.administrator.configuration" /></a></li>
+
 				</ul></li>
 		</security:authorize>
 
@@ -52,7 +52,7 @@
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 					<li><a class="fNiv" href="socialProfile/list.do"><spring:message
-						code="master.page.socialProfile" /></a></li>
+								code="master.page.socialProfile" /></a></li>
 				</ul></li>
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
 						code="master.page.brotherhood" /></a></li>
@@ -82,6 +82,10 @@
 						code="master.page.enrolment" /></a></li>
 		</security:authorize>
 
+		<security:authorize access="hasRole('MEMBER')">
+			<li><a class="fNiv" href="request/member/listMember.do"><spring:message
+						code="master.page.myRequest" /></a></li>
+		</security:authorize>
 
 
 
