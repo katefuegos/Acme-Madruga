@@ -10,24 +10,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="procession">
+<form:form action="${requestURI}" modelAttribute="processionForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="name" />
-	<form:hidden path="middleName" />
-	<form:hidden path="surname" />
-	<form:hidden path="photo" />
-	<form:hidden path="email" />
-	<form:hidden path="phone" />
-	<form:hidden path="address" />
-	<form:hidden path="isSpammer" />
-	<form:hidden path="isBanned" />
-	<form:hidden path="polarityScore" />
-	<form:hidden path="title" />
-	<form:hidden path="establishmentDate" />
-	<form:hidden path="pictures" />
-
+	
 	<form:label path="title">
 		<spring:message code="procession.title" />:
 	</form:label>
