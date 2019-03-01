@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,10 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
 import domain.Configuration;
+import domain.Enrolment;
+import domain.Member;
 import domain.Message;
 
 @Service
@@ -35,6 +41,18 @@ public class ActorService {
 	@Autowired
 	private ConfigurationService	configurationService;
 
+	@Autowired
+	private MemberService			memberService;
+
+	@Autowired
+	private BoxService				boxService;
+
+	@Autowired
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
 
 	// Constructor----------------------------------------------
 
@@ -44,9 +62,21 @@ public class ActorService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Actor create() {
-		final Actor res = new Actor();
-		return res;
+	public Actor create(final String authority) {
+		final Actor actor = new Actor();
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+
+		final Authority a = new Authority();
+		a.setAuthority(authority);
+		authorities.add(a);
+		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
+		actor.setUserAccount(userAccount);
+		actor.setIsBanned(false);
+		actor.setIsSpammer(false);
+		actor.setPolarityScore(0.);
+		return actor;
 	}
 
 	public List<Actor> findAll() {
@@ -161,12 +191,12 @@ public class ActorService {
 			final Configuration configuration = this.configurationService.findOne();
 
 			final Collection<String> positiveWords = new LinkedList<>();
-			for (final String string : configuration.getPositiveWords().keySet()){
+			for (final String string : configuration.getPositiveWords().keySet()) {
 				positiveWords.removeAll(configuration.getPositiveWords().get(string));
 				positiveWords.addAll(configuration.getPositiveWords().get(string));
 			}
 			final Collection<String> negativeWords = new LinkedList<>();
-			for (final String string : configuration.getNegativeWords().keySet()){
+			for (final String string : configuration.getNegativeWords().keySet()) {
 				negativeWords.removeAll(configuration.getNegativeWords().get(string));
 				negativeWords.addAll(configuration.getNegativeWords().get(string));
 			}
@@ -200,6 +230,98 @@ public class ActorService {
 
 	public Actor findByUserAccountId(final int id) {
 		return this.actorRepository.findByUserAccountId(id);
+	}
+
+	public void update(final Actor actor) {
+
+		Assert.notNull(actor);
+
+		final Collection<Authority> authorities = actor.getUserAccount().getAuthorities();
+		final Authority member = new Authority();
+		member.setAuthority(Authority.MEMBER);
+		final Authority brotherhood = new Authority();
+		brotherhood.setAuthority(Authority.BROTHERHOOD);
+		final Authority admin = new Authority();
+		admin.setAuthority(Authority.ADMIN);
+
+		if (authorities.contains(member)) {
+			Member memb = null;
+			if (actor.getId() != 0)
+				memb = this.memberService.findOne(actor.getId());
+			else {
+				memb = this.memberService.create();
+				memb.setUserAccount(actor.getUserAccount());
+				// TODO adaptar a requisitos
+			}
+
+			memb.setName(actor.getName());
+			memb.setSurname(actor.getSurname());
+			memb.setMiddleName(actor.getMiddleName());
+			memb.setAddress(actor.getAddress());
+			memb.setEmail(actor.getEmail());
+			memb.setIsBanned(actor.getIsBanned());
+			memb.setIsSpammer(actor.getIsSpammer());
+			memb.setPolarityScore(actor.getPolarityScore());
+			memb.setPhone(actor.getPhone());
+			memb.setPhoto(actor.getPhoto());
+			final Collection<Enrolment> enrols = new ArrayList<>();
+			memb.setEnrolments(enrols);
+
+			final Actor actor1 = this.memberService.save(memb);
+			this.boxService.addSystemBox(actor1);
+
+		} else if (authorities.contains(brotherhood)) {
+			Brotherhood brother = null;
+			if (actor.getId() != 0)
+				brother = this.brotherhoodService.findOne(actor.getId());
+			else {
+				brother = this.brotherhoodService.create();
+				brother.setUserAccount(actor.getUserAccount());
+
+			}
+
+			brother.setName(actor.getName());
+			brother.setSurname(actor.getSurname());
+			brother.setMiddleName(actor.getMiddleName());
+			brother.setAddress(actor.getAddress());
+			brother.setEmail(actor.getEmail());
+			brother.setIsBanned(actor.getIsBanned());
+			brother.setIsSpammer(actor.getIsSpammer());
+			brother.setPolarityScore(actor.getPolarityScore());
+			brother.setPhone(actor.getPhone());
+			brother.setPhoto(actor.getPhoto());
+			brother.setTitle("");
+			brother.setPictures("");
+			final Date currentDate = new Date();
+			brother.setEstablishementDate(currentDate);
+
+			final Actor actor1 = this.brotherhoodService.save(brother);
+			this.boxService.addSystemBox(actor1);
+
+		} else if (authorities.contains(admin)) {
+			Administrator administrator = null;
+			if (actor.getId() != 0)
+				administrator = this.administratorService.findOne(actor.getId());
+			else {
+				administrator = this.administratorService.create();
+				administrator.setUserAccount(actor.getUserAccount());
+			}
+
+			administrator.setName(actor.getName());
+			administrator.setSurname(actor.getSurname());
+			administrator.setMiddleName(actor.getMiddleName());
+			administrator.setAddress(actor.getAddress());
+			administrator.setEmail(actor.getEmail());
+			administrator.setIsBanned(actor.getIsBanned());
+			administrator.setIsSpammer(actor.getIsSpammer());
+			administrator.setPolarityScore(actor.getPolarityScore());
+			administrator.setPhone(actor.getPhone());
+			administrator.setPhoto(actor.getPhoto());
+
+			final Actor actor1 = this.administratorService.save(administrator);
+			this.boxService.addSystemBox(actor1);
+		}
+
 	}
 
 }
