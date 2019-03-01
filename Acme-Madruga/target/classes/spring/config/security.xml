@@ -146,6 +146,7 @@
 		<security:intercept-url pattern="/actor/administrator/list.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/listSpammers.do"
+					<security:intercept-url pattern="/actor/administrator/listBanneds.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/findSpammers.do"
 			access="hasRole('ADMIN')" />

@@ -2,8 +2,6 @@
 package controllers.administrator;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,14 +38,9 @@ public class ActorAdministratorController extends AbstractController {
 	public ModelAndView listBanneds() {
 		final ModelAndView modelAndView;
 
-		final Collection<Actor> spammers = this.actorService.findSpammersActors();
-		final Collection<Actor> actorPolarity = this.actorService.findActorsNegativePolarity();
-		final Set<Actor> actors = new TreeSet<>();
-		if (actorPolarity != null && !actorPolarity.isEmpty()) {
-			actors.addAll(spammers);
-			actors.addAll(actorPolarity);
-		}
-		modelAndView = this.listCalculateModelAndView(actors, true);
+		final Collection<Actor> banneds = this.actorService.findPossibleBanned();
+
+		modelAndView = this.listCalculateModelAndView(banneds, true);
 
 		modelAndView.addObject("requestURI", "actor/administrator/listBanneds.do");
 		return modelAndView;
@@ -71,15 +64,15 @@ public class ActorAdministratorController extends AbstractController {
 		final Actor actor = this.actorService.findOne(actorId);
 		try {
 			Assert.notNull(actor);
-			Assert.isTrue((actor.getIsBanned() == false) && (actor.getIsSpammer() == true));
+			Assert.isTrue((actor.getIsBanned() == false) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0)));
 			this.actorService.ban(actor);
-			modelAndView = new ModelAndView("redirect:listCalculateModelAndView.do");
+			modelAndView = new ModelAndView("redirect:listBanneds.do");
 		} catch (final Exception e) {
-			modelAndView = new ModelAndView("redirect:listCalculateModelAndView.do");
+			modelAndView = new ModelAndView("redirect:listBanneds.do");
 
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message", "actor.error.unexist");
-			else if (!((actor.getIsBanned() == false) && (actor.getIsSpammer() == true)))
+			else if (!((actor.getIsBanned() == false) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0))))
 				redirectAttrs.addFlashAttribute("message", "actor.error.toBan");
 		}
 
@@ -98,34 +91,32 @@ public class ActorAdministratorController extends AbstractController {
 			Assert.notNull(actor);
 			Assert.isTrue((actor.getIsBanned() == true) && (actor.getIsSpammer() == true));
 			this.actorService.unban(actor);
-			modelAndView = new ModelAndView("redirect:listCalculateModelAndView.do");
+			modelAndView = new ModelAndView("redirect:listBanneds.do");
 
 		} catch (final Exception e) {
-			modelAndView = new ModelAndView("redirect:listCalculateModelAndView.do");
+			modelAndView = new ModelAndView("redirect:listBanneds.do");
 
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message", "actor.error.unexist");
-			else if (!((actor.getIsBanned() == true) && (actor.getIsSpammer() == true)))
+			else if (!((actor.getIsBanned() == true) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0))))
 				redirectAttrs.addFlashAttribute("message", "actor.error.toUnban");
 		}
 
 		return modelAndView;
 
 	}
-
 	@RequestMapping(value = "/findSpammers", method = RequestMethod.GET)
 	public ModelAndView find() {
 		ModelAndView modelAndView;
 		try {
 			this.actorService.asignSpammers();
-			modelAndView = this.listCalculateModelAndView(this.actorService.findAll(), false, "actor.commit.ok");
+			modelAndView = new ModelAndView("redirect:listBanneds.do");
 		} catch (final Exception e) {
-			modelAndView = this.listCalculateModelAndView(this.actorService.findAll(), false, "actor.commit.error");
+			modelAndView = new ModelAndView("redirect:listBanneds.do");
 		}
 
 		return modelAndView;
 	}
-
 	// Polarity 
 
 	@RequestMapping(value = "/calculatePolarity", method = RequestMethod.GET)

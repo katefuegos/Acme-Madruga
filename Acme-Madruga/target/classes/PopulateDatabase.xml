@@ -165,47 +165,16 @@
 		<property name="email" value="elena@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
-		<property name="isSpammer" value="true" />
+		<property name="isSpammer" value="false" />
 		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount1" />
 
 	</bean>
 
-	<bean id="administrator1" class="domain.Administrator">
+	
 
-		<property name="name" value="Elena" />
-		<property name="middleName" value="Diva" />
-		<property name="surname" value="Sa" />
-		<property name="photo"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-		<property name="email" value="elena@gmail.com" />
-		<property name="phone" value="+34(456)123456789" />
-		<property name="address" value="C/Calle, 54" />
-		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="0.0" />
-		<property name="userAccount" ref="userAccount11" />
-
-	</bean>
-
-	<bean id="administrator2" class="domain.Administrator">
-
-		<property name="name" value="Elena" />
-		<property name="middleName" value="super admin" />
-		<property name="surname" value="Sa" />
-		<property name="photo"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-		<property name="email" value="elenasuperadmin@gmail.com" />
-		<property name="phone" value="+34(456)123456789" />
-		<property name="address" value="C/Calle, 54" />
-		<property name="isSpammer" value="true" />
-		<property name="isBanned" value="false" />
-		<property name="polarityScore" value="-1.0" />
-		<property name="userAccount" ref="userAccount10" />
-
-	</bean>
-
+	
 	<!-- Members -->
 
 	<bean id="member1" class="domain.Member">
@@ -218,7 +187,7 @@
 		<property name="email" value="claudia@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
-		<property name="isSpammer" value="true" />
+		<property name="isSpammer" value="false" />
 		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount4" />
@@ -241,7 +210,7 @@
 		<property name="email" value="claudia@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
-		<property name="isSpammer" value="true" />
+		<property name="isSpammer" value="false" />
 		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="-1.0" />
 		<property name="userAccount" ref="userAccount5" />
@@ -289,7 +258,7 @@
 		<property name="email" value="claudia@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
-		<property name="isSpammer" value="true" />
+		<property name="isSpammer" value="false" />
 		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount7" />
@@ -310,7 +279,7 @@
 		<property name="email" value="claudia@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 54" />
-		<property name="isSpammer" value="true" />
+		<property name="isSpammer" value="false" />
 		<property name="isBanned" value="false" />
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount8" />
@@ -366,7 +335,7 @@
 
 		<property name="nick" value="Manolete"></property>
 		<property name="nameSocialNetwork" value="Twitter"></property>
-		<property name="actor" ref="administrator1" />
+		<property name="actor" ref="brotherhood3" />
 		<property name="linkSocialNetwork" value="https://profile.es/"></property>
 	</bean>
 
@@ -469,33 +438,6 @@
 		<property name="actor" ref="member3" />
 	</bean>
 
-	<bean id="trashBoxA1" class="domain.Box">
-		<property name="name" value="trash box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="administrator1" />
-
-	</bean>
-
-	<bean id="trashBoxA2" class="domain.Box">
-		<property name="name" value="trash box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="administrator2" />
-
-	</bean>
 
 	<bean id="trashBoxB1" class="domain.Box">
 		<property name="name" value="trash box" />
@@ -555,33 +497,6 @@
 
 	<!-- Inbox -->
 
-	<bean id="inBoxA1" class="domain.Box">
-		<property name="name" value="in box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="administrator1" />
-
-	</bean>
-
-	<bean id="inBoxA2" class="domain.Box">
-		<property name="name" value="in box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="administrator2" />
-
-	</bean>
 
 	<bean id="inBoxM1" class="domain.Box">
 		<property name="name" value="in box" />
@@ -683,33 +598,7 @@
 
 	<!-- Outbox -->
 
-	<bean id="outBoxA1" class="domain.Box">
-		<property name="name" value="out box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="administrator1" />
-
-	</bean>
-
-	<bean id="outBoxA2" class="domain.Box">
-		<property name="name" value="out box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="administrator2" />
-
-	</bean>
+	
 
 	<bean id="outBoxM1" class="domain.Box">
 		<property name="name" value="out box" />
@@ -907,39 +796,9 @@
 		<property name="actor" ref="brotherhood4" />
 
 	</bean>
-
-
-	<bean id="spamBoxA1" class="domain.Box">
-		<property name="name" value="spam box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="administrator1" />
-
-	</bean>
-
-
-	<bean id="spamBoxA2" class="domain.Box">
-
-		<property name="name" value="spam box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="administrator2" />
-	</bean>
-
-
+	
+	
+	
 	<!-- BOX -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="box1" />
@@ -951,7 +810,7 @@
 		<property name="rootbox">
 			<null />
 		</property>
-		<property name="actor" ref="administrator1" />
+		<property name="actor" ref="brotherhood3" />
 	</bean>
 
 
@@ -964,7 +823,7 @@
 			</list>
 		</property>
 		<property name="rootbox" ref="box1" />
-		<property name="actor" ref="administrator1" />
+		<property name="actor" ref="brotherhood3" />
 	</bean>
 
 	<!-- Message -->
@@ -976,8 +835,8 @@
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tags1" />
 		<property name="box" ref="box1" />
-		<property name="sender" ref="administrator2" />
-		<property name="recipient" ref="administrator1" />
+		<property name="sender" ref="brotherhood4" />
+		<property name="recipient" ref="brotherhood3" />
 	</bean>
 
 
@@ -989,8 +848,8 @@
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="tags2" />
 		<property name="box" ref="box2" />
-		<property name="sender" ref="administrator2" />
-		<property name="recipient" ref="administrator1" />
+		<property name="sender" ref="brotherhood4" />
+		<property name="recipient" ref="brotherhood3" />
 	</bean>
 
 
@@ -1001,9 +860,9 @@
 		<property name="moment" value="2018/09/09 09:13" />
 		<property name="priority" value="LOW" />
 		<property name="tags" value="tags3" />
-		<property name="box" ref="outBoxA1" />
-		<property name="sender" ref="administrator1" />
-		<property name="recipient" ref="administrator2" />
+		<property name="box" ref="outBoxB4" />
+		<property name="sender" ref="brotherhood3" />
+		<property name="recipient" ref="brotherhood4" />
 
 	</bean>
 
@@ -1014,9 +873,9 @@
 		<property name="moment" value="2018/04/02 13:33" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tags4" />
-		<property name="box" ref="spamBoxA2" />
-		<property name="sender" ref="administrator1" />
-		<property name="recipient" ref="administrator2" />
+		<property name="box" ref="spamBoxB4" />
+		<property name="sender" ref="brotherhood3" />
+		<property name="recipient" ref="brotherhood4" />
 
 	</bean>
 
@@ -1029,9 +888,9 @@
 		<property name="moment" value="2018/04/02 13:33" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tags4" />
-		<property name="box" ref="spamBoxA1" />
-		<property name="sender" ref="administrator2" />
-		<property name="recipient" ref="administrator1" />
+		<property name="box" ref="spamBoxB3" />
+		<property name="sender" ref="brotherhood4" />
+		<property name="recipient" ref="brotherhood3" />
 
 	</bean>
 
@@ -1042,8 +901,8 @@
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tags4" />
 		<property name="box" ref="box1" />
-		<property name="sender" ref="administrator2" />
-		<property name="recipient" ref="administrator1" />
+		<property name="sender" ref="brotherhood4" />
+		<property name="recipient" ref="brotherhood3" />
 
 	</bean>
 
@@ -1054,20 +913,20 @@
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tags4" />
 		<property name="box" ref="box1" />
-		<property name="sender" ref="administrator2" />
-		<property name="recipient" ref="administrator1" />
+		<property name="sender" ref="brotherhood4" />
+		<property name="recipient" ref="brotherhood3" />
 
 	</bean>
 
 
 	<bean id="message8" class="domain.Message">
 		<property name="subject" value="subject4" />
-		<property name="body" value="horrible" />
+		<property name="body" value="horrible horrible" />
 		<property name="moment" value="2018/04/02 13:33" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tags4" />
 		<property name="box" ref="inBoxB1" />
-		<property name="sender" ref="administrator2" />
+		<property name="sender" ref="brotherhood4" />
 		<property name="recipient" ref="brotherhood1" />
 
 	</bean>
@@ -1086,6 +945,18 @@
 	</bean>
 
 	<bean id="message10" class="domain.Message">
+		<property name="subject" value="good" />
+		<property name="body" value="mediocre bueno" />
+		<property name="moment" value="2018/04/02 13:33" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags4" />
+		<property name="box" ref="inBoxM1" />
+		<property name="sender" ref="member2" />
+		<property name="recipient" ref="member1" />
+
+	</bean>
+	
+	<bean id="message11" class="domain.Message">
 		<property name="subject" value="subject4" />
 		<property name="body" value="good" />
 		<property name="moment" value="2018/04/02 13:33" />

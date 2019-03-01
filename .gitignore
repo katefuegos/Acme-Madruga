@@ -45,5 +45,6 @@ Acme-Madruga/target/classes/spring/config/security.xml
 Acme-Madruga/target/classes/spring/config/i18n-l10n.xml
 Acme-Madruga/target/classes/spring/config/tiles.xml
 Acme-Madruga/target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme-Madruga/pom.properties
+Acme-Madruga/target/classes/PopulateDatabase.xml
 *.class
 *.map

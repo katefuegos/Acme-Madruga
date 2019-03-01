@@ -99,6 +99,11 @@ public class ActorService {
 
 	}
 
+	public Collection<Actor> findPossibleBanned() {
+
+		return this.actorRepository.findPossibleBanned();
+
+	}
 
 	public Collection<Actor> findActorsNegativePolarity() {
 
@@ -156,31 +161,42 @@ public class ActorService {
 			final Configuration configuration = this.configurationService.findOne();
 
 			final Collection<String> positiveWords = new LinkedList<>();
-			for (final String string : configuration.getPositiveWords().keySet())
+			for (final String string : configuration.getPositiveWords().keySet()){
+				positiveWords.removeAll(configuration.getPositiveWords().get(string));
 				positiveWords.addAll(configuration.getPositiveWords().get(string));
-
+			}
 			final Collection<String> negativeWords = new LinkedList<>();
-			for (final String string : configuration.getNegativeWords().keySet())
+			for (final String string : configuration.getNegativeWords().keySet()){
+				negativeWords.removeAll(configuration.getNegativeWords().get(string));
 				negativeWords.addAll(configuration.getNegativeWords().get(string));
-
+			}
 			comments = comments.toUpperCase();
-
+			String cadena = "";
+			final String auxComments = comments;
 			double p = 0.0;
-			for (final String positive : positiveWords)
-				if (comments.contains(" " + positive.toUpperCase() + " "))
+			for (final String positive : positiveWords) {
+				cadena = " " + positive.toUpperCase() + " ";
+				while (comments.indexOf(cadena) > -1) {
+					comments = comments.substring(comments.indexOf(cadena) + (cadena).length(), comments.length());
 					p++;
-
+				}
+				comments = auxComments;
+			}
 			double n = 0.0;
-			for (final String negative : negativeWords)
-				if (comments.contains(" " + negative.toUpperCase() + " "))
+			for (final String negative : negativeWords) {
+				cadena = " " + negative.toUpperCase() + " ";
+				while (comments.indexOf(cadena) > -1) {
+					comments = comments.substring(comments.indexOf(cadena) + (cadena).length(), comments.length());
 					n++;
+				}
+				comments = auxComments;
+			}
 			final double total = p + n;
 			if (total != 0.0)
 				result = (p - n) / total;
 		}
 		return result;
 	}
-
 
 	public Actor findByUserAccountId(final int id) {
 		return this.actorRepository.findByUserAccountId(id);
