@@ -248,6 +248,7 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		result.addObject("requestURI", "procession/brotherhood/create.do");
 		result.addObject("processionForm", processionForm);
 		result.addObject("isRead", false);
+		result.addObject("id", 0);
 
 		return result;
 	}

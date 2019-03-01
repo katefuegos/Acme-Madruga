@@ -55,7 +55,6 @@ public class ProcessionService {
 	}
 
 	public Procession findOne(final Integer processionId) {
-		Assert.notNull(processionId);
 		return this.processionRepository.findOne(processionId);
 	}
 

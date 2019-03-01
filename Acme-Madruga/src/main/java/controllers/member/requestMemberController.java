@@ -22,7 +22,7 @@ import domain.Request;
 
 @Controller
 @RequestMapping("/request/member")
-public class requestMemberController extends AbstractController {
+public class RequestMemberController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
@@ -36,7 +36,7 @@ public class requestMemberController extends AbstractController {
 
 	// Constructor---------------------------------------------------------
 
-	public requestMemberController() {
+	public RequestMemberController() {
 		super();
 	}
 
@@ -107,6 +107,7 @@ public class requestMemberController extends AbstractController {
 		Member member = null;
 		Request request = requestService.create();
 		try {
+			Assert.notNull(procession);
 			member = this.memberService.findByUserAccountId(LoginService
 					.getPrincipal().getId());
 			Assert.notNull(member);
@@ -131,7 +132,7 @@ public class requestMemberController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message1",
 						"request.error.processionUnexists");
 			else
-				result = new ModelAndView("commit.error");
+				result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
 
 		return result;
@@ -158,14 +159,14 @@ public class requestMemberController extends AbstractController {
 		} catch (final Throwable e) {
 
 			result = new ModelAndView("redirect:/request/member/listMember.do");
-			if (request == null)
-				redirectAttrs.addFlashAttribute("message1",
-						"request.error.unexist");
-			if (!request.getMember().equals(member)) {
-				redirectAttrs.addFlashAttribute("message1",
-						"request.error.nobrotherhood");
-			} else
-				result = new ModelAndView("commit.error");
+			// if (request == null)
+			// redirectAttrs.addFlashAttribute("message1",
+			// "request.error.unexist");
+			// if (!request.getMember().equals(member)) {
+			// redirectAttrs.addFlashAttribute("message1",
+			// "request.error.nobrotherhood");
+			// } else
+			//	result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
 
 		return result;
