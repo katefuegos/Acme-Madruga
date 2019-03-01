@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -20,18 +21,19 @@ public class Enrolment extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Date momentEnrol;
-	private String positionEN;
-	private String positionES;
-	private Date momentDropOut;
-	private boolean accepted;
+	private Date	momentEnrol;
+	private String	positionEN;
+	private String	positionES;
+	private Date	momentDropOut;
+	private boolean	accepted;
+
 
 	@NotNull
 	public boolean isAccepted() {
-		return accepted;
+		return this.accepted;
 	}
 
-	public void setAccepted(boolean accepted) {
+	public void setAccepted(final boolean accepted) {
 		this.accepted = accepted;
 	}
 
@@ -74,8 +76,10 @@ public class Enrolment extends DomainEntity {
 		this.momentDropOut = momentDropOut;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Brotherhood brotherhood;
+	private Brotherhood	brotherhood;
+
 
 	@Valid
 	@ManyToOne(optional = false)
