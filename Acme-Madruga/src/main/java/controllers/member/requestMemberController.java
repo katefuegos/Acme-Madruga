@@ -1,3 +1,4 @@
+
 package controllers.member;
 
 import java.util.ArrayList;
@@ -22,21 +23,22 @@ import domain.Request;
 
 @Controller
 @RequestMapping("/request/member")
-public class RequestMemberController extends AbstractController {
+public class requestMemberController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
-	private RequestService requestService;
+	private RequestService		requestService;
 
 	@Autowired
-	private MemberService memberService;
+	private MemberService		memberService;
 
 	@Autowired
-	private ProcessionService processionService;
+	private ProcessionService	processionService;
+
 
 	// Constructor---------------------------------------------------------
 
-	public RequestMemberController() {
+	public requestMemberController() {
 		super();
 	}
 
@@ -46,45 +48,34 @@ public class RequestMemberController extends AbstractController {
 		ModelAndView result;
 
 		try {
-			int memberId = memberService.findByUserAccountId(
-					LoginService.getPrincipal().getId()).getId();
-			Assert.notNull(memberService.findOne(memberId));
+			final int memberId = this.memberService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+			Assert.notNull(this.memberService.findOne(memberId));
 
-			Collection<Request> requests = requestService
-					.findRequestByMemberId(memberId);
+			final Collection<Request> requests = this.requestService.findRequestByMemberId(memberId);
 
-			Collection<Request> requestsPending = new ArrayList<Request>();
-			Collection<Request> requestsRejected = new ArrayList<Request>();
-			Collection<Request> requestsApproved = new ArrayList<Request>();
+			final Collection<Request> requestsPending = new ArrayList<Request>();
+			final Collection<Request> requestsRejected = new ArrayList<Request>();
+			final Collection<Request> requestsApproved = new ArrayList<Request>();
 
-			if (!requests.isEmpty()) {
-				for (Request r : requests) {
-					if (r.getStatus().equals("PENDING")) {
+			if (!requests.isEmpty())
+				for (final Request r : requests)
+					if (r.getStatus().equals("PENDING"))
 						requestsPending.add(r);
-					} else if (r.getStatus().equals("APPROVED")) {
+					else if (r.getStatus().equals("APPROVED"))
 						requestsApproved.add(r);
-					} else {
+					else
 						requestsRejected.add(r);
-					}
-				}
-			}
 
-			Collection<Procession> processions = processionService.findAll();
-			if (!requestsPending.isEmpty()) {
-				for (Request r : requestsPending) {
+			final Collection<Procession> processions = this.processionService.findAll();
+			if (!requestsPending.isEmpty())
+				for (final Request r : requestsPending)
 					processions.remove(r.getProcession());
-				}
-			}
-			if (!requestsRejected.isEmpty()) {
-				for (Request r : requestsRejected) {
+			if (!requestsRejected.isEmpty())
+				for (final Request r : requestsRejected)
 					processions.remove(r.getProcession());
-				}
-			}
-			if (!requestsApproved.isEmpty()) {
-				for (Request r : requestsApproved) {
+			if (!requestsApproved.isEmpty())
+				for (final Request r : requestsApproved)
 					processions.remove(r.getProcession());
-				}
-			}
 
 			result = new ModelAndView("request/listMember");
 			result.addObject("requestsApproved", requestsApproved);
@@ -100,28 +91,23 @@ public class RequestMemberController extends AbstractController {
 
 	// REQUEST
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
-	public ModelAndView request(final int processionId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView request(final int processionId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		Procession procession = processionService.findOne(processionId);
+		final Procession procession = this.processionService.findOne(processionId);
 		Member member = null;
-		Request request = requestService.create();
+		final Request request = this.requestService.create();
 		try {
 			Assert.notNull(procession);
-			member = this.memberService.findByUserAccountId(LoginService
-					.getPrincipal().getId());
+			member = this.memberService.findByUserAccountId(LoginService.getPrincipal().getId());
 			Assert.notNull(member);
-			Collection<Request> requests = requestService
-					.findRequestByMemberId(member.getId());
-			Collection<Procession> processions = new ArrayList<Procession>();
-			if (!requests.isEmpty()) {
-				for (Request r : requests) {
+			final Collection<Request> requests = this.requestService.findRequestByMemberId(member.getId());
+			final Collection<Procession> processions = new ArrayList<Procession>();
+			if (!requests.isEmpty())
+				for (final Request r : requests)
 					processions.add(r.getProcession());
-				}
-			}
 			Assert.isTrue(!processions.contains(procession));
 			request.setProcession(procession);
-			requestService.save(request);
+			this.requestService.save(request);
 
 			result = new ModelAndView("redirect:/request/member/listMember.do");
 
@@ -129,8 +115,7 @@ public class RequestMemberController extends AbstractController {
 
 			result = new ModelAndView("redirect:/request/member/listMember.do");
 			if (procession == null)
-				redirectAttrs.addFlashAttribute("message1",
-						"request.error.processionUnexists");
+				redirectAttrs.addFlashAttribute("message1", "request.error.processionUnexists");
 			else
 				result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
@@ -140,19 +125,17 @@ public class RequestMemberController extends AbstractController {
 
 	// REQUEST
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(final int requestId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView delete(final int requestId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		Request request = requestService.findOne(requestId);
+		final Request request = this.requestService.findOne(requestId);
 		Member member = null;
 		try {
 			Assert.notNull(request);
-			member = this.memberService.findByUserAccountId(LoginService
-					.getPrincipal().getId());
+			member = this.memberService.findByUserAccountId(LoginService.getPrincipal().getId());
 			Assert.notNull(member);
 			Assert.isTrue(request.getMember().getId() == member.getId());
 			Assert.isTrue(request.getStatus().equals("PENDING"));
-			requestService.delete(request);
+			this.requestService.delete(request);
 
 			result = new ModelAndView("redirect:/request/member/listMember.do");
 
