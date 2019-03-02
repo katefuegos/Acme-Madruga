@@ -47,7 +47,7 @@ public class ProcessionController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (brotherhoodService.findOne(brotherhoodId) == null)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"procession.error.unexist");
 		}
 		return result;

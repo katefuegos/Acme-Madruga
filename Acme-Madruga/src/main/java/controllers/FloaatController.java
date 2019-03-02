@@ -52,7 +52,7 @@ public class FloaatController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (this.brotherhoodService.findOne(brotherhoodId) == null)
-				redirectAttrs.addFlashAttribute("message1", "floaat.error.unexist");
+				redirectAttrs.addFlashAttribute("message", "floaat.error.unexist");
 		}
 		return result;
 	}

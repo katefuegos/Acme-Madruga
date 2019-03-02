@@ -126,14 +126,14 @@ public class ProcessionBrotherhoodController extends AbstractController {
 			result = new ModelAndView(
 					"redirect:/procession/brotherhood/list.do");
 			if (processionService.findOne(processionId) == null)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"procession.error.unexist");
 			else if (processionService.findOne(processionId).isDraftMode() == false)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"procession.error.notDraftMode");
 			else if (!processionService.findOne(processionId).getBrotherhood()
 					.equals(b))
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"procession.error.notFromActor");
 		}
 		return result;
@@ -220,14 +220,14 @@ public class ProcessionBrotherhoodController extends AbstractController {
 			result = new ModelAndView(
 					"redirect:/procession/brotherhood/list.do");
 			if (processionService.findOne(processionId) == null)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"procession.error.unexist");
 			else if (processionService.findOne(processionId).isDraftMode() == false)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"procession.error.notDraftMode");
 			else if (!processionService.findOne(processionId).getBrotherhood()
 					.equals(b))
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"procession.error.notFromActor");
 		}
 		return result;
@@ -265,7 +265,7 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		final ModelAndView result;
 
 		result = new ModelAndView("procession/edit");
-		result.addObject("message1", message);
+		result.addObject("message", message);
 		result.addObject(
 				"requestURI",
 				"procession/brotherhood/edit.do?processionId="
@@ -287,7 +287,7 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		final ModelAndView result;
 
 		result = new ModelAndView("procession/show");
-		result.addObject("message1", message);
+		result.addObject("message", message);
 		result.addObject(
 				"requestURI",
 				"procession/brotherhood/show.do?processionId="

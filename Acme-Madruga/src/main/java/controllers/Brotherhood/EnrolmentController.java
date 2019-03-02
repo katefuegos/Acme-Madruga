@@ -3,7 +3,6 @@ package controllers.Brotherhood;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -103,14 +102,14 @@ public class EnrolmentController extends AbstractController {
 
 			result = new ModelAndView("redirect:/enrolment/brotherhood/list.do");
 			if (enrolment == null)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"enrolment.error.unexist");
 			else if (!enrolment.getBrotherhood().equals(
 					brotherhoodService.findOne(brotherhoodId)))
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"enrolment.error.noBrotherhood");
 			else if (enrolment.isAccepted() == true)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"enrolment.error.isAccepted");
 			else
 				result = this.enrolModelAndView(enrolment, "commit.error");
@@ -147,11 +146,11 @@ public class EnrolmentController extends AbstractController {
 				result = new ModelAndView(
 						"redirect:/enrolment/brotherhood/list.do");
 				if (enrolment == null)
-					redirectAttrs.addFlashAttribute("message1",
+					redirectAttrs.addFlashAttribute("message",
 							"enrolment.error.unexist");
 				else if (!enrolment.getBrotherhood().equals(
 						brotherhoodService.findOne(brotherhoodId)))
-					redirectAttrs.addFlashAttribute("message1",
+					redirectAttrs.addFlashAttribute("message",
 							"enrolment.error.noBrotherhood");
 				else
 					result = this.enrolModelAndView(enrolment, "commit.error");
@@ -180,14 +179,14 @@ public class EnrolmentController extends AbstractController {
 
 			result = new ModelAndView("redirect:/enrolment/brotherhood/list.do");
 			if (enrolment == null)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"enrolment.error.unexist");
 			else if (!enrolment.getBrotherhood().equals(
 					brotherhoodService.findOne(brotherhoodId)))
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"enrolment.error.noBrotherhood");
 			else if (enrolment.isAccepted() == false)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"enrolment.error.isNotAccepted");
 			else
 				result = this.dropOutModelAndView(enrolment, "commit.error");
@@ -224,11 +223,11 @@ public class EnrolmentController extends AbstractController {
 				result = new ModelAndView(
 						"redirect:/enrolment/brotherhood/list.do");
 				if (enrolment == null)
-					redirectAttrs.addFlashAttribute("message1",
+					redirectAttrs.addFlashAttribute("message",
 							"enrolment.error.unexist");
 				else if (!enrolment.getBrotherhood().equals(
 						brotherhoodService.findOne(brotherhoodId)))
-					redirectAttrs.addFlashAttribute("message1",
+					redirectAttrs.addFlashAttribute("message",
 							"enrolment.error.noBrotherhood");
 				else
 					result = this
@@ -248,7 +247,7 @@ public class EnrolmentController extends AbstractController {
 		final ModelAndView result;
 
 		result = new ModelAndView("enrolment/enrol");
-		result.addObject("message1", message);
+		result.addObject("message", message);
 		result.addObject(
 				"requestURI",
 				"enrolment/brotherhood/enrol.do?enrolmentId="
@@ -268,7 +267,7 @@ public class EnrolmentController extends AbstractController {
 		final ModelAndView result;
 
 		result = new ModelAndView("enrolment/dropout");
-		result.addObject("message1", message);
+		result.addObject("message", message);
 		result.addObject(
 				"requestURI",
 				"enrolment/brotherhood/dropout.do?enrolmentId="

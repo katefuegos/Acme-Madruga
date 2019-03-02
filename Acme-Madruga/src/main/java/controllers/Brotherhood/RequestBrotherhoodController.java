@@ -120,13 +120,13 @@ public class RequestBrotherhoodController extends AbstractController {
 
 			result = new ModelAndView("redirect:/request/brotherhood/list.do");
 			if (request == null)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"request.error.unexist");
 			else if (!(request.getProcession().getBrotherhood().getId() == brotherhoodId))
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"request.error.nobrotherhood");
 			else if (request.getStatus() != "PENDING")
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"request.error.statusNoPendingAccept");
 			else
 				result = this.acceptModelAndView(requestForm, "commit.error");
@@ -168,11 +168,11 @@ public class RequestBrotherhoodController extends AbstractController {
 				result = new ModelAndView(
 						"redirect:/request/brotherhood/list.do");
 				if (request == null)
-					redirectAttrs.addFlashAttribute("message1",
+					redirectAttrs.addFlashAttribute("message",
 							"request.error.unexist");
 				else if (!(requestService.findOne(requestForm.getId())
 						.getProcession().getBrotherhood().getId() == brotherhoodId))
-					redirectAttrs.addFlashAttribute("message1",
+					redirectAttrs.addFlashAttribute("message",
 							"request.error.nobrotherhood");
 				else if (!(requestService.findRequestByPosition(
 						requestForm.getRoow(), requestForm.getColuumn(),
@@ -208,10 +208,10 @@ public class RequestBrotherhoodController extends AbstractController {
 
 			result = new ModelAndView("redirect:/request/brotherhood/list.do");
 			if (request == null)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"request.error.unexist");
 			else if (!(request.getProcession().getBrotherhood().getId() == brotherhoodId))
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"request.error.nobrotherhood");
 			else if (request.getStatus() != "PENDING")
 				result = this.declineModelAndView(requestForm,
@@ -252,11 +252,11 @@ public class RequestBrotherhoodController extends AbstractController {
 				result = new ModelAndView(
 						"redirect:/request/brotherhood/list.do");
 				if (requestService.findOne(requestForm.getId()) == null)
-					redirectAttrs.addFlashAttribute("message1",
+					redirectAttrs.addFlashAttribute("message",
 							"request.error.unexist");
 				else if (!(requestService.findOne(requestForm.getId())
 						.getProcession().getBrotherhood().getId() == brotherhoodId))
-					redirectAttrs.addFlashAttribute("message1",
+					redirectAttrs.addFlashAttribute("message",
 							"request.error.nobrotherhood");
 				else if (requestForm.getReasonReject().equals(""))
 					result = this.declineModelAndView(requestForm,
@@ -280,7 +280,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		final ModelAndView result;
 
 		result = new ModelAndView("request/accept");
-		result.addObject("message1", message);
+		result.addObject("message", message);
 		result.addObject(
 				"requestURI",
 				"request/brotherhood/accept.do?requestId="
@@ -300,7 +300,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		final ModelAndView result;
 
 		result = new ModelAndView("request/decline");
-		result.addObject("message1", message);
+		result.addObject("message", message);
 		result.addObject(
 				"requestURI",
 				"request/brotherhood/decline.do?requestId="
@@ -308,5 +308,4 @@ public class RequestBrotherhoodController extends AbstractController {
 		result.addObject("requestForm", requestForm);
 		return result;
 	}
-
 }

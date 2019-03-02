@@ -62,7 +62,7 @@ public class MemberController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (brotherhood == null)
-				redirectAttrs.addFlashAttribute("message1",
+				redirectAttrs.addFlashAttribute("message",
 						"member.error.unexist");
 		}
 		return result;
