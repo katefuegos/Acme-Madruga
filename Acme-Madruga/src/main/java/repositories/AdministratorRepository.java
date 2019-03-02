@@ -53,9 +53,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	//B1-A
 	@Query("select b.area.name,count(b)*1.0/(select count(a) from Area a),count(b) from Brotherhood b group by b.area order by 2 desc")
 	Collection<Object[]> queryB1A();
-	//B1-B
-	@Query("select avg(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),min(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),max(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),stddev(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)) from Area b")
-	Object[] queryB1B();
+	//	//B1-B
+	//	@Query("select avg(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),min(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),max(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),stddev(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)) from Area b")
+	//	Object[] queryB1B();
 	//	//B2
 	@Query("select avg(f.processions.size),min(f.processions.size),max(f.processions.size),stddev(f.processions.size) from Finder f")
 	Object[] queryB2();

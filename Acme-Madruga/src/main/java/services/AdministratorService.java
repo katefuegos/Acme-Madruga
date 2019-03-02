@@ -193,12 +193,12 @@ public class AdministratorService {
 		return result;
 	}
 
-	public Object[] queryB1B() {
-		Object[] result = null;
-		result = this.administratorRepository.queryB1B();
-
-		return result;
-	}
+	//	public Object[] queryB1B() {
+	//		Object[] result = null;
+	//		result = this.administratorRepository.queryB1B();
+	//
+	//		return result;
+	//	}
 
 	public Object[] queryB2() {
 		Object[] result = null;
