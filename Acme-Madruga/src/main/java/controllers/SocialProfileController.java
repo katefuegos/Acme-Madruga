@@ -109,6 +109,20 @@ public class SocialProfileController extends AbstractController {
 		return result;
 	}
 
+	//delete
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final SocialProfile socialProfile, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			this.socialProfileService.delete(socialProfile);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
+		}
+		return result;
+	}
+
 	// CreateModelAndView
 
 	protected ModelAndView createEditModelAndView(final SocialProfile socialProfile) {

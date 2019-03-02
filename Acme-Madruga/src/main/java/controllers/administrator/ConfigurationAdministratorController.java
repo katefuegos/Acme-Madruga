@@ -108,6 +108,77 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 	}
 
+	//delete
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final ConfigurationForm configurationForm, final BindingResult binding) {
+		ModelAndView result;
+
+		final Map<String, String> welcomeMessage = new HashMap<String, String>();
+
+		welcomeMessage.put("EN", configurationForm.getWelcomeMessageEN());
+
+		welcomeMessage.put("ES", configurationForm.getWelcomeMessageES());
+
+		final Map<String, Collection<String>> spamWords = new HashMap<String, Collection<String>>();
+
+		spamWords.put("EN", configurationForm.getSpamWordsEN());
+
+		spamWords.put("ES", configurationForm.getSpamWordsES());
+
+		final Map<String, Collection<String>> positiveWords = new HashMap<String, Collection<String>>();
+
+		positiveWords.put("EN", configurationForm.getPositiveWordsEN());
+
+		positiveWords.put("ES", configurationForm.getPositiveWordsES());
+
+		final Map<String, Collection<String>> negativeWords = new HashMap<String, Collection<String>>();
+
+		negativeWords.put("EN", configurationForm.getNegativeWordsEN());
+
+		negativeWords.put("ES", configurationForm.getNegativeWordsES());
+
+		final Map<String, Collection<String>> positions = new HashMap<String, Collection<String>>();
+
+		positions.put("EN", configurationForm.getPositionEN());
+
+		positions.put("ES", configurationForm.getPositionES());
+
+		try {
+
+			final Configuration configuration = this.configurationService.findOne();
+
+			configuration.setBanner(configurationForm.getBanner());
+
+			configuration.setCountryCode(configurationForm.getCountryCode());
+
+			configuration.setFinderCacheTime(configurationForm.getFinderCacheTime());
+
+			configuration.setFinderMaxResults(configurationForm.getFinderMaxResults());
+
+			configuration.setFinderMaxResults(configurationForm.getVarTax());
+
+			configuration.setWelcomeMessage(welcomeMessage);
+
+			configuration.setSpamWords(spamWords);
+
+			configuration.setPositiveWords(positiveWords);
+
+			configuration.setNegativeWords(negativeWords);
+
+			configuration.setPositions(positions);
+
+			this.configurationService.delete(configuration);
+
+			result = new ModelAndView("redirect:list.do");
+
+		} catch (final Throwable oops) {
+
+			result = this.createEditModelAndView(configurationForm, "configuration.commit.error");
+		}
+		return result;
+	}
+
 	//Show-------------------------------------------------------------------------
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
