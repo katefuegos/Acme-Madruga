@@ -82,6 +82,12 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/brotherhood/decline.do"
 			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/request/member/listMember.do"
+			access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/request/member/request.do"
+			access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/request/member/delete.do"
+			access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/enrolment/brotherhood/list.do"
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/enrolment/brotherhood/enrol.do"
@@ -139,11 +145,13 @@
 
 		<security:intercept-url pattern="/actor/administrator/list.do"
 			access="hasRole('ADMIN')" />
-					<security:intercept-url pattern="/actor/administrator/listBanneds.do"
+		<security:intercept-url pattern="/actor/administrator/listSpammers.do"
 			access="hasRole('ADMIN')" />
-					<security:intercept-url pattern="/actor/administrator/findSpammers.do"
+		<security:intercept-url pattern="/actor/administrator/listBanneds.do"
 			access="hasRole('ADMIN')" />
-					<security:intercept-url pattern="/actor/administrator/calculatePolarity.do"
+		<security:intercept-url pattern="/actor/administrator/findSpammers.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/actor/administrator/calculatePolarity.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/ban.do"
 			access="hasRole('ADMIN')" />

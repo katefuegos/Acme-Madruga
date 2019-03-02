@@ -20,51 +20,27 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="${requestURI}" modelAttribute="socialProfile">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="actor" />
 
 
+	<acme:textbox code="socialProfile.nick" path="nick"/>
+	
+	<acme:textbox code="socialProfile.nameSocialNetwork" path="nameSocialNetwork"/>
+	
+	<acme:textbox code="socialProfile.linkSocialNetwork" path="linkSocialNetwork"/>
 
-	<form:label path="nick">
-		<spring:message code="socialProfile.nick" />
-	</form:label>
-	<form:input path="nick" readonly="${isRead }"/>
-	<form:errors cssClass="error" path="nick" />
-	<br />
-
-	<form:label path="nameSocialNetwork">
-		<spring:message code="socialProfile.nameSocialNetwork" />
-	</form:label>
-	<form:input path="nameSocialNetwork" readonly="${isRead }"/>
-	<form:errors cssClass="error" path="nameSocialNetwork" />
-	<br />
-
-	<form:label path="linkSocialNetwork">
-		<spring:message code="socialProfile.linkSocialNetwork" />
-	</form:label>
-	<form:input path="linkSocialNetwork" readonly="${isRead }"/>
-	<form:errors cssClass="error" path="linkSocialNetwork" />
-	<br />
 
 	<jstl:if test="${isRead==false }">
-		<input type="submit" name="save"
-			value="<spring:message code="socialProfile.save"/>" />
-
-
-		<input type="button" name="cancel"
-			value="<spring:message code="socialProfile.cancel" />"
-			onclick="javascript: relativeRedir('socialProfile/list.do');" />
-
-		<br />
+		<acme:submit name="save" code="socialProfile.save"/>
+		<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>
 	</jstl:if>
 
 	<jstl:if test="${isRead == true }">
-		<input type="button" name="cancel"
-			value="<spring:message code="socialProfile.back" />"
-			onclick="javascript: relativeRedir('socialProfile/list.do');" />
+	<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>
 	</jstl:if>
 
 </form:form>

@@ -65,8 +65,6 @@ public class BrotherhoodService {
 	public Brotherhood findOne(final Integer brotherhoodId) {
 		Brotherhood brotherhood;
 		brotherhood = this.brotherhoodRepository.findOne(brotherhoodId);
-		Assert.notNull(brotherhood);
-
 		return brotherhood;
 	}
 

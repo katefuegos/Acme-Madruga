@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import services.BrotherhoodService;
 import services.EnrolmentService;
 import services.MemberService;
+import domain.Brotherhood;
 import domain.Enrolment;
 import domain.Member;
 
@@ -42,9 +43,9 @@ public class MemberController extends AbstractController {
 	public ModelAndView list(final int brotherhoodId,
 			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-
+		Brotherhood brotherhood = brotherhoodService.findOne(brotherhoodId);
 		try {
-			Assert.notNull(brotherhoodService.findOne(brotherhoodId));
+			Assert.notNull(brotherhood);
 			final Collection<Enrolment> enrolments = enrolmentService
 					.findByBrotherhoodAndAccepted(brotherhoodId);
 			final Collection<Member> members = new ArrayList<Member>();
@@ -60,7 +61,7 @@ public class MemberController extends AbstractController {
 					+ brotherhoodId);
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
-			if (brotherhoodService.findOne(brotherhoodId) == null)
+			if (brotherhood == null)
 				redirectAttrs.addFlashAttribute("message1",
 						"member.error.unexist");
 		}

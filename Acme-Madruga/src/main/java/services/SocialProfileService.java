@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SocialProfileRepository;
 import security.LoginService;
@@ -22,9 +24,12 @@ public class SocialProfileService {
 
 	@Autowired
 	private SocialProfileRepository	repository;
-	
+
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Services
@@ -38,7 +43,7 @@ public class SocialProfileService {
 	// Simple CRUD methods -------------------------------------------------------------------
 	public SocialProfile create() {
 		final SocialProfile profile = new SocialProfile();
-		profile.setActor(actorService.findByUserAccountId(LoginService.getPrincipal().getId()));
+		profile.setActor(this.actorService.findByUserAccountId(LoginService.getPrincipal().getId()));
 		return profile;
 	}
 
@@ -78,5 +83,14 @@ public class SocialProfileService {
 		final UserAccount u = profile.getActor().getUserAccount();
 		Assert.isTrue(u.equals(LoginService.getPrincipal()), "este perfil no corresponde con este actor");
 		return true;
+	}
+	//como el actor se pasaría como hidden hay que hacer el reconstruct
+	//set --> los que no has modificado
+	//Los test no van a tirar por el autowired
+	public SocialProfile reconstruct(final SocialProfile socialProfile, final BindingResult binding) {
+		final SocialProfile result = socialProfile;
+		result.setActor(this.actorService.findPrincipal());
+		this.validator.validate(result, binding);
+		return result;
 	}
 }

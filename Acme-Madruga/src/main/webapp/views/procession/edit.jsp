@@ -11,8 +11,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="${requestURI}" modelAttribute="processionForm">
-
-	<form:hidden path="id" />
 	
 	<form:label path="title">
 		<spring:message code="procession.title" />:
@@ -46,8 +44,7 @@
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="procession.save" />" />
-		<jstl:if test="${procession.id != 0}">
-
+		<jstl:if test="${id != 0}">
 			<input type="submit" name="delete"
 				value="<spring:message code="procession.delete" />"
 				onclick="javascript: return confirm('<spring:message code="procession.confirmDelete" />')" />
