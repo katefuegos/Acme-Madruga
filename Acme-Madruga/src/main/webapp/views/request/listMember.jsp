@@ -14,7 +14,7 @@
 <display:table name="requestsApproved" id="row"
 	requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-	<display:column property="procession.title"
+	<display:column property="procession.title" class="${'GREEN'}"
 		titleKey="request.procession" />
 
 	<display:column property="roow" titleKey="request.row" />
@@ -29,7 +29,7 @@
 <display:table name="requestsRejected" id="row"
 	requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-	<display:column property="procession.title"
+	<display:column property="procession.title" class="${'ORANGE'}"
 		titleKey="request.procession" />
 
 	<display:column property="reasonReject" titleKey="request.reasonReject" />
@@ -42,7 +42,7 @@
 <display:table name="requestsPending" id="row"
 	requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-	<display:column property="procession.title"
+	<display:column property="procession.title" class="${'GREY'}"
 		titleKey="request.procession" />
 
 	<display:column>
