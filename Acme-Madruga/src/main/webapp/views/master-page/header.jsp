@@ -29,7 +29,6 @@
 					<li class="arrow"></li>
 					<li><a href="actor/administrator/list.do"><spring:message
 								code="master.page.administrator.actors" /></a></li>
-						code="master.page.administrator.actors" /></a></li>
 					<li><a href="actor/administrator/listBanneds.do"><spring:message
 						code="master.page.administrator.banneds" /></a></li>
 					<li><a href="configuration/administrator/list.do"><spring:message

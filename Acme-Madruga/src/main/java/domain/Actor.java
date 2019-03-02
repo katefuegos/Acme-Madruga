@@ -1,10 +1,13 @@
+
 package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -16,19 +19,24 @@ import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(name = "ID1", columnList = "polarityScore"), @Index(name = "ID2", columnList = "isSpammer")
+
+})
 public class Actor extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
-	private String name;
-	private String middleName;
-	private String surname;
-	private String photo;
-	private String email;
-	private String phone;
-	private String address;
-	private boolean isSpammer;
-	private boolean isBanned;
-	private Double polarityScore;
+	private String	name;
+	private String	middleName;
+	private String	surname;
+	private String	photo;
+	private String	email;
+	private String	phone;
+	private String	address;
+	private boolean	isSpammer;
+	private boolean	isBanned;
+	private Double	polarityScore;
+
 
 	@NotBlank
 	public String getName() {
@@ -111,15 +119,17 @@ public class Actor extends DomainEntity {
 
 	@NotNull
 	public Double getPolarityScore() {
-		return polarityScore;
+		return this.polarityScore;
 	}
 
-	public void setPolarityScore(Double polarityScore) {
+	public void setPolarityScore(final Double polarityScore) {
 		this.polarityScore = polarityScore;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private UserAccount userAccount;
+	private UserAccount	userAccount;
+
 
 	@NotNull
 	@Valid
