@@ -43,79 +43,75 @@ public class DashboardAdministratorController extends AbstractController {
 
 		final String nulo = "n/a";
 
-		//		//QueryC1
-		//		final Object[] result = this.administratorService.queryC1();
-		//
-		//		final Double avgC1 = (Double) result[0];
-		//		final Double minC1 = (Double) result[1];
-		//		final Double maxC1 = (Double) result[2];
-		//		final Double stddevC1 = (Double) result[3];
+		//QueryC1
+		final Object[] result = this.administratorService.queryC1();
 
-		//		if (avgC1 != null)
-		//			modelAndView.addObject("avgC1", df.format(avgC1));
-		//		else
-		//			modelAndView.addObject("avgC1", nulo);
-		//
-		//		if (avgC1 != null)
-		//			modelAndView.addObject("maxC1", df.format(maxC1));
-		//		else
-		//			modelAndView.addObject("maxC1", nulo);
-		//
-		//		if (minC1 != null)
-		//			modelAndView.addObject("minC1", df.format(minC1));
-		//		else
-		//			modelAndView.addObject("minC1", nulo);
-		//
-		//		if (stddevC1 != null)
-		//			modelAndView.addObject("stddevC1", df.format(stddevC1));
-		//		else
-		//			modelAndView.addObject("stddevC1", nulo);
-		//
-		//		//QueryC2 - The largest brotherhood, minimum 1
-		//		final Collection<Object[]> resultC2 = this.administratorService.queryC2();
-		//
-		//		final Object[] largest = resultC2.iterator().next();
-		//
-		//		final Integer idLargest = (Integer) largest[0];
-		//		final String nameLargest = String.valueOf(largest[1]);
-		//		final Long countLargest = (Long) largest[2];
-		//
-		//		if (idLargest != null && nameLargest != null && countLargest != null) {
-		//			modelAndView.addObject("idLargest", idLargest);
-		//			modelAndView.addObject("nameLargest", nameLargest);
-		//			modelAndView.addObject("countLargest", countLargest);
-		//		}
-		//
-		//		//QueryC3 - The smallest brotherhood, minimum 1
-		//		final Collection<Object[]> resultC3 = this.administratorService.queryC3();
-		//
-		//		final Object[] smallest = resultC3.iterator().next();
-		//
-		//		final Integer idSmallest = (Integer) smallest[0];
-		//		final String nameSmallest = String.valueOf(smallest[1]);
-		//		final Long countSmallest = (Long) smallest[2];
-		//
-		//		if (idSmallest != null && nameSmallest != null && countSmallest != null) {
-		//			modelAndView.addObject("idSmallest", idSmallest);
-		//			modelAndView.addObject("nameSmallest", nameSmallest);
-		//			modelAndView.addObject("countSmallest", countSmallest);
-		//		}
-		//
-		//		//QueryC4 - The ratio of requests to march in a procession, grouped by their status.
-		//		System.err.println("=============");
-		//		try {
-		//			final Map<String, String> statusCount = new TreeMap<>();
-		//			for (final Object[] resultC : this.administratorService.queryC4())
-		//				statusCount.put(((String) resultC[0]).toUpperCase(), df.format(resultC[1]));
-		//
-		//			modelAndView.addObject("statusCount", statusCount);
-		//
-		//		} catch (final Exception e) {
-		//			System.err.println("===========");
-		//			System.err.println("e");
-		//			System.err.println("===========");
-		//			modelAndView.addObject("sizeC4", 0);
-		//		}
+		final Double avgC1 = (Double) result[0];
+		final Double minC1 = (Double) result[1];
+		final Double maxC1 = (Double) result[2];
+		final Double stddevC1 = (Double) result[3];
+
+		if (avgC1 != null)
+			modelAndView.addObject("avgC1", df.format(avgC1));
+		else
+			modelAndView.addObject("avgC1", nulo);
+
+		if (avgC1 != null)
+			modelAndView.addObject("maxC1", df.format(maxC1));
+		else
+			modelAndView.addObject("maxC1", nulo);
+
+		if (minC1 != null)
+			modelAndView.addObject("minC1", df.format(minC1));
+		else
+			modelAndView.addObject("minC1", nulo);
+
+		if (stddevC1 != null)
+			modelAndView.addObject("stddevC1", df.format(stddevC1));
+		else
+			modelAndView.addObject("stddevC1", nulo);
+
+		//QueryC2 - The largest brotherhood, minimum 1
+		final Collection<Object[]> resultC2 = this.administratorService.queryC2();
+
+		final Object[] largest = resultC2.iterator().next();
+
+		final Integer idLargest = (Integer) largest[0];
+		final String nameLargest = String.valueOf(largest[1]);
+		final Long countLargest = (Long) largest[2];
+
+		if (idLargest != null && nameLargest != null && countLargest != null) {
+			modelAndView.addObject("idLargest", idLargest);
+			modelAndView.addObject("nameLargest", nameLargest);
+			modelAndView.addObject("countLargest", countLargest);
+		}
+
+		//QueryC3 - The smallest brotherhood, minimum 1
+		final Collection<Object[]> resultC3 = this.administratorService.queryC3();
+
+		final Object[] smallest = resultC3.iterator().next();
+
+		final Integer idSmallest = (Integer) smallest[0];
+		final String nameSmallest = String.valueOf(smallest[1]);
+		final Long countSmallest = (Long) smallest[2];
+
+		if (idSmallest != null && nameSmallest != null && countSmallest != null) {
+			modelAndView.addObject("idSmallest", idSmallest);
+			modelAndView.addObject("nameSmallest", nameSmallest);
+			modelAndView.addObject("countSmallest", countSmallest);
+		}
+
+		//QueryC4 - The ratio of requests to march in a procession, grouped by their status.
+		try {
+			final Map<String, String> statusCount = new TreeMap<>();
+			for (final Object[] resultC : this.administratorService.queryC4())
+				statusCount.put(((String) resultC[0]).toUpperCase(), df.format(resultC[1]));
+
+			modelAndView.addObject("statusCount", statusCount);
+
+		} catch (final Exception e) {
+			modelAndView.addObject("sizeC4", 0);
+		}
 		//QueryC5 - The processions that are going to be organised in 30 days or less.
 		try {
 			final Collection<Procession> processions = this.administratorService.queryC5();
@@ -137,18 +133,10 @@ public class DashboardAdministratorController extends AbstractController {
 
 		//QueryC8
 
-		final Collection<Object[]> queryC8 = this.administratorService.queryC8();
-		final Map<String, Integer> positionEN = new TreeMap<>();
-		final Map<String, Integer> positionES = new TreeMap<>();
-
-		for (final Object[] objects : queryC8) {
-			positionEN.put((String) objects[0], (Integer) objects[2]);
-			positionES.put((String) objects[1], (Integer) objects[2]);
-		}
+		final Map<String, Map<String, Long>> queryC8 = this.administratorService.queryC8();
 
 		if (queryC8 != null) {
-			modelAndView.addObject("positionEN", positionEN);
-			modelAndView.addObject("positionES", positionES);
+			modelAndView.addObject("position", queryC8);
 			modelAndView.addObject("lang", LocaleContextHolder.getLocale().getLanguage().toUpperCase());
 		}
 

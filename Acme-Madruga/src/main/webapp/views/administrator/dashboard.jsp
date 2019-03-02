@@ -10,7 +10,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<%-- <h3>
+<h3>
 	<spring:message code="administrator.dashboard.C1" />
 </h3>
 
@@ -27,7 +27,7 @@
 </h3>
 
 	<p>	<spring:message code="administrator.dashboard.name" />:
-		<a href="brotherhood/display.do?id=${idLargest}"><jstl:out value="${nameLargest}"/></a></p>
+		<jstl:out value="${nameLargest}"/></p>
 	<p><spring:message code="administrator.dashboard.count" />:<jstl:out value="${countLargest}"/></p>
 <br />
 <br />
@@ -37,7 +37,7 @@
 </h3>
 
 	<p>	<spring:message code="administrator.dashboard.name" />:
-		<a href="brotherhood/display.do?id=${idSmallest}"><jstl:out value="${nameSmallest}"/></a></p>
+		<jstl:out value="${nameSmallest}"/></p>
 	<p><spring:message code="administrator.dashboard.count" />:<jstl:out value="${countLargest}"/></p>
 <br />
 <br />
@@ -50,15 +50,7 @@
   <jstl:out value="${entry.key}"/> --- <jstl:out value="${entry.value}"/><br>
 </jstl:forEach>
 <br />
-<br /> --%>
-<p>
-Error procession:  
-<jstl:out value="${excP }"/>
-</p>
-<p>
-Error member: 
-<jstl:out value="${excM }"/>
-</p>
+<br /> 
 
 
 <h3>
@@ -89,17 +81,13 @@ Error member:
 	<spring:message code="administrator.dashboard.C8" />
 </h3>
 
-<jstl:if test="${lang=='EN' }">
-<jstl:forEach var="entry" items="${positionEN}">
-  <jstl:out value="${entry.key}"/> --- <jstl:out value="${entry.value}"/><br>
-</jstl:forEach>
+<jstl:forEach var="entry1" items="${position}">
+<jstl:if test="${entry1.key==lang}">
+	<jstl:forEach var="entry" items="${entry1.value}">
+	  <jstl:out value="${entry.key}"/> --- <jstl:out value="${entry.value}"/><br>
+	</jstl:forEach>
 </jstl:if>
-<p>${lang }</p>
-<jstl:if test="${lang=='ES' }">
-<jstl:forEach var="entry" items="${positionES}">
-  <jstl:out value="${entry.key}"/> --- <jstl:out value="${entry.value}"/><br>
 </jstl:forEach>
-</jstl:if>
 
 
 <br />

@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.transaction.Transactional;
 
@@ -35,6 +37,9 @@ public class AdministratorService {
 	//Services-------------------------------------------------
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 	@Autowired
 	private MemberService			memberService;
@@ -167,10 +172,30 @@ public class AdministratorService {
 		return result;
 	}
 
-	public Collection<Object[]> queryC8() {
-		Collection<Object[]> result = null;
+	public Map<String, Map<String, Long>> queryC8() {
+		Collection<Object[]> queryC8 = null;
+		queryC8 = this.administratorRepository.queryC8();
+		Map<String, Map<String, Long>> result = new TreeMap<>();
 
-		result = this.administratorRepository.queryC8();
+		if (queryC8 != null) {
+
+			final Map<String, Long> positionEN = new TreeMap<>();
+			final Map<String, Long> positionES = new TreeMap<>();
+
+			//			final domain.Configuration config = this.configurationService.findDefault();
+			//			config.getPositions();
+
+			for (final Object[] objects : queryC8) {
+				positionEN.put((String) objects[0], (Long) objects[2]);
+				positionES.put((String) objects[1], (Long) objects[2]);
+
+			}
+
+			result.put("EN", positionEN);
+			result.put("ES", positionES);
+		} else
+			result = null;
+
 		return result;
 	}
 
@@ -184,7 +209,7 @@ public class AdministratorService {
 
 			areaQueryB1Form.setName((String) objects[0]);
 			areaQueryB1Form.setRatio((Double) objects[1]);
-			areaQueryB1Form.setCount((Double) objects[2]);
+			areaQueryB1Form.setCount((Long) objects[2]);
 
 			result.add(areaQueryB1Form);
 
@@ -193,12 +218,12 @@ public class AdministratorService {
 		return result;
 	}
 
-	//	public Object[] queryB1B() {
-	//		Object[] result = null;
-	//		result = this.administratorRepository.queryB1B();
-	//
-	//		return result;
-	//	}
+	public Object[] queryB1B() {
+		Object[] result = null;
+		result = this.administratorRepository.queryB1B();
+
+		return result;
+	}
 
 	public Object[] queryB2() {
 		Object[] result = null;

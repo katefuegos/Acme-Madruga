@@ -11,7 +11,7 @@ public class AreaQueryB1Form {
 
 	private String	name;
 	private Double	ratio;
-	private Double	count;
+	private Long	count;
 
 
 	// Constructor------------------------------------------------------------------
@@ -39,11 +39,11 @@ public class AreaQueryB1Form {
 		this.ratio = ratio;
 	}
 
-	public Double getCount() {
+	public Long getCount() {
 		return this.count;
 	}
 
-	public void setCount(final Double count) {
+	public void setCount(final Long count) {
 		this.count = count;
 	}
 
