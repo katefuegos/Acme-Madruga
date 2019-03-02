@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,7 @@ import domain.Administrator;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Procession;
+import forms.AreaQueryB1Form;
 
 @Service
 @Transactional
@@ -169,6 +171,54 @@ public class AdministratorService {
 		Collection<Object[]> result = null;
 
 		result = this.administratorRepository.queryC8();
+		return result;
+	}
+
+	public Collection<AreaQueryB1Form> queryB1A() {
+		final Collection<AreaQueryB1Form> result = new LinkedList<>();
+
+		final Collection<Object[]> queryB1A = this.administratorRepository.queryB1A();
+
+		for (final Object[] objects : queryB1A) {
+			final AreaQueryB1Form areaQueryB1Form = new AreaQueryB1Form();
+
+			areaQueryB1Form.setName((String) objects[0]);
+			areaQueryB1Form.setRatio((Double) objects[1]);
+			areaQueryB1Form.setCount((Double) objects[2]);
+
+			result.add(areaQueryB1Form);
+
+		}
+
+		return result;
+	}
+
+	public Object[] queryB1B() {
+		Object[] result = null;
+		result = this.administratorRepository.queryB1B();
+
+		return result;
+	}
+
+	public Object[] queryB2() {
+		Object[] result = null;
+
+		result = this.administratorRepository.queryB2();
+
+		return result;
+
+	}
+
+	public Double queryB3Empty() {
+
+		final Double result = this.administratorRepository.queryB3Empty();
+
+		return result;
+	}
+
+	public Double queryB3NotEmpty() {
+		final Double result = this.administratorRepository.queryB3NotEmpty();
+
 		return result;
 	}
 

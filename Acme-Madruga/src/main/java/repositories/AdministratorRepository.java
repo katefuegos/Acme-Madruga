@@ -43,8 +43,6 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	//C5 - The processions that are going to be organised in 30 days or less.
 	@Query("select p from Procession p where p.moment BETWEEN current_timestamp and :currentDayPlus30Days")
 	Collection<Procession> queryC5(@Param("currentDayPlus30Days") Date date);
-	//C6 - The ratio of requests to march grouped by status.
-	// Duplicate
 	//C7 - The listing of members who have got at least 10% the maximum number request to march accepted. 
 	@Query("select m from Member m where 0.1<=(select count(q)*1/(select count(qq) from Request qq)	from Request q where q.status = 'APPROVED' and q.member.id=m.id)")
 	Collection<Member> queryC7();
@@ -56,11 +54,16 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select b.area.name,count(b)*1.0/(select count(a) from Area a),count(b) from Brotherhood b group by b.area order by 2 desc")
 	Collection<Object[]> queryB1A();
 	//B1-B
-	//	@Query("select b.area.name,count(b)*1.0/(select count(a) from Area a),count(b) from Brotherhood b group by b.area order by 2 desc")
-	//	ResultSet queryB1B();
+	@Query("select avg(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),min(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),max(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)),stddev(1.0 * (select count(e) from Brotherhood e where e.brotherhood.id = b.id)) from Area b")
+	Object[] queryB1B();
 	//	//B2
-	//	@Query("")
+	@Query("select avg(f.processions.size),min(f.processions.size),max(f.processions.size),stddev(f.processions.size) from Finder f")
+	Object[] queryB2();
 	//	//B3
-	//	@Query("")
+	@Query("select (select count(f1) from Finder f1 where f1.processions.size = (select count(p) from Procession p))*1.0/count(f) from Finder f;")
+	Double queryB3Empty();
+
+	@Query("select (select count(f1) from Finder f1 where f1.processions.size != (select count(p) from Procession p))*1.0/count(f) from Finder f;")
+	Double queryB3NotEmpty();
 
 }
