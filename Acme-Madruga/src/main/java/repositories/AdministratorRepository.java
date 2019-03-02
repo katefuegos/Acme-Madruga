@@ -60,10 +60,10 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select avg(f.processions.size),min(f.processions.size),max(f.processions.size),stddev(f.processions.size) from Finder f")
 	Object[] queryB2();
 	//	//B3
-	@Query("select (select count(f1) from Finder f1 where f1.processions.size = (select count(p) from Procession p))*1.0/count(f) from Finder f;")
+	@Query("select (select count(f1) from Finder f1 where f1.processions.size = (select count(p) from Procession p))*1.0/count(f) from Finder f")
 	Double queryB3Empty();
 
-	@Query("select (select count(f1) from Finder f1 where f1.processions.size != (select count(p) from Procession p))*1.0/count(f) from Finder f;")
+	@Query("select (select count(f1) from Finder f1 where f1.processions.size != (select count(p) from Procession p))*1.0/count(f) from Finder f")
 	Double queryB3NotEmpty();
 
 }
