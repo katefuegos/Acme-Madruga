@@ -177,7 +177,7 @@ public class RequestBrotherhoodController extends AbstractController {
 				else if (!(requestService.findRequestByPosition(
 						requestForm.getRoow(), requestForm.getColuumn(),
 						request.getProcession().getId()) == null))
-					redirectAttrs.addFlashAttribute("message1",
+					result = this.acceptModelAndView(requestForm,
 							"request.error.positionTaken");
 				else
 					result = this.acceptModelAndView(requestForm,
