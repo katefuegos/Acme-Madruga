@@ -141,18 +141,22 @@ public class RequestBrotherhoodController extends AbstractController {
 		ModelAndView result = null;
 		final int brotherhoodId = this.brotherhoodService.findByUserAccountId(
 				LoginService.getPrincipal().getId()).getId();
+		Request request = requestService.findOne(requestForm.getId());
 		if (binding.hasErrors())
 			result = this.acceptModelAndView(requestForm, "commit.error");
 		else
 			try {
 				Assert.notNull(brotherhoodId);
 				Assert.isTrue(requestForm != null);
-				Assert.isTrue(requestService.findOne(requestForm.getId()).getProcession().getBrotherhood().getId() == brotherhoodId);
-				
-				Request request = requestService.findOne(requestForm.getId());
+				Assert.isTrue(requestService.findOne(requestForm.getId())
+						.getProcession().getBrotherhood().getId() == brotherhoodId);
+				Assert.isTrue(requestService.findRequestByPosition(
+						requestForm.getRoow(), requestForm.getColuumn(),
+						request.getProcession().getId()) == null);
+
 				request.setColuumn(requestForm.getColuumn());
 				request.setRoow(requestForm.getRoow());
-				
+
 				request.setStatus("APPROVED");
 				this.requestService.save(request);
 
@@ -163,14 +167,21 @@ public class RequestBrotherhoodController extends AbstractController {
 
 				result = new ModelAndView(
 						"redirect:/request/brotherhood/list.do");
-				if (requestService.findOne(requestForm.getId()) == null)
+				if (request == null)
 					redirectAttrs.addFlashAttribute("message1",
 							"request.error.unexist");
-				else if (!(requestService.findOne(requestForm.getId()).getProcession().getBrotherhood().getId() == brotherhoodId))
+				else if (!(requestService.findOne(requestForm.getId())
+						.getProcession().getBrotherhood().getId() == brotherhoodId))
 					redirectAttrs.addFlashAttribute("message1",
 							"request.error.nobrotherhood");
+				else if (!(requestService.findRequestByPosition(
+						requestForm.getRoow(), requestForm.getColuumn(),
+						request.getProcession().getId()) == null))
+					redirectAttrs.addFlashAttribute("message1",
+							"request.error.positionTaken");
 				else
-					result = this.acceptModelAndView(requestForm, "commit.error");
+					result = this.acceptModelAndView(requestForm,
+							"commit.error");
 			}
 		return result;
 	}
@@ -225,7 +236,7 @@ public class RequestBrotherhoodController extends AbstractController {
 				Request request = requestService.findOne(requestForm.getId());
 				Assert.notNull(request);
 				request.setReasonReject(requestForm.getReasonReject());
-				
+
 				Assert.notNull(brotherhoodId);
 				Assert.isTrue(request != null);
 				Assert.isTrue(request.getProcession().getBrotherhood().getId() == brotherhoodId);
@@ -243,14 +254,16 @@ public class RequestBrotherhoodController extends AbstractController {
 				if (requestService.findOne(requestForm.getId()) == null)
 					redirectAttrs.addFlashAttribute("message1",
 							"request.error.unexist");
-				else if (!(requestService.findOne(requestForm.getId()).getProcession().getBrotherhood().getId() == brotherhoodId))
+				else if (!(requestService.findOne(requestForm.getId())
+						.getProcession().getBrotherhood().getId() == brotherhoodId))
 					redirectAttrs.addFlashAttribute("message1",
 							"request.error.nobrotherhood");
 				else if (requestForm.getReasonReject().equals(""))
 					result = this.declineModelAndView(requestForm,
 							"request.error.reasonRejectNeed");
 				else
-					result = this.declineModelAndView(requestForm, "commit.error");
+					result = this.declineModelAndView(requestForm,
+							"commit.error");
 			}
 		return result;
 	}
@@ -268,8 +281,10 @@ public class RequestBrotherhoodController extends AbstractController {
 
 		result = new ModelAndView("request/accept");
 		result.addObject("message1", message);
-		result.addObject("requestURI",
-				"request/brotherhood/accept.do?requestId=" + requestForm.getId());
+		result.addObject(
+				"requestURI",
+				"request/brotherhood/accept.do?requestId="
+						+ requestForm.getId());
 		result.addObject("requestForm", requestForm);
 		return result;
 	}
@@ -286,8 +301,10 @@ public class RequestBrotherhoodController extends AbstractController {
 
 		result = new ModelAndView("request/decline");
 		result.addObject("message1", message);
-		result.addObject("requestURI",
-				"request/brotherhood/decline.do?requestId=" + requestForm.getId());
+		result.addObject(
+				"requestURI",
+				"request/brotherhood/decline.do?requestId="
+						+ requestForm.getId());
 		result.addObject("requestForm", requestForm);
 		return result;
 	}

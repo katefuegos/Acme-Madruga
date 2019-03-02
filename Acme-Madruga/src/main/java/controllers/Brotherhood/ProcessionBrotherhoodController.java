@@ -150,9 +150,9 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		else
 			try {
 				Assert.notNull(processionForm);
-				Assert.isTrue(processionService.findOne(processionForm.getId()).getBrotherhood().equals(b));
-				Assert.isTrue(processionForm.isDraftMode());
 				Procession procession = processionService.findOne(processionForm.getId());
+				Assert.isTrue(procession.getBrotherhood().equals(b));
+				Assert.isTrue(procession.isDraftMode());
 				procession.setDescription(processionForm.getDescription());
 				procession.setDraftMode(processionForm.isDraftMode());
 				procession.setMoment(processionForm.getMoment());
@@ -179,8 +179,9 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		else
 			try {
 				Assert.notNull(processionForm);
-				Assert.isTrue(processionService.findOne(processionForm.getId()).getBrotherhood().equals(b));
-				Assert.isTrue(processionForm.isDraftMode());
+				Procession procession = processionService.findOne(processionForm.getId());
+				Assert.isTrue(procession.getBrotherhood().equals(b));
+				Assert.isTrue(procession.isDraftMode());
 				this.processionService.delete(processionService.findOne(processionForm.getId()));
 
 				result = new ModelAndView(
@@ -203,7 +204,7 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		try {
 			procession = this.processionService.findOne(processionId);
 			Assert.notNull(procession);
-			Assert.isTrue(procession.getBrotherhood().equals(b));
+			Assert.isTrue(procession.getBrotherhood().getId() == b.getId());
 			
 			ProcessionForm processionForm = new ProcessionForm();
 			processionForm.setId(procession.getId());
