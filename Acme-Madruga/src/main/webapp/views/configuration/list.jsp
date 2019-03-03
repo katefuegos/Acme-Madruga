@@ -39,6 +39,18 @@
 		
 		<display:column property= "positions.EN" titleKey="configuration.positionEN">
 		</display:column>
+		
+		<display:column property= "positiveWords.ES" titleKey="configuration.positiveES">
+		</display:column>
+		
+		<display:column property= "positiveWords.EN" titleKey="configuration.positiveEN">
+		</display:column>
+		
+		<display:column property= "negativeWords.ES" titleKey="configuration.negativeES">
+		</display:column>
+		
+		<display:column property= "negativeWords.EN" titleKey="configuration.negativeEN">
+		</display:column>
 
 	</security:authorize>
 
