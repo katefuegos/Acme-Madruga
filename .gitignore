@@ -1,4 +1,4 @@
 
 *.map
 *.class
-Acme-Madruga/target/classes/*
+Acme-Madruga/target/
