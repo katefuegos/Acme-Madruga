@@ -10,31 +10,33 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="enrolment">
+<form:form action="position/administrator/create.do"
+	modelAttribute="positionForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="brotherhood" />
-	<form:hidden path="momentEnrol" />
-	<form:hidden path="momentDropOut" />
-	<form:hidden path="accepted" />
-
-	<form:label path="position">
-		<spring:message code="enrolment.position" />:
+	
+	<form:label path="nameEN">
+		<spring:message code="position.nameEN" />:
 	</form:label>
-	<form:select path="position" readonly="${isRead}">
-		<form:options items="${positions}" itemValue="id" itemLabel="name"/>
-	</form:select>
-	<form:errors cssClass="error" path="position" />
+	<form:input path="nameEN" />
+	<form:errors cssClass="error" path="nameEN" />
+	<br />
 	
-	
+	<form:label path="nameES">
+		<spring:message code="position.nameES" />:
+	</form:label>
+	<form:input path="nameES" />
+	<form:errors cssClass="error" path="nameES" />
+	<br />
+
+	<br />
 
 	<input type="submit" name="save"
-		value="<spring:message code="enrolment.save" />" />
+		value="<spring:message code="position.save" />" />
 
 	<input type="button" name="cancel"
-		value="<spring:message code="enrolment.cancel" />"
-		onclick="javascript: relativeRedir('enrolment/brotherhood/list.do');" />
+		value="<spring:message code="position.cancel" />"
+		onclick="javascript: relativeRedir('position/administrator/list.do');" />
 	<br />
 
 </form:form>

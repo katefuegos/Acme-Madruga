@@ -120,7 +120,7 @@
 	<form:input path="positiveWordsEN" readonly="${isRead}" />
 	<form:errors cssClass="error" path="positiveWordsEN" />
 	<br />
-
+<%-- 
 	<form:label path="positionES">
 		<spring:message code="configuration.positionES" />
 	</form:label>
@@ -134,7 +134,7 @@
 	<form:input path="positionEN" readonly="${isRead}" />
 	<form:errors cssClass="error" path="positionEN" />
 	<br />
-
+ --%>
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="configuration.save" />" 

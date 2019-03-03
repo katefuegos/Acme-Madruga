@@ -16,8 +16,7 @@
 	<form:hidden path="version" />
 	<form:hidden path="brotherhood" />
 	<form:hidden path="momentEnrol" />
-	<form:hidden path="positionEN" />
-	<form:hidden path="positionES" />
+	<form:hidden path="position" />
 	<form:hidden path="momentDropOut" />
 	<form:hidden path="accepted" />
 
