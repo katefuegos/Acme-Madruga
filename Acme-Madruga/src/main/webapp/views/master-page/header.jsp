@@ -54,8 +54,8 @@
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 					<li><a class="fNiv" href="socialProfile/list.do"><spring:message
-								code="master.page.socialProfile" /></a></li>
-				</ul></li>
+							code="master.page.socialProfile" /></a></li>
+				</ul>
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
 						code="master.page.brotherhood" /></a></li>
 
