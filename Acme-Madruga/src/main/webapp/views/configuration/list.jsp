@@ -33,13 +33,13 @@
 				<spring:message code="configuration.edit" />
 			</a>
 		</display:column>
-		
+	<%-- 	
 		<display:column property= "positions.ES" titleKey="configuration.positionES">
 		</display:column>
 		
 		<display:column property= "positions.EN" titleKey="configuration.positionEN">
 		</display:column>
-
+ --%>
 	</security:authorize>
 
 	<display:column titleKey="configuration.details">

@@ -33,7 +33,10 @@
 						code="master.page.administrator.banneds" /></a></li>
 					<li><a href="configuration/administrator/list.do"><spring:message
 								code="master.page.administrator.configuration" /></a></li>
-
+					<li><a class="fNiv" href="position/administrator/list.do"><spring:message
+						code="master.page.administrator.positions" /></a>
+						<br>
+					</li>
 				</ul></li>
 		</security:authorize>
 

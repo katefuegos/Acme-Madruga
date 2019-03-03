@@ -133,7 +133,7 @@ public class DashboardAdministratorController extends AbstractController {
 
 		//QueryC8
 
-		final Map<String, Map<String, Long>> queryC8 = this.administratorService.queryC8();
+		final Map<domain.Position, Long> queryC8 = this.administratorService.queryC8();
 
 		if (queryC8 != null) {
 			modelAndView.addObject("position", queryC8);

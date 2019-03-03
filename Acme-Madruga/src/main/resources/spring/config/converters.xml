@@ -37,6 +37,9 @@
 		<bean class="converters.SocialProfileToStringConverter" />
 		<bean class="converters.StringToSocialProfileConverter" />
 		
+		<bean class="converters.PositionToStringConverter" />
+		<bean class="converters.StringToPositionConverter" />
+		
 	</util:list>
 	
 </beans>

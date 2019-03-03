@@ -16,16 +16,17 @@
 	<display:column property="member.name" titleKey="enrolment.member" />
 	<display:column property="enrolment.momentEnrol"
 		titleKey="enrolment.momentEnrol" />
-	<jstl:if test="${lang=='ES'}">
-		<display:column property="enrolment.positionES"
-			titleKey="enrolment.position" />
-	</jstl:if>
-	<jstl:if test="${lang=='EN'}">
-		<display:column property="enrolment.positionEN"
-			titleKey="enrolment.position" />
-	</jstl:if>
+
 	<display:column property="enrolment.momentDropOut"
 		titleKey="enrolment.momentDropOut" />
+
+	<display:column>
+		<jstl:forEach var="entry" items="${row.enrolment.position.name}">
+			<jstl:if test="${lang==entry.key}">
+				<jstl:out value="${entry.value}" />
+			</jstl:if>
+		</jstl:forEach>
+	</display:column>
 
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<display:column>

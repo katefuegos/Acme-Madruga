@@ -22,6 +22,7 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
 import domain.Member;
+import domain.Position;
 import domain.Procession;
 import forms.AreaQueryB1Form;
 
@@ -43,6 +44,9 @@ public class AdministratorService {
 
 	@Autowired
 	private MemberService			memberService;
+
+	@Autowired
+	private PositionService			positionService;
 
 
 	//Constructor----------------------------------------------
@@ -172,29 +176,22 @@ public class AdministratorService {
 		return result;
 	}
 
-	public Map<String, Map<String, Long>> queryC8() {
+	public Map<Position, Long> queryC8() {
 		Collection<Object[]> queryC8 = null;
 		queryC8 = this.administratorRepository.queryC8();
-		Map<String, Map<String, Long>> result = new TreeMap<>();
-
-		if (queryC8 != null) {
-
-			final Map<String, Long> positionEN = new TreeMap<>();
-			final Map<String, Long> positionES = new TreeMap<>();
-
-			//			final domain.Configuration config = this.configurationService.findDefault();
-			//			config.getPositions();
-
+		Map<Position, Long> result = new TreeMap<>();
+		final Collection<Position> positions = this.positionService.findAll();
+		if (queryC8 != null)
 			for (final Object[] objects : queryC8) {
-				positionEN.put((String) objects[0], (Long) objects[2]);
-				positionES.put((String) objects[1], (Long) objects[2]);
-
+				final Position p = (domain.Position) objects[0];
+				positions.remove(p);
+				result.put(p, (Long) objects[1]);
 			}
-
-			result.put("EN", positionEN);
-			result.put("ES", positionES);
-		} else
+		else
 			result = null;
+
+		for (final Position p : positions)
+			result.put(p, 0L);
 
 		return result;
 	}

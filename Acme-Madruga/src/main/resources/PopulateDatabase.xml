@@ -1180,8 +1180,7 @@
 
 	<bean id="enrolment1" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/02/02 11:12" />
-		<property name="positionEN" value="President" />
-		<property name="positionES" value="Presidente" />
+		<property name="position" ref="position1" />
 		<property name="momentDropOut" value="2018/03/02 11:12" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="accepted" value="true" />
@@ -1190,38 +1189,152 @@
 
 	<bean id="enrolment2" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:12" />
-		<property name="positionEN" value="Secretary" />
-		<property name="positionES" value="Secretario" />	
+		<property name="position" ref="position3" />	
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="true" />
 	</bean>
 
 	<bean id="enrolment3" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:13" />
-		<property name="positionEN" value="Secretary" />
-		<property name="positionES" value="Secretario" />
+		<property name="position" ref="position2" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="false" />
 	</bean>
 
 	<bean id="enrolment4" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:15" />
-		<property name="positionEN" value="Treasure" />
-		<property name="positionES" value="Tesorero" />
+		<property name="position" ref="position3" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="true" />
 	</bean>
 
 	<bean id="enrolment5" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/03/02 13:12" />
-		<property name="positionEN" value="Secretary" />
-		<property name="positionES" value="Secretario" />
+		<property name="position" ref="position2" />
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="accepted" value="false" />
 	</bean>
 
 
-
+	<!-- POSITION -->
+	<bean id="position1" class="domain.Position">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>President</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Presidente</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="position2" class="domain.Position">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Secretary</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Secretario</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="position3" class="domain.Position">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Treasure</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Tesorero</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="position4" class="domain.Position">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Historian</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Historiador</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="position5" class="domain.Position">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Fundraiser</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Promotor</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="position6" class="domain.Position">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Officer</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Vocal</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	
+	
+	
 	<!-- CONFIGURATION -->
 	<bean id="configuration1" class="domain.Configuration">
 		<property name="countryCode" value="+34" />
@@ -1345,40 +1458,6 @@
 				<value>LOW</value>
 				<value>NEUTRAL</value>
 			</list>
-		</property>
-		<property name="positions">
-			<map>
-				<entry>
-					<key>
-						<value>EN</value>
-					</key>
-
-					<list>
-						<value>President</value>
-						<value>Vice President</value>
-						<value>Secretary</value>
-						<value>Treasure</value>
-						<value>Historian</value>
-						<value>Fundraiser</value>
-						<value>Officer</value>
-					</list>
-				</entry>
-				<entry>
-					<key>
-						<value>ES</value>
-					</key>
-
-					<list>
-						<value>Presidente</value>
-						<value>Vicepresidente</value>
-						<value>Secretario</value>
-						<value>Tesorero</value>
-						<value>Historiador</value>
-						<value>Promotor</value>
-						<value>Vocal</value>
-					</list>
-				</entry>
-			</map>
 		</property>
 	</bean>
 </beans>

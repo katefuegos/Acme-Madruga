@@ -1,3 +1,4 @@
+
 package repositories;
 
 import java.util.Collection;
@@ -16,5 +17,8 @@ public interface EnrolmentRepository extends JpaRepository<Enrolment, Integer> {
 
 	@Query("select e from Enrolment e where e.brotherhood.id=?1")
 	Collection<Enrolment> findByBrotherhood(int brotherhoodId);
+
+	@Query("select e from Enrolment e where e.position.id = ?1")
+	Collection<Enrolment> findByPosition(int positionId);
 
 }

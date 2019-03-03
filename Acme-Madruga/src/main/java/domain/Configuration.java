@@ -30,17 +30,19 @@ public class Configuration extends DomainEntity {
 	private Map<String, Collection<String>>	negativeWords;
 	private Map<String, Collection<String>>	positiveWords;
 	private Collection<String>				priorities;
-	private Map<String, Collection<String>>	positions;
 
-	@NotEmpty
-	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
-	public Map<String, Collection<String>> getPositions() {
-		return this.positions;
-	}
 
-	public void setPositions(final Map<String, Collection<String>> positions) {
-		this.positions = positions;
-	}
+	//private Map<String, Collection<String>>	positions;
+
+	//	@NotEmpty
+	//	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
+	//	public Map<String, Collection<String>> getPositions() {
+	//		return this.positions;
+	//	}
+	//
+	//	public void setPositions(final Map<String, Collection<String>> positions) {
+	//		this.positions = positions;
+	//	}
 
 	@NotNull
 	@ElementCollection
