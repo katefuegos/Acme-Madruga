@@ -395,6 +395,119 @@
 		</property>
 		<property name="actor" ref="admin" />
 	</bean>
+	
+	<bean id="notificationBoxA" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+<!-- Notificationbox -->
+
+<bean id="notificationBoxM1" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="member1" />
+	</bean>
+
+
+	<bean id="notificationBoxM2" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="member2" />
+	</bean>
+
+	<bean id="notificationBoxM3" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="member3" />
+	</bean>
+
+
+	<bean id="notificationBoxB1" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="brotherhood1" />
+
+	</bean>
+
+	<bean id="notificationBoxB2" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="brotherhood2" />
+
+	</bean>
+
+	<bean id="notificationBoxB3" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="brotherhood3" />
+
+	</bean>
+
+	<bean id="notificationBoxB4" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="brotherhood4" />
+
+	</bean>
+
 
 	<!-- Trashbox -->
 

@@ -190,7 +190,7 @@ public class MessageService {
 		final Authority authority = new Authority();
 		authority.setAuthority("ADMIN");
 
-		Assert.isTrue(userAccount.getAuthorities().contains(authority), "Solo los administradores pueden realizar mensajes de difusiï¿½n");
+		Assert.isTrue(userAccount.getAuthorities().contains(authority), "Solo los administradores pueden realizar mensajes de difusión");
 
 		//final Collection<Actor> allActor = this.actorService.findAll();
 		final Collection<Actor> allActor = this.actorService.findAll();
@@ -204,7 +204,7 @@ public class MessageService {
 			if (this.isSpam(message2))
 				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam box");
 			else
-				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in box");
+				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "notification box");
 			message2.setBox(box);
 			messages.add(message2);
 
