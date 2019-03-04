@@ -27,7 +27,12 @@
 			<a href="float/brotherhood/edit.do?floaatId=${row.id}">
 			<spring:message code="floaat.edit"></spring:message></a>
 	</display:column>
-	</security:authorize>
 	
+
+	</security:authorize>
+
 	
 </display:table>
+
+<a href="float/brotherhood/create.do"> <spring:message code="floaat.create" /></a>
+	

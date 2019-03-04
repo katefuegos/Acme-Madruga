@@ -61,6 +61,20 @@ public class FloaatBrotherhoodController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Floaat floaat;
+		floaat = this.floaatService.create();
+		final UserAccount uA = LoginService.getPrincipal();
+		final Brotherhood brotherhood = this.brotherhoodService.findByUserAccountId(uA.getId());
+
+		floaat.setBrotherhood(brotherhood);
+		result = this.createEditModelAndView(floaat);
+
+		return result;
+	}
+
 	//Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
