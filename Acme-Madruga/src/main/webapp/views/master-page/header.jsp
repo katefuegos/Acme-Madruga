@@ -78,6 +78,8 @@
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a class="fNiv" href="procession/brotherhood/list.do"><spring:message
 						code="master.page.myProcessions" /></a></li>
+			<li><a class="fNiv" href="float/brotherhood/list.do"><spring:message
+						code="master.page.floats" /></a></li>
 			<li><a class="fNiv" href="request/brotherhood/list.do"><spring:message
 						code="master.page.request" /></a></li>
 			<li><a class="fNiv" href="enrolment/brotherhood/list.do"><spring:message

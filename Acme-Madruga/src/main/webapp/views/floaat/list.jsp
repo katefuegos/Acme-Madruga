@@ -17,9 +17,17 @@
 	
 	<display:column property="description" titleKey="floaat.description" />
 	
+	<security:authorize access="hasRole('BROTHERHOOD')">
 	<display:column >
-			<a href="floaat/brotherhood/display.do?floaatId=${floaat.id}">
+			<a href="float/brotherhood/display.do?floaatId=${row.id}">
 			<spring:message code="floaat.display"></spring:message></a>
 	</display:column>
+	
+	<display:column >
+			<a href="float/brotherhood/edit.do?floaatId=${row.id}">
+			<spring:message code="floaat.edit"></spring:message></a>
+	</display:column>
+	</security:authorize>
+	
 	
 </display:table>

@@ -36,6 +36,7 @@
 		<value>/views/configuration/messages</value>
 		<value>/views/socialProfile/messages</value>
 		<value>/views/request/messages</value>
+		<value>/views/area/messages</value>
 		<value>/views/enrolment/messages</value>
 	</util:list>
 

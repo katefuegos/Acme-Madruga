@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.Brotherhood;
 
 import java.util.Collection;
 
@@ -19,12 +19,13 @@ import security.LoginService;
 import security.UserAccount;
 import services.BrotherhoodService;
 import services.FloaatService;
+import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Floaat;
 
 @Controller
-@RequestMapping("/float")
-public class FloaatController extends AbstractController {
+@RequestMapping("/float/brotherhood")
+public class FloaatBrotherhoodController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
@@ -36,31 +37,13 @@ public class FloaatController extends AbstractController {
 
 	// Constructor---------------------------------------------------------
 
-	public FloaatController() {
+	public FloaatBrotherhoodController() {
 		super();
 	}
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(final int brotherhoodId, final RedirectAttributes redirectAttrs) {
-		ModelAndView result;
-
-		try {
-			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
-			final Collection<Floaat> floaats = this.floaatService.findByBrotherhoodId(brotherhoodId);
-			result = new ModelAndView("float/list");
-			result.addObject("floaats", floaats);
-			result.addObject("requestURI", "float/list.do?brotherhoodId=" + brotherhoodId);
-		} catch (final Throwable e) {
-			result = new ModelAndView("redirect:/brotherhood/list.do");
-			if (this.brotherhoodService.findOne(brotherhoodId) == null)
-				redirectAttrs.addFlashAttribute("message", "floaat.error.unexist");
-		}
-		return result;
-	}
-
-	@RequestMapping(value = "/listOwn", method = RequestMethod.GET)
-	public ModelAndView listOwn(final RedirectAttributes redirectAttrs) {
+	public ModelAndView list(final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		final UserAccount uA = LoginService.getPrincipal();
 		final int brotherhoodId = this.brotherhoodService.findByUserAccountId(uA.getId()).getId();
@@ -69,7 +52,7 @@ public class FloaatController extends AbstractController {
 			final Collection<Floaat> floaats = this.floaatService.findByBrotherhoodId(brotherhoodId);
 			result = new ModelAndView("float/list");
 			result.addObject("floaats", floaats);
-			result.addObject("requestURI", "float/listOwn.do");
+			result.addObject("requestURI", "float/brotherhood/list.do?brotherhoodId=" + brotherhoodId);
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (this.brotherhoodService.findOne(brotherhoodId) == null)
@@ -77,6 +60,7 @@ public class FloaatController extends AbstractController {
 		}
 		return result;
 	}
+
 	//Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -130,17 +114,17 @@ public class FloaatController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Floaat floaat, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Floaat floaat, final String message) {
 		final ModelAndView result;
 		Collection<Brotherhood> brotherhoods;
 
 		brotherhoods = this.brotherhoodService.findAll();
 
-		result = new ModelAndView("floaat/edit");
+		result = new ModelAndView("float/edit");
 		result.addObject("floaat", floaat);
 		result.addObject("brotherhoods", brotherhoods);
 
-		result.addObject("message", messageCode);
+		result.addObject("message", message);
 
 		return result;
 	}

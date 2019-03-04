@@ -53,6 +53,7 @@
 		<form:options items="${brotherhoods}" />
 	</form:select>
 	<br />
+	
 		<input type="submit" name="save"
 			value="<spring:message code="floaat.save" />" 
 			onclick="javascript: relativeRedir('float/brotherhood/list.do');" />

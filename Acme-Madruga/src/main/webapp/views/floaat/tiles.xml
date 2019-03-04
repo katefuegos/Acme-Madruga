@@ -15,4 +15,13 @@
 		<put-attribute name="body" value="/views/floaat/list.jsp" />
 	</definition>
 
+<definition name="float/edit" extends="master.page">
+		<put-attribute name="title" value="Edit float" />
+		<put-attribute name="body" value="/views/floaat/edit.jsp" />
+	</definition>
+	
+	<definition name="float/display" extends="master.page">
+		<put-attribute name="title" value="Display float" />
+		<put-attribute name="body" value="/views/floaat/display.jsp" />
+	</definition>
 </tiles-definitions>

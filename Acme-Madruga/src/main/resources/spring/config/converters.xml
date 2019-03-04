@@ -31,6 +31,9 @@
 		<bean class="converters.FloaatToStringConverter" />
 		<bean class="converters.StringToFloaatConverter" />
 		
+		<bean class="converters.AreaToStringConverter" />
+		<bean class="converters.StringToAreaConverter" />
+	
 		<bean class="converters.ConfigurationToStringConverter" />
 		<bean class="converters.StringToConfigurationConverter" />
 		
