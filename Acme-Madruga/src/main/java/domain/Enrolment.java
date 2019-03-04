@@ -34,7 +34,6 @@ public class Enrolment extends DomainEntity {
 		this.accepted = accepted;
 	}
 
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getMomentEnrol() {

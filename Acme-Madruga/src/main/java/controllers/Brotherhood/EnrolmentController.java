@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.BrotherhoodService;
-import services.ConfigurationService;
 import services.EnrolmentService;
 import services.MemberService;
 import services.PositionService;
@@ -40,9 +39,6 @@ public class EnrolmentController extends AbstractController {
 
 	@Autowired
 	private MemberService			memberService;
-
-	@Autowired
-	private ConfigurationService	configurationService;
 
 	@Autowired
 	private PositionService			positionService;
@@ -233,7 +229,6 @@ public class EnrolmentController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("requestURI", "enrolment/brotherhood/dropout.do?enrolmentId=" + enrolment.getId());
 		result.addObject("enrolment", enrolment);
-		//result.addObject("positions", positions);
 		return result;
 	}
 }
