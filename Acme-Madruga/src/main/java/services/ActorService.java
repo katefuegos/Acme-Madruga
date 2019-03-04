@@ -293,7 +293,7 @@ public class ActorService {
 			brother.setTitle("");
 			brother.setPictures("");
 			final Date currentDate = new Date();
-			brother.setEstablishementDate(currentDate);
+			brother.setEstablishmentDate(currentDate);
 
 			final Actor actor1 = this.brotherhoodService.save(brother);
 			this.boxService.addSystemBox(actor1);

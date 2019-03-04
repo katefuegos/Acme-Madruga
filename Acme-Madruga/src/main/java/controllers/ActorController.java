@@ -114,11 +114,11 @@ public class ActorController extends AbstractController {
 			Date estDate = null;
 			if (brother != null) {
 				title = brother.getTitle();
-				estDate = brother.getEstablishementDate();
+				estDate = brother.getEstablishmentDate();
 			}
 			modelAndView.addObject("actor", actor);
 			modelAndView.addObject("isRead", true);
-			modelAndView.addObject("establishementDate", estDate);
+			modelAndView.addObject("establishmentDate", estDate);
 			modelAndView.addObject("title", title);
 			modelAndView.addObject("requestURI", "/actor/administrator/show.do?actorId=" + actorId);
 		} catch (final Throwable e) {

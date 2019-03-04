@@ -43,8 +43,8 @@ public class Brotherhood extends Actor {
 		return this.establishmentDate;
 	}
 
-	public void setEstablishmentDate(final Date establishementDate) {
-		this.establishmentDate = establishementDate;
+	public void setEstablishmentDate(final Date establishmentDate) {
+		this.establishmentDate = establishmentDate;
 	}
 
 	@URL

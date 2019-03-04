@@ -263,7 +263,7 @@
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="title" value="Santa Claudia" />
-		<property name="establishementDate" value="2018/01/02 11:12" />
+		<property name="establishmentDate" value="2018/01/02 11:12" />
 		<property name="pictures" value="https://profile.es/" />
 		<property name="area" ref="area3" />
 
@@ -284,7 +284,7 @@
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount8" />
 		<property name="title" value="Santa Felipa" />
-		<property name="establishementDate" value="2018/01/02 11:12" />
+		<property name="establishmentDate" value="2018/01/02 11:12" />
 		<property name="pictures" value="https://profile.es/" />
 		<property name="area" ref="area3" />
 
@@ -305,7 +305,7 @@
 		<property name="polarityScore" value="0.0" />
 		<property name="userAccount" ref="userAccount10" />
 		<property name="title" value="San Miguel" />
-		<property name="establishementDate" value="2018/07/26 16:17" />
+		<property name="establishmentDate" value="2018/07/26 16:17" />
 		<property name="pictures" value="https://profile.es/" />
 		<property name="area" ref="area2" />
 	</bean>
@@ -325,7 +325,7 @@
 		<property name="polarityScore" value="-1.0" />
 		<property name="userAccount" ref="userAccount11" />
 		<property name="title" value="San Adam" />
-		<property name="establishementDate" value="2018/11/21 13:47" />
+		<property name="establishmentDate" value="2018/11/21 13:47" />
 		<property name="pictures" value="https://profile.es/" />
 		<property name="area" ref="area1" />
 	</bean>

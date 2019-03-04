@@ -112,11 +112,11 @@
 	</script>
 
 	<jstl:if test="${isRead == true}">
-		<jstl:if test="${establishementDate != null}">
+		<jstl:if test="${establishmentDate != null}">
 			<h3>
-				<spring:message code="actor.establishementDate" />
+				<spring:message code="actor.establishmentDate" />
 				:
-				<jstl:out value="${establishementDate}" />
+				<jstl:out value="${establishmentDate}" />
 			</h3>
 		</jstl:if>
 	</jstl:if>
