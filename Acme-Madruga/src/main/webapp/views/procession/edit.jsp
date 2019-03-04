@@ -11,6 +11,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="${requestURI}" modelAttribute="processionForm">
+	<form:hidden path="id" />
 	<form:label path="title">
 		<spring:message code="procession.title" />:
 	</form:label>

@@ -35,6 +35,7 @@ public class RequestForm {
 	}
 
 	@Range(min = 1)
+	@NotNull
 	public Integer getRoow() {
 		return this.roow;
 	}
@@ -44,6 +45,7 @@ public class RequestForm {
 	}
 
 	@Range(min = 1)
+	@NotNull
 	public Integer getColuumn() {
 		return this.coluumn;
 	}

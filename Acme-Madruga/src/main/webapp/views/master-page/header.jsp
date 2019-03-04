@@ -32,18 +32,16 @@
 					<li><a href="actor/administrator/list.do"><spring:message
 								code="master.page.administrator.actors" /></a></li>
 					<li><a href="actor/administrator/listBanneds.do"><spring:message
-						code="master.page.administrator.banneds" /></a></li>
+								code="master.page.administrator.banneds" /></a></li>
 					<li><a href="configuration/administrator/list.do"><spring:message
 								code="master.page.administrator.configuration" /></a></li>
 					<li><a class="fNiv" href="position/administrator/list.do"><spring:message
-								code="master.page.administrator.positions" /></a>
-						<br>
-					</li>
+								code="master.page.administrator.positions" /></a> <br></li>
 				</ul></li>
-			
+
 		</security:authorize>
 
-	<security:authorize access="isAnonymous()">
+		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
 			<li><a class="fNiv"><spring:message
@@ -55,8 +53,10 @@
 
 					<li><a href="register/actor.do?authority=BROTHERHOOD"><spring:message
 								code="master.page.register.brotherhood" /></a></li>
-					
+
 				</ul></li>
+			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
+						code="master.page.brotherhood" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
@@ -86,7 +86,7 @@
 					</security:authorize>
 
 				</ul></li>
-				
+
 			<li><a class="fNiv" href="actor/edit.do"><spring:message
 						code="master.page.actor.edit" /></a></li>
 
@@ -113,12 +113,12 @@
 			<li><a class="fNiv" href="finder/member/listProcessions.do"><spring:message
 						code="master.page.finder" /></a></li>
 		</security:authorize>
-									
+
 		<security:authorize access="hasRole('ADMIN')">
-						
+
 			<li><a href="register/actor.do?authority=ADMIN"><spring:message
 						code="master.page.register.admin" /></a></li>
-						
+
 		</security:authorize>
 
 
