@@ -17,6 +17,8 @@
 	
 	<display:column property="description" titleKey="floaat.description" />
 	
+	<display:column property="pictures" titleKey="floaat.pictures" />
+	
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<display:column >
 			<a href="float/brotherhood/display.do?floaatId=${row.id}">

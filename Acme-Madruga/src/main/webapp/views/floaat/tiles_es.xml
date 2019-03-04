@@ -10,19 +10,19 @@
 
 <tiles-definitions>
 
-	<definition name="float/list" extends="master.page">
+	<definition name="floaat/list" extends="master.page">
 		<put-attribute name="title" value="Lista de pasos" />
-		<put-attribute name="body" value="/views/floaat/list.jsp" />
+		<put-attribute name="body" value="/views/float/list.jsp" />
 	</definition>
 	
-	<definition name="float/edit" extends="master.page">
+	<definition name="floaat/edit" extends="master.page">
 		<put-attribute name="title" value="Editar pasos" />
-		<put-attribute name="body" value="/views/floaat/edit.jsp" />
+		<put-attribute name="body" value="/views/float/edit.jsp" />
 	</definition>
 	
-	<definition name="float/display" extends="master.page">
+	<definition name="floaat/display" extends="master.page">
 		<put-attribute name="title" value="Mostrar pasos" />
-		<put-attribute name="body" value="/views/floaat/display.jsp" />
+		<put-attribute name="body" value="/views/float/display.jsp" />
 	</definition>
 	
 </tiles-definitions>
