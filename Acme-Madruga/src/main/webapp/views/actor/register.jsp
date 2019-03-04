@@ -80,10 +80,10 @@
 	<br />
 
 	<form:label path="phone">
-		<spring:message code="actor.phone" />:
+		<spring:message code="actor.phone" />
 	</form:label>
-	<form:input path="phone" />
-	<form:errors cssClass="error" path="phone" />
+	<form:input path="phone" id="tlf" readonly="${isRead}" />
+	<form:errors path="phone" cssClass="error" />
 	<br />
 
 	<script type="text/javascript">
@@ -114,7 +114,8 @@
 	<br />
 
 	<input type="submit" name="save"
-		value="<spring:message code="actor.save" />" />&nbsp; 
+	value='<spring:message code="actor.save"/>'
+	onclick="javascript: relativeRedir('welcome/index.do');" />
 
 	<input type="button" name="cancel"
 		value="<spring:message code="message.cancel" />"
