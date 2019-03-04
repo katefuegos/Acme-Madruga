@@ -104,6 +104,7 @@ public class EnrolmentMemberController extends AbstractController {
 			Assert.notNull(member);
 			Assert.isTrue(member.getEnrolments().contains(enrolment));
 			Assert.isTrue(enrolment.isAccepted());
+			enrolment.setPosition(null);
 			enrolment.setAccepted(false);
 			enrolment.setMomentDropOut(new Date(
 					System.currentTimeMillis() - 1000));
