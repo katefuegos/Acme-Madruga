@@ -21,13 +21,24 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="area">
+<form:form action="${requestURI}" modelAttribute="brotherhood">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="ticker" />
-	<form:hidden path="brotherhood" />
-	<form:hidden path="floats" />
+	<form:hidden path="title" />
+	<form:hidden path="establishmentDate" />
+	<form:hidden path="pictures" />
+	<form:hidden path="isSpammer" />
+	<form:hidden path="userAccount" />
+	<form:hidden path="name" />
+	<form:hidden path="middleName" />
+	<form:hidden path="surname" />
+	<form:hidden path="photo" />
+	<form:hidden path="email" />
+	<form:hidden path="address" />
+	<form:hidden path="phone" />
+	
+	
 	
 
 	<form:label path="area">
@@ -39,11 +50,11 @@
 	<br />
 	
 		<input type="submit" name="save"
-			value="<spring:message code="area.save" />" 
+			value="<spring:message code="brotherhood.save" />" 
 			onclick="javascript: relativeRedir('index.do');" />
 			
 		<input type="button" name="cancel"
-			value="<spring:message code="area.cancel" />"
+			value="<spring:message code="brotherhood.cancel" />"
 			onclick="javascript: relativeRedir('index.do');" />
 
 </form:form>

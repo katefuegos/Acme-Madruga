@@ -97,6 +97,8 @@
 						code="master.page.floats" /></a></li>
 			<li><a class="fNiv" href="request/brotherhood/list.do"><spring:message
 						code="master.page.request" /></a></li>
+			<li><a class="fNiv" href="brotherhood/edit.do"><spring:message
+						code="master.page.settle" /></a></li>
 			<li><a class="fNiv" href="enrolment/brotherhood/list.do"><spring:message
 						code="master.page.enrolment" /></a></li>
 		</security:authorize>

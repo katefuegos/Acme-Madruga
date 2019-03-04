@@ -39,11 +39,11 @@ public class Brotherhood extends Actor {
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
-	public Date getEstablishementDate() {
+	public Date getEstablishmentDate() {
 		return this.establishmentDate;
 	}
 
-	public void setEstablishementDate(final Date establishementDate) {
+	public void setEstablishmentDate(final Date establishementDate) {
 		this.establishmentDate = establishementDate;
 	}
 

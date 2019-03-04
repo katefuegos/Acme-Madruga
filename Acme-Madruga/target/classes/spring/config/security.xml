@@ -85,6 +85,8 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/brotherhood/accept.do"
 			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/brotherhood/edit.do"
+			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/brotherhood/decline.do"
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/member/listMember.do"

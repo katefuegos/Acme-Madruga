@@ -15,17 +15,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import security.UserAccount;
+import services.AreaService;
 import services.BrotherhoodService;
+import domain.Area;
 import domain.Brotherhood;
 
 @Controller
 @RequestMapping("/brotherhood")
 public class BrotherhoodController extends AbstractController {
 
+	Boolean						selected	= true;
 	// Services-----------------------------------------------------------
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+	@Autowired
+	private AreaService			areaService;
 
 
 	// Constructor---------------------------------------------------------
@@ -51,6 +56,7 @@ public class BrotherhoodController extends AbstractController {
 		final UserAccount uA = LoginService.getPrincipal();
 		ModelAndView modelAndView;
 		final Brotherhood brotherhood = this.brotherhoodService.findByUserAccountId(uA.getId());
+		this.selected = brotherhood.getArea() != null;
 		try {
 
 			modelAndView = this.createEditModelAndView(brotherhood);
@@ -72,8 +78,11 @@ public class BrotherhoodController extends AbstractController {
 			result = this.createEditModelAndView(brotherhood);
 		else
 			try {
-				this.brotherhoodService.save(brotherhood);
-				result = new ModelAndView("redirect:/brotherhood/actor/list.do");
+				if (!this.selected)
+					this.brotherhoodService.save(brotherhood);
+				else
+					throw new Exception("cannot.commit.error");
+				result = new ModelAndView("redirect:/");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(brotherhood, "brotherhood.commit.error");
 			}
@@ -93,9 +102,11 @@ public class BrotherhoodController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Brotherhood brotherhood, final String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("brotherhood/actor/edit");
+		result = new ModelAndView("brotherhood/edit");
+		final Collection<Area> areas = this.areaService.findAll();
 		result.addObject("brotherhood", brotherhood);
 		result.addObject("message", message);
+		result.addObject("areas", areas);
 		return result;
 	}
 }
