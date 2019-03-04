@@ -196,4 +196,17 @@ public class FinderService {
 	public Finder findFinderByMemberId(final int memberId) {
 		return this.finderRepository.findByMemberId(memberId);
 	}
+
+	public Finder findFinder() {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Member member = this.memberService.findByUserAccountId(userAccount.getId());
+
+		Finder finder = this.findFinderByMemberId(member.getId());
+
+		if (finder == null)
+			finder = this.save(this.create());
+
+		return finder;
+
+	}
 }
