@@ -142,6 +142,24 @@
 
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
+			
+		<security:intercept-url pattern="/actor/register.do"
+			access="permitAll" />
+		
+		<security:intercept-url pattern="/register/actor.do"
+			access="permitAll" />
+			
+		<security:intercept-url pattern="/actor/registerBrotherhood.do"
+			access="permitAll" />
+			
+		<security:intercept-url pattern="/actor/registerMember.do"
+			access="permitAll" />
+			
+		<security:intercept-url pattern="/actor/registerAdmin.do"
+			access="hasRole('ADMIN')" />
+		
+		<security:intercept-url pattern="/actor/list.do"
+			access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
 			access="hasRole('ADMIN')" />
@@ -159,6 +177,12 @@
 		<security:intercept-url pattern="/actor/administrator/ban.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/unban.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/list.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/edit.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/create.do"
 			access="hasRole('ADMIN')" />
 
 

@@ -15,10 +15,14 @@
 </h3>
 
 <ul>
-	<li><spring:message code="administrator.avg" />: <jstl:out value="${avgC1}"/></li>
-	<li><spring:message code="administrator.max" />: <jstl:out value="${maxC1}"/></li>
-	<li><spring:message code="administrator.min" />: <jstl:out value="${minC1}"/></li>
-	<li><spring:message code="administrator.stddev" />: <jstl:out value="${stddevC1}"/></li>
+	<li><spring:message code="administrator.avg" />: <jstl:out
+			value="${avgC1}" /></li>
+	<li><spring:message code="administrator.max" />: <jstl:out
+			value="${maxC1}" /></li>
+	<li><spring:message code="administrator.min" />: <jstl:out
+			value="${minC1}" /></li>
+	<li><spring:message code="administrator.stddev" />: <jstl:out
+			value="${stddevC1}" /></li>
 </ul>
 <br />
 <br />
@@ -26,9 +30,16 @@
 	<spring:message code="administrator.dashboard.C2" />
 </h3>
 
-	<p>	<spring:message code="administrator.dashboard.name" />:
-		<jstl:out value="${nameLargest}"/></p>
-	<p><spring:message code="administrator.dashboard.count" />:<jstl:out value="${countLargest}"/></p>
+<p>
+	<spring:message code="administrator.dashboard.name" />
+	:
+	<jstl:out value="${nameLargest}" />
+</p>
+<p>
+	<spring:message code="administrator.dashboard.count" />
+	:
+	<jstl:out value="${countLargest}" />
+</p>
 <br />
 <br />
 
@@ -36,9 +47,16 @@
 	<spring:message code="administrator.dashboard.C3" />
 </h3>
 
-	<p>	<spring:message code="administrator.dashboard.name" />:
-		<jstl:out value="${nameSmallest}"/></p>
-	<p><spring:message code="administrator.dashboard.count" />:<jstl:out value="${countLargest}"/></p>
+<p>
+	<spring:message code="administrator.dashboard.name" />
+	:
+	<jstl:out value="${nameSmallest}" />
+</p>
+<p>
+	<spring:message code="administrator.dashboard.count" />
+	:
+	<jstl:out value="${countLargest}" />
+</p>
 <br />
 <br />
 
@@ -47,21 +65,26 @@
 	<spring:message code="administrator.dashboard.C4" />
 </h3>
 <jstl:forEach var="entry" items="${statusCount}">
-  <jstl:out value="${entry.key}"/> --- <jstl:out value="${entry.value}"/><br>
+	<jstl:out value="${entry.key}" /> --- <jstl:out value="${entry.value}" />
+	<br>
 </jstl:forEach>
 <br />
-<br /> 
+<br />
 
 
 <h3>
 	<spring:message code="administrator.dashboard.C5" />
 </h3>
 <display:table name="processionsC5" id="row" class="displaytag">
-	<display:column property="ticker" titleKey="administrator.procession.ticker" />
-	<display:column property="title" titleKey="administrator.procession.title" />
-	<display:column property="moment" titleKey="administrator.procession.moment" />
-	<display:column property="brotherhood.title" titleKey="administrator.procession.procession.brotherhood" />
-</display:table> 
+	<display:column property="ticker"
+		titleKey="administrator.procession.ticker" />
+	<display:column property="title"
+		titleKey="administrator.procession.title" />
+	<display:column property="moment"
+		titleKey="administrator.procession.moment" />
+	<display:column property="brotherhood.title"
+		titleKey="administrator.procession.procession.brotherhood" />
+</display:table>
 
 <br />
 <br />
@@ -71,10 +94,11 @@
 </h3>
 <display:table name="queryC7" id="row" class="displaytag">
 	<display:column property="name" titleKey="actor.name" />
-	<display:column property="userAccount.username" titleKey="actor.username" />
+	<display:column property="userAccount.username"
+		titleKey="actor.username" />
 	<display:column property="email" titleKey="actor.email" />
 	<display:column property="phone" titleKey="actor.phone" />
-</display:table> 
+</display:table>
 <br />
 <br />
 <h3>
@@ -82,11 +106,14 @@
 </h3>
 
 <jstl:forEach var="entry1" items="${position}">
-<jstl:if test="${entry1.key==lang}">
-	<jstl:forEach var="entry" items="${entry1.value}">
-	  <jstl:out value="${entry.key}"/> --- <jstl:out value="${entry.value}"/><br>
+
+	<jstl:forEach var="entry2" items="${entry1.key.name}">
+		<jstl:if test="${lang==entry.key}">
+			<jstl:out value="${entry.value}" />
+		</jstl:if>
 	</jstl:forEach>
-</jstl:if>
+	--- <jstl:out value="${entry.value}" />
+	<br>
 </jstl:forEach>
 
 
@@ -97,17 +124,22 @@
 	<spring:message code="administrator.dashboard.B1" />
 </h3>
 <ul>
-	<li><spring:message code="administrator.avg" />: <jstl:out value="${avgB1}"/></li>
-	<li><spring:message code="administrator.max" />: <jstl:out value="${maxB1}"/></li>
-	<li><spring:message code="administrator.min" />: <jstl:out value="${minB1}"/></li>
-	<li><spring:message code="administrator.stddev" />: <jstl:out value="${stddevB1}"/></li>
+	<li><spring:message code="administrator.avg" />: <jstl:out
+			value="${avgB1}" /></li>
+	<li><spring:message code="administrator.max" />: <jstl:out
+			value="${maxB1}" /></li>
+	<li><spring:message code="administrator.min" />: <jstl:out
+			value="${minB1}" /></li>
+	<li><spring:message code="administrator.stddev" />: <jstl:out
+			value="${stddevB1}" /></li>
 </ul>
 
 <display:table name="areaQueryB1" id="row" class="displaytag">
 	<display:column property="name" titleKey="administrator.dashboard.name" />
 	<display:column property="ratio" titleKey="administrator.ratio" />
-	<display:column property="count" titleKey="administrator.dashboard.count" />
-</display:table> 
+	<display:column property="count"
+		titleKey="administrator.dashboard.count" />
+</display:table>
 
 
 <br />
@@ -117,10 +149,14 @@
 	<spring:message code="administrator.dashboard.B2" />
 </h3>
 <ul>
-	<li><spring:message code="administrator.avg" />: <jstl:out value="${avgB2}"/></li>
-	<li><spring:message code="administrator.max" />: <jstl:out value="${maxB2}"/></li>
-	<li><spring:message code="administrator.min" />: <jstl:out value="${minB2}"/></li>
-	<li><spring:message code="administrator.stddev" />: <jstl:out value="${stddevB2}"/></li>
+	<li><spring:message code="administrator.avg" />: <jstl:out
+			value="${avgB2}" /></li>
+	<li><spring:message code="administrator.max" />: <jstl:out
+			value="${maxB2}" /></li>
+	<li><spring:message code="administrator.min" />: <jstl:out
+			value="${minB2}" /></li>
+	<li><spring:message code="administrator.stddev" />: <jstl:out
+			value="${stddevB2}" /></li>
 </ul>
 <br />
 <br />
@@ -128,8 +164,10 @@
 	<spring:message code="administrator.dashboard.B3" />
 </h3>
 <ul>
-	<li><spring:message code="administrator.ratio.finder.empty" />:<jstl:out value="${queryB3FinderResultEmpty}"/> </li>
-	<li><spring:message code="administrator.ratio.finder.notEmpty" />: <jstl:out value="${queryB3FinderResultNotEmpty}"/></li>
+	<li><spring:message code="administrator.ratio.finder.empty" />:<jstl:out
+			value="${queryB3FinderResultEmpty}" /></li>
+	<li><spring:message code="administrator.ratio.finder.notEmpty" />:
+		<jstl:out value="${queryB3FinderResultNotEmpty}" /></li>
 </ul>
 <br />
 <br />

@@ -47,7 +47,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select m from Member m where 0.1<=(select count(q)*1/(select count(qq) from Request qq)	from Request q where q.status = 'APPROVED' and q.member.id=m.id)")
 	Collection<Member> queryC7();
 	//C8 - A histogram of positions.
-	@Query("select e.positionEN,e.positionES, count(e) from Enrolment e group by e.positionEN")
+	@Query("select e.position, count(e) from Enrolment e group by e.position.id")
 	Collection<Object[]> queryC8();
 	//DASHBOARD B
 	//B1-A

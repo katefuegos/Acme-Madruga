@@ -33,15 +33,30 @@
 						code="master.page.administrator.banneds" /></a></li>
 					<li><a href="configuration/administrator/list.do"><spring:message
 								code="master.page.administrator.configuration" /></a></li>
-
+					<li><a class="fNiv" href="position/administrator/list.do"><spring:message
+								code="master.page.administrator.positions" /></a>
+						<br>
+					</li>
 				</ul></li>
 		</security:authorize>
 
-		<security:authorize access="isAnonymous()">
+	<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
-			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
-						code="master.page.brotherhood" /></a></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="register/actor.do?authority=MEMBER"><spring:message
+								code="master.page.register.member" /></a></li>
+
+					<li><a href="register/actor.do?authority=BROTHERHOOD"><spring:message
+								code="master.page.register.brotherhood" /></a></li>
+					<li><a href="register/actor.do?authority=ADMIN"><spring:message
+								code="master.page.register.admin" /></a></li>
+
+
+				</ul></li>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">

@@ -42,7 +42,7 @@ public class RegisterController extends AbstractController {
 
 	// Constructor---------------------------------------------------------
 
-	//		Register Brotherhood
+	//		Register Admin, Brotherhood and member
 	@RequestMapping(value = "/actor", method = RequestMethod.GET)
 	public ModelAndView createBrotherhoodAndMember(@RequestParam(required = false, defaultValue = "default") final String authority) {
 		ModelAndView modelAndView;
@@ -55,10 +55,15 @@ public class RegisterController extends AbstractController {
 			case "MEMBER":
 				actor = this.actorService.create("MEMBER");
 				break;
+			case "ADMIN":
+				actor = this.actorService.create("ADMIN");
+				break;
 			default:
 				throw new NullPointerException();
 			}
+
 			modelAndView = this.createEditModelAndView(actor);
+
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 		}
@@ -120,8 +125,8 @@ public class RegisterController extends AbstractController {
 			result = new ModelAndView("register/brotherhood");
 		else if (authorities.contains(member))
 			result = new ModelAndView("register/member");
-		//		else if (authorities.contains(admin))
-		//			result = new ModelAndView("register/sponsor");
+		else if (authorities.contains(admin))
+			result = new ModelAndView("register/admin");
 		else
 			throw new NullPointerException();
 
@@ -130,4 +135,5 @@ public class RegisterController extends AbstractController {
 		result.addObject("isRead", false);
 		return result;
 	}
+
 }

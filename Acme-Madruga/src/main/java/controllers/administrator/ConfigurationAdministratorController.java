@@ -98,9 +98,9 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		configurationForm.setNegativeWordsEN(configuration.getNegativeWords().get("EN"));
 
-		configurationForm.setPositionES(configuration.getPositions().get("ES"));
-
-		configurationForm.setPositionEN(configuration.getPositions().get("EN"));
+		//		configurationForm.setPositionES(configuration.getPositions().get("ES"));
+		//
+		//		configurationForm.setPositionEN(configuration.getPositions().get("EN"));
 
 		result = this.createEditModelAndView(configurationForm);
 
@@ -137,13 +137,17 @@ public class ConfigurationAdministratorController extends AbstractController {
 		negativeWords.put("EN", configurationForm.getNegativeWordsEN());
 
 		negativeWords.put("ES", configurationForm.getNegativeWordsES());
-
-		final Map<String, Collection<String>> positions = new HashMap<String, Collection<String>>();
-
-		positions.put("EN", configurationForm.getPositionEN());
-
-		positions.put("ES", configurationForm.getPositionES());
-
+		//------------------------------------------------
+		//------------------------------------------------
+		//------------------------------------------------
+		//		final Map<String, Collection<String>> positions = new HashMap<String, Collection<String>>();
+		//
+		//		positions.put("EN", configurationForm.getPositionEN());
+		//
+		//		positions.put("ES", configurationForm.getPositionES());
+		//------------------------------------------------
+		//------------------------------------------------
+		//------------------------------------------------
 		try {
 
 			final Configuration configuration = this.configurationService.findOne();
@@ -166,7 +170,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 			configuration.setNegativeWords(negativeWords);
 
-			configuration.setPositions(positions);
+			//configuration.setPositions(positions);
 
 			this.configurationService.delete(configuration);
 
@@ -220,9 +224,9 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		configurationForm.setNegativeWordsEN(configuration.getNegativeWords().get("EN"));
 
-		configurationForm.setPositionES(configuration.getPositions().get("ES"));
-
-		configurationForm.setPositionEN(configuration.getPositions().get("EN"));
+		//		configurationForm.setPositionES(configuration.getPositions().get("ES"));
+		//
+		//		configurationForm.setPositionEN(configuration.getPositions().get("EN"));
 
 		result = this.createEditModelAndView(configurationForm);
 
@@ -264,11 +268,11 @@ public class ConfigurationAdministratorController extends AbstractController {
 		negativeWords.put("EN", configurationForm.getNegativeWordsEN());
 
 		negativeWords.put("ES", configurationForm.getNegativeWordsES());
-
-		final Map<String, Collection<String>> positions = new HashMap<String, Collection<String>>();
-		positions.put("EN", configurationForm.getPositionEN());
-
-		positions.put("ES", configurationForm.getPositionES());
+		//
+		//		final Map<String, Collection<String>> positions = new HashMap<String, Collection<String>>();
+		//		positions.put("EN", configurationForm.getPositionEN());
+		//
+		//		positions.put("ES", configurationForm.getPositionES());
 
 		if (binding.hasErrors())
 
@@ -298,7 +302,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 				configuration.setNegativeWords(negativeWords);
 
-				configuration.setPositions(positions);
+				//configuration.setPositions(positions);
 
 				this.configurationService.save(configuration);
 

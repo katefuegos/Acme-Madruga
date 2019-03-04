@@ -12,7 +12,6 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -22,8 +21,6 @@ public class Enrolment extends DomainEntity {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 	private Date	momentEnrol;
-	private String	positionEN;
-	private String	positionES;
 	private Date	momentDropOut;
 	private boolean	accepted;
 
@@ -48,24 +45,6 @@ public class Enrolment extends DomainEntity {
 		this.momentEnrol = momentEnrol;
 	}
 
-	@NotBlank
-	public String getPositionEN() {
-		return this.positionEN;
-	}
-
-	public void setPositionEN(final String position) {
-		this.positionEN = position;
-	}
-
-	@NotBlank
-	public String getPositionES() {
-		return this.positionES;
-	}
-
-	public void setPositionES(final String position) {
-		this.positionES = position;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getMomentDropOut() {
@@ -79,6 +58,7 @@ public class Enrolment extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	private Brotherhood	brotherhood;
+	private Position	position;
 
 
 	@Valid
@@ -90,4 +70,15 @@ public class Enrolment extends DomainEntity {
 	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
 	}
+
+	@Valid
+	@ManyToOne(optional = true)
+	public Position getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(final Position position) {
+		this.position = position;
+	}
+
 }
