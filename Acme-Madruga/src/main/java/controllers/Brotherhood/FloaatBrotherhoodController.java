@@ -1,5 +1,6 @@
-
 package controllers.Brotherhood;
+
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -15,22 +16,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import security.LoginService;
 import services.BrotherhoodService;
 import services.FloaatService;
+import services.ProcessionService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Floaat;
+import domain.Procession;
 import forms.FloaatForm;
 
 @Controller
-@RequestMapping("/floaat/brotherhood")
+@RequestMapping("/float/brotherhood")
 public class FloaatBrotherhoodController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
-	private FloaatService		floaatService;
+	private FloaatService floaatService;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private BrotherhoodService brotherhoodService;
 
+	@Autowired
+	private ProcessionService processionService;
 
 	// Constructor---------------------------------------------------------
 
@@ -44,12 +49,17 @@ public class FloaatBrotherhoodController extends AbstractController {
 		ModelAndView result;
 
 		try {
-			final Integer brotherhoodId = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+			final Integer brotherhoodId = this.brotherhoodService
+					.findByUserAccountId(LoginService.getPrincipal().getId())
+					.getId();
 			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 			result = new ModelAndView("floaat/list");
-			result.addObject("requestURI", "float/brotherhood/list.do?brotherhoodId=" + brotherhoodId);
+			Collection<Floaat> floaats = floaatService
+					.findByBrotherhoodId(brotherhoodId);
+			result.addObject("requestURI", "float/brotherhood/list.do");
+			result.addObject("floaats", floaats);
 		} catch (final Throwable e) {
-			result = new ModelAndView("redirect:/");
+			result = new ModelAndView("redirect:/float/brotherhood/list.do");
 		}
 		return result;
 	}
@@ -67,7 +77,8 @@ public class FloaatBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final FloaatForm floaatForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final FloaatForm floaatForm,
+			final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -89,14 +100,17 @@ public class FloaatBrotherhoodController extends AbstractController {
 
 	// EDIT
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(final int floaatId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(final int floaatId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Floaat floaat = null;
-		final Brotherhood b = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId());
+		final Brotherhood b = this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId());
 		try {
 			floaat = this.floaatService.findOne(floaatId);
 			Assert.notNull(floaat);
-			Assert.isTrue(this.floaatService.findOne(floaatId).getBrotherhood().equals(b));
+			Assert.isTrue(this.floaatService.findOne(floaatId).getBrotherhood()
+					.equals(b));
 
 			final FloaatForm floaatForm = new FloaatForm();
 			floaatForm.setId(floaat.getId());
@@ -110,23 +124,29 @@ public class FloaatBrotherhoodController extends AbstractController {
 
 			result = new ModelAndView("redirect:/float/brotherhood/list.do");
 			if (this.floaatService.findOne(floaatId) == null)
-				redirectAttrs.addFlashAttribute("message", "floaat.error.unexist");
-			else if (!this.floaatService.findOne(floaatId).getBrotherhood().equals(b))
-				redirectAttrs.addFlashAttribute("message", "floaat.error.notFromActor");
+				redirectAttrs.addFlashAttribute("message",
+						"floaat.error.unexist");
+			else if (!this.floaatService.findOne(floaatId).getBrotherhood()
+					.equals(b))
+				redirectAttrs.addFlashAttribute("message",
+						"floaat.error.notFromActor");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save2(@Valid final FloaatForm floaatForm, final BindingResult binding) {
+	public ModelAndView save2(@Valid final FloaatForm floaatForm,
+			final BindingResult binding) {
 		ModelAndView result;
-		final Brotherhood b = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId());
+		final Brotherhood b = this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
 			result = this.editModelAndView(floaatForm, "commit.error");
 		else
 			try {
 				Assert.notNull(floaatForm);
-				final Floaat floaat = this.floaatService.findOne(floaatForm.getId());
+				final Floaat floaat = this.floaatService.findOne(floaatForm
+						.getId());
 				Assert.isTrue(floaat.getBrotherhood().equals(b));
 				floaat.setDescription(floaatForm.getDescription());
 				floaat.setPictures(floaatForm.getPictures());
@@ -142,17 +162,30 @@ public class FloaatBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final FloaatForm floaatForm, final BindingResult binding) {
+	public ModelAndView delete(@Valid final FloaatForm floaatForm,
+			final BindingResult binding) {
 		ModelAndView result;
-		final Brotherhood b = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId());
+		final Brotherhood b = this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
 			result = this.editModelAndView(floaatForm, "commit.error");
 		else
 			try {
 				Assert.notNull(floaatForm);
-				final Floaat floaat = this.floaatService.findOne(floaatForm.getId());
+				final Floaat floaat = this.floaatService.findOne(floaatForm
+						.getId());
 				Assert.isTrue(floaat.getBrotherhood().equals(b));
-				this.floaatService.delete(this.floaatService.findOne(floaatForm.getId()));
+				Collection<Procession> processions = processionService
+						.findByFloaat(floaat);
+				if (!processions.isEmpty()) {
+					for (Procession p : processions) {
+						p.getFloats().remove(floaat);
+						processionService.save(p);
+					}
+				}
+
+				this.floaatService.delete(this.floaatService.findOne(floaatForm
+						.getId()));
 
 				result = new ModelAndView("redirect:/float/brotherhood/list.do");
 			} catch (final Throwable oops) {
@@ -163,11 +196,13 @@ public class FloaatBrotherhoodController extends AbstractController {
 	}
 
 	// SHOW
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(final int floaatId, final RedirectAttributes redirectAttrs) {
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(final int floaatId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Floaat floaat = null;
-		final Brotherhood b = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId());
+		final Brotherhood b = this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId());
 		try {
 			floaat = this.floaatService.findOne(floaatId);
 			Assert.notNull(floaat);
@@ -179,15 +214,18 @@ public class FloaatBrotherhoodController extends AbstractController {
 			floaatForm.setTitle(floaat.getTitle());
 			floaatForm.setPictures(floaat.getPictures());
 
-			result = this.ShowModelAndView(floaatForm);
+			result = this.DisplayModelAndView(floaatForm);
 
 		} catch (final Throwable e) {
 
 			result = new ModelAndView("redirect:/float/brotherhood/list.do");
 			if (this.floaatService.findOne(floaatId) == null)
-				redirectAttrs.addFlashAttribute("message", "floaat.error.unexist");
-			else if (!this.floaatService.findOne(floaatId).getBrotherhood().equals(b))
-				redirectAttrs.addFlashAttribute("message", "floaat.error.notFromActor");
+				redirectAttrs.addFlashAttribute("message",
+						"floaat.error.unexist");
+			else if (!this.floaatService.findOne(floaatId).getBrotherhood()
+					.equals(b))
+				redirectAttrs.addFlashAttribute("message",
+						"floaat.error.notFromActor");
 		}
 		return result;
 	}
@@ -199,7 +237,8 @@ public class FloaatBrotherhoodController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final FloaatForm floaatForm, final String message) {
+	protected ModelAndView createModelAndView(final FloaatForm floaatForm,
+			final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("floaat/create");
@@ -218,30 +257,34 @@ public class FloaatBrotherhoodController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final FloaatForm floaatForm, final String message) {
+	protected ModelAndView editModelAndView(final FloaatForm floaatForm,
+			final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("floaat/edit");
 		result.addObject("message", message);
-		result.addObject("requestURI", "floaat/brotherhood/edit.do?floaatId=" + floaatForm.getId());
+		result.addObject("requestURI", "float/brotherhood/edit.do?floaatId="
+				+ floaatForm.getId());
 		result.addObject("floaatForm", floaatForm);
 		result.addObject("isRead", false);
 
 		return result;
 	}
 
-	protected ModelAndView ShowModelAndView(final FloaatForm floaatForm) {
+	protected ModelAndView DisplayModelAndView(final FloaatForm floaatForm) {
 		ModelAndView result;
-		result = this.ShowModelAndView(floaatForm, null);
+		result = this.DisplayModelAndView(floaatForm, null);
 		return result;
 	}
 
-	protected ModelAndView ShowModelAndView(final FloaatForm floaatForm, final String message) {
+	protected ModelAndView DisplayModelAndView(final FloaatForm floaatForm,
+			final String message) {
 		final ModelAndView result;
 
-		result = new ModelAndView("floaat/show");
+		result = new ModelAndView("floaat/display");
 		result.addObject("message", message);
-		result.addObject("requestURI", "float/brotherhood/show.do?floaatId=" + floaatForm.getId());
+		result.addObject("requestURI", "float/brotherhood/display.do?floaatId="
+				+ floaatForm.getId());
 		result.addObject("floaatForm", floaatForm);
 		result.addObject("isRead", true);
 

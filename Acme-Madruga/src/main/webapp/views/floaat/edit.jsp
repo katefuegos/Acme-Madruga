@@ -23,7 +23,6 @@
 
 <form:form action="${requestURI}" modelAttribute="floaatForm">
 	<form:hidden path="id" />
-	<form:hidden path="brotherhood" />
 	
 	<form:label path="title">
 		<spring:message code="floaat.title" />:
@@ -66,7 +65,7 @@
 	<jstl:if test="${isRead == true}">
 
 		<input type="button" name="back"
-			value="<spring:message code="float.back" />"
+			value="<spring:message code="floaat.back" />"
 			onclick="javascript: relativeRedir('/float/brotherhood/list.do');" />
 		<br />
 

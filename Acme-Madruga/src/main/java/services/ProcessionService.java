@@ -111,4 +111,9 @@ public class ProcessionService {
 		Assert.notNull(brotherhoodId);
 		return processionRepository.findByBrotherhoodId(brotherhoodId);
 	}
+
+	public Collection<Procession> findByFloaat(Floaat floaat) {
+		Assert.notNull(floaat);
+		return processionRepository.findByFloaat(floaat);
+	}
 }
