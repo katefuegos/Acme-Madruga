@@ -104,6 +104,8 @@
 		<security:authorize access="hasRole('MEMBER')">
 			<li><a class="fNiv" href="request/member/listMember.do"><spring:message
 						code="master.page.myRequest" /></a></li>
+			<li><a class="fNiv" href="brotherhood/member/list.do"><spring:message
+						code="master.page.brotherhood.member" /></a></li>
 		</security:authorize>
 
 
