@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -22,8 +21,7 @@ public class BrotherhoodService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private BrotherhoodRepository	brotherhoodRepository;
-
+	private BrotherhoodRepository brotherhoodRepository;
 
 	// Services-------------------------------------------------
 
@@ -82,9 +80,5 @@ public class BrotherhoodService {
 	// Other Methods--------------------------------------------
 	public Brotherhood findByUserAccountId(final int userAccountId) {
 		return this.brotherhoodRepository.findByUserAccountId(userAccountId);
-	}
-
-	public Collection<Brotherhood> findByMember(final int userAccountId) {
-		return this.brotherhoodRepository.findByMember(userAccountId);
 	}
 }

@@ -15,6 +15,11 @@
 		<put-attribute name="body" value="/views/enrolment/list.jsp" />
 	</definition>
 
+	<definition name="enrolment/list2" extends="master.page">
+		<put-attribute name="title" value="My enrolments" />
+		<put-attribute name="body" value="/views/enrolment/list2.jsp" />
+	</definition>
+
 	<definition name="enrolment/enrol" extends="master.page">
 		<put-attribute name="title" value="Enrol member" />
 		<put-attribute name="body" value="/views/enrolment/enrol.jsp" />

@@ -69,8 +69,6 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/procession/brotherhood/list.do"
 			access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/brotherhood/member/**"
-			access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/procession/brotherhood/edit.do"
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/procession/brotherhood/create.do"
@@ -105,6 +103,14 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/enrolment/brotherhood/dropout.do"
 			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/enrolment/member/list.do"
+			access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/enrolment/member/dropout.do"
+			access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/enrolment/member/cancel.do"
+			access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/enrolment/member/join.do"
+			access="hasRole('MEMBER')" />
 
 
 		<!-- Message -->
@@ -151,22 +157,22 @@
 
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
-			
+
 		<security:intercept-url pattern="/actor/register.do"
 			access="permitAll" />
-		
+
 		<security:intercept-url pattern="/register/actor.do"
 			access="permitAll" />
-			
+
 		<security:intercept-url pattern="/actor/registerBrotherhood.do"
 			access="permitAll" />
-			
+
 		<security:intercept-url pattern="/actor/registerMember.do"
 			access="permitAll" />
-			
+
 		<security:intercept-url pattern="/actor/registerAdmin.do"
 			access="hasRole('ADMIN')" />
-		
+
 		<security:intercept-url pattern="/actor/list.do"
 			access="isAuthenticated()" />
 
@@ -193,8 +199,8 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/position/administrator/create.do"
 			access="hasRole('ADMIN')" />
-			
-			
+
+
 		<security:intercept-url pattern="/finder/member.do"
 			access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/finder/member/listProcessions.do"

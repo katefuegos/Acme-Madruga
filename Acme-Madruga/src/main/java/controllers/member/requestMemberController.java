@@ -116,6 +116,9 @@ public class requestMemberController extends AbstractController {
 			result = new ModelAndView("redirect:/request/member/listMember.do");
 			if (procession == null)
 				redirectAttrs.addFlashAttribute("message", "request.error.processionUnexists");
+			else if (!request.getMember().equals(member)) {
+				 redirectAttrs.addFlashAttribute("message",
+				 "request.error.nobrotherhood");}
 			else
 				result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
@@ -145,7 +148,7 @@ public class requestMemberController extends AbstractController {
 			 if (request == null)
 			 redirectAttrs.addFlashAttribute("message",
 			 "request.error.unexist");
-			 if (!request.getMember().equals(member)) {
+			 else if (!request.getMember().equals(member)) {
 			 redirectAttrs.addFlashAttribute("message",
 			 "request.error.nobrotherhood");
 			 } else

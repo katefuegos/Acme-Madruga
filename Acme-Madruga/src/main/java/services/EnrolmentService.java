@@ -1,8 +1,6 @@
-
 package services;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -22,12 +20,11 @@ public class EnrolmentService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private EnrolmentRepository	enrolmentRepository;
+	private EnrolmentRepository enrolmentRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
-
+	private BrotherhoodService brotherhoodService;
 
 	// Constructor----------------------------------------------
 
@@ -39,10 +36,16 @@ public class EnrolmentService {
 
 	public Enrolment create() {
 		final Enrolment res = new Enrolment();
-		final Date momentEnrol = new Date();
-		res.setMomentEnrol(momentEnrol);
-		res.setBrotherhood(this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()));
+		res.setBrotherhood(this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId()));
+		res.setAccepted(false);
 
+		return res;
+	}
+
+	public Enrolment createFromMember() {
+		final Enrolment res = new Enrolment();
+		res.setAccepted(false);
 		return res;
 	}
 
@@ -57,9 +60,6 @@ public class EnrolmentService {
 
 	public Enrolment save(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("BROTHERHOOD"), "SOLO UN BROTHERHOOD PUEDE CREAR/EDITAR PROCESSION");
-		if (enrolment.getId() == 0)
-			enrolment.setMomentEnrol(new Date(System.currentTimeMillis() - 1000));
 		final Enrolment saved = this.enrolmentRepository.save(enrolment);
 		return saved;
 	}
@@ -70,9 +70,11 @@ public class EnrolmentService {
 
 	// Other Methods--------------------------------------------
 
-	public Collection<Enrolment> findByBrotherhoodAndAccepted(final int brotherhoodId) {
+	public Collection<Enrolment> findByBrotherhoodAndAccepted(
+			final int brotherhoodId) {
 		Assert.notNull(brotherhoodId);
-		return this.enrolmentRepository.findByBrotherhoodAndAccepted(brotherhoodId);
+		return this.enrolmentRepository
+				.findByBrotherhoodAndAccepted(brotherhoodId);
 	}
 
 	public Collection<Enrolment> findByBrotherhood(final int brotherhoodId) {
@@ -88,9 +90,9 @@ public class EnrolmentService {
 	public void deleteRelationshipPosition(final int positionId) {
 		Assert.notNull(positionId);
 
-		final Collection<Enrolment> collection = this.findByPosition(positionId);
+		final Collection<Enrolment> collection = this
+				.findByPosition(positionId);
 
-		// TODO ENROLMENT - POSITION revisar relación con position
 		for (final Enrolment enrolment : collection)
 			enrolment.setPosition(null);
 
@@ -98,4 +100,26 @@ public class EnrolmentService {
 
 	}
 
+	public Collection<Enrolment> findByMemberIdAccepted(int memberId) {
+		Assert.notNull(memberId);
+		return this.enrolmentRepository.findByMemberIdAccepted(memberId);
+	}
+
+	public Collection<Enrolment> findByMemberIdPending(int memberId) {
+		Assert.notNull(memberId);
+		return this.enrolmentRepository.findByMemberIdPending(memberId);
+	}
+
+	public Collection<Enrolment> findByMemberIdDropOut(int memberId) {
+		Assert.notNull(memberId);
+		return this.enrolmentRepository.findByMemberIdDropOut(memberId);
+	}
+
+	public Enrolment findByMemberIdAndBrotherhoodId(int memberId,
+			int brotherhoodId) {
+		Assert.notNull(memberId);
+		Assert.notNull(brotherhoodId);
+		return this.enrolmentRepository.findByMemberIdAndBrotherhoodId(
+				memberId, brotherhoodId);
+	}
 }
