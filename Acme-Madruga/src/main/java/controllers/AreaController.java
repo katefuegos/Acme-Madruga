@@ -52,6 +52,16 @@ public class AreaController extends AbstractController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Area area;
+		area = this.areaService.create();
+		result = this.createEditModelAndView(area);
+		return result;
+	}
+
 	//Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
