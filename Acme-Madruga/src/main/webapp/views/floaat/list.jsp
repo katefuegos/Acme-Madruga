@@ -33,6 +33,7 @@
 
 	
 </display:table>
-
-<a href="float/brotherhood/create.do"> <spring:message code="floaat.create" /></a>
 	
+	<security:authorize access="hasRole('BROTHERHOOD')">
+<a href="float/brotherhood/create.do"> <spring:message code="floaat.create" /></a>
+	</security:authorize>

@@ -27,6 +27,8 @@
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="area/list.do"><spring:message
+								code="master.page.administrator.areas" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message
 								code="master.page.administrator.actors" /></a></li>
 					<li><a href="actor/administrator/listBanneds.do"><spring:message

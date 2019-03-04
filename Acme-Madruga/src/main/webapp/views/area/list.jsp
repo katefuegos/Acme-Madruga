@@ -17,4 +17,13 @@
 	
 	<display:column property="pictures" titleKey="area.pictures" />
 	
-</display:table>
+	<display:column >
+			<a href="area/edit.do?areaId=${row.id}">
+			<spring:message code="area.edit"></spring:message></a>
+	</display:column>
+	
+	
+	</display:table>
+	
+<a href="area/create.do"> <spring:message code="area.create" /></a>
+	

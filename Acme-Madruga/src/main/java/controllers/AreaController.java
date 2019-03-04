@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.AreaService;
 import services.BrotherhoodService;
-import services.FloaatService;
-import domain.Floaat;
+import domain.Area;
 
 @Controller
 @RequestMapping("/area")
@@ -25,7 +25,7 @@ public class AreaController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
-	private FloaatService		areaService;
+	private AreaService			areaService;
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -39,12 +39,11 @@ public class AreaController extends AbstractController {
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(final int brotherhoodId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView list(final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 
 		try {
-			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
-			final Collection<Floaat> areas = this.areaService.findByBrotherhoodId(brotherhoodId);
+			final Collection<Area> areas = this.areaService.findAll();
 			result = new ModelAndView("area/list");
 			result.addObject("areas", areas);
 			result.addObject("requestURI", "area/list.do");
@@ -58,7 +57,7 @@ public class AreaController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int areaId) {
 		ModelAndView result;
-		Floaat area;
+		Area area;
 
 		area = this.areaService.findOne(areaId);
 		Assert.notNull(area);
@@ -69,7 +68,7 @@ public class AreaController extends AbstractController {
 	//Save
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Floaat area, final BindingResult binding) {
+	public ModelAndView save(@Valid final Area area, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -87,7 +86,7 @@ public class AreaController extends AbstractController {
 	//delete
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Floaat area, final BindingResult binding) {
+	public ModelAndView delete(final Area area, final BindingResult binding) {
 		ModelAndView result;
 		try {
 			this.areaService.delete(area);
@@ -98,7 +97,7 @@ public class AreaController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Floaat area) {
+	protected ModelAndView createEditModelAndView(final Area area) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(area, null);
@@ -106,7 +105,7 @@ public class AreaController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Floaat area, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Area area, final String messageCode) {
 		final ModelAndView result;
 
 		result = new ModelAndView("area/edit");
