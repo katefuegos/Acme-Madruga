@@ -55,8 +55,8 @@ public class ConfigurationService {
 		configuration.setWelcomeMessage(welcomeMessage);
 		configuration.setBanner("");
 		configuration.setSpamWords(spamWords);
-		configuration.setFinderCacheTime(1);
-		configuration.setFinderMaxResults(100);
+		configuration.setFinderCacheTime(60);
+		configuration.setFinderMaxResults(10);
 		configuration.setNegativeWords(negativeWords);
 		configuration.setPositiveWords(positiveWords);
 		configuration.setPriorities(priorities);

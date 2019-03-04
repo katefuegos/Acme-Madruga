@@ -38,6 +38,7 @@
 						<br>
 					</li>
 				</ul></li>
+			
 		</security:authorize>
 
 	<security:authorize access="isAnonymous()">
@@ -52,10 +53,7 @@
 
 					<li><a href="register/actor.do?authority=BROTHERHOOD"><spring:message
 								code="master.page.register.brotherhood" /></a></li>
-					<li><a href="register/actor.do?authority=ADMIN"><spring:message
-								code="master.page.register.admin" /></a></li>
-
-
+					
 				</ul></li>
 		</security:authorize>
 
@@ -86,7 +84,9 @@
 					</security:authorize>
 
 				</ul></li>
-
+				
+			<li><a class="fNiv" href="actor/edit.do"><spring:message
+						code="master.page.actor.edit" /></a></li>
 
 		</security:authorize>
 
@@ -108,6 +108,15 @@
 						code="master.page.myRequest" /></a></li>
 			<li><a class="fNiv" href="brotherhood/member/list.do"><spring:message
 						code="master.page.brotherhood.member" /></a></li>
+			<li><a class="fNiv" href="finder/member/listProcessions.do"><spring:message
+						code="master.page.finder" /></a></li>
+		</security:authorize>
+									
+		<security:authorize access="hasRole('ADMIN')">
+						
+			<li><a href="register/actor.do?authority=ADMIN"><spring:message
+						code="master.page.register.admin" /></a></li>
+						
 		</security:authorize>
 
 
