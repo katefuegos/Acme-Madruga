@@ -24,12 +24,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import security.Authority;
 import security.LoginService;
 import services.ActorService;
+import services.AreaService;
 import services.BrotherhoodService;
 import services.MemberService;
 import domain.Actor;
 import domain.Brotherhood;
+import forms.ActorForm;
 
 @Controller
 @RequestMapping("/actor")
@@ -44,35 +47,83 @@ public class ActorController extends AbstractController {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private AreaService			areaService;
+
 
 	// Edit ---------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
+		final ActorForm actorForm = new ActorForm();
 
-		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		Assert.notNull(a);
+		final Authority member = new Authority();
+		member.setAuthority(Authority.MEMBER);
+		final Authority brotherhood = new Authority();
+		brotherhood.setAuthority(Authority.BROTHERHOOD);
+		final Authority admin = new Authority();
+		admin.setAuthority(Authority.ADMIN);
 
-		result = this.createEditModelAndView(a);
+		actorForm.setTitle("---");
+		actorForm.setPictures("http://www.pictures.com");
+		actorForm.setArea(this.areaService.findAll().iterator().next());
+
+		try {
+			final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+			Assert.notNull(a);
+
+			if (a.getUserAccount().getAuthorities().contains(member))
+				actorForm.setAuth("MEMBER");
+			else if (a.getUserAccount().getAuthorities().contains(brotherhood)) {
+				actorForm.setAuth("BROTHERHOOD");
+				final Brotherhood bro = this.brotherhoodService.findByUserAccountId(a.getUserAccount().getId());
+				actorForm.setTitle(bro.getTitle());
+				actorForm.setPictures(bro.getPictures());
+				actorForm.setArea(bro.getArea());
+
+			} else if (a.getUserAccount().getAuthorities().contains(admin))
+				actorForm.setAuth("ADMIN");
+
+			else
+				throw new NullPointerException();
+
+			actorForm.setUserAccount(a.getUserAccount());
+			actorForm.setId(a.getId());
+			actorForm.setVersion(a.getVersion());
+			actorForm.setName(a.getName());
+			actorForm.setMiddleName(a.getMiddleName());
+			actorForm.setSurname(a.getSurname());
+			actorForm.setPhoto(a.getPhoto());
+			actorForm.setEmail(a.getEmail());
+			actorForm.setPhone(a.getPhone());
+			actorForm.setAddress(a.getAddress());
+
+			result = this.createEditModelAndView(actorForm);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return result;
 	}
-
+	//
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Actor actor, final BindingResult binding) {
+	public ModelAndView save(@Valid final ActorForm actorForm, final BindingResult binding) {
 
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(actor);
+			result = this.createEditModelAndView(actorForm);
 		else
 			try {
-				this.actorService.update(actor);
-				result = new ModelAndView("redirect:/welcome/index.do");
+
+				this.actorService.update(actorForm);
+				result = this.createEditModelAndView(actorForm, "actor.commit.ok");
+
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(actor, "actor.commit.error");
+				result = this.createEditModelAndView(actorForm, "actor.commit.error");
 
 			}
 		return result;
@@ -80,27 +131,37 @@ public class ActorController extends AbstractController {
 
 	// CreateModelAndView
 
-	protected ModelAndView createEditModelAndView(final Actor actor) {
+	protected ModelAndView createEditModelAndView(final ActorForm actorForm) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(actor, null);
+		result = this.createEditModelAndView(actorForm, null);
 
 		return result;
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Actor actor, final String message) {
+	protected ModelAndView createEditModelAndView(final ActorForm actorForm, final String message) {
 		ModelAndView result;
+		final Authority brotherhood = new Authority();
+		brotherhood.setAuthority(Authority.BROTHERHOOD);
+		if (actorForm.getUserAccount().getAuthorities().contains(brotherhood)) {
+			actorForm.setAuth("BROTHERHOOD");
+			final Brotherhood bro = this.brotherhoodService.findByUserAccountId(actorForm.getUserAccount().getId());
+			actorForm.setTitle(bro.getTitle());
+			actorForm.setPictures(bro.getPictures());
+			actorForm.setArea(bro.getArea());
+		}
 
 		result = new ModelAndView("actor/edit");
-		result.addObject("actor", actor);
-		result.addObject("message1", message);
+		result.addObject("actorForm", actorForm);
+
+		result.addObject("areas", this.areaService.findAll());
+		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "actor/edit.do");
 
 		return result;
 	}
-
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int actorId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView = new ModelAndView("actor/edit");

@@ -18,14 +18,17 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="register/administrator/newActor.do" modelAttribute="actor">
+<form:form action="register/administrator/newActor.do" modelAttribute="actorForm">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="isSuspicious" />
-	<form:hidden path="isBanned" />
 	<form:hidden path="userAccount.authorities" />
 	<form:hidden path="userAccount.enabled" />
+	<form:hidden path="auth" />
+	<form:hidden path="title" />
+	<form:hidden path="pictures" />
+	<form:hidden path="area" />
+
 
 
 	<form:label path="userAccount.username">
@@ -79,11 +82,12 @@
 	<form:errors cssClass="error" path="email" />
 	<br />
 
+	
 	<form:label path="phone">
-		<spring:message code="actor.phone" />:
+		<spring:message code="actor.phone" />
 	</form:label>
-	<form:input path="phone" />
-	<form:errors cssClass="error" path="phone" />
+	<form:input path="phone" id="tlf" readonly="${isRead}" />
+	<form:errors path="phone" cssClass="error" />
 	<br />
 
 	<form:label path="address">
@@ -105,9 +109,17 @@
 			}
 		}
 	</script>
+	
+	<form:label path="checkTerms">
+		<spring:message code="actor.check" />
+	</form:label>
+	<form:checkbox path="checkTerms" readonly="${isRead}" />
+	<form:errors cssClass="error" path="checkTerms" />
+	<br />
 
 	<input type="submit" name="save"
-		value="<spring:message code="actor.save" />" />&nbsp; 
+		value='<spring:message code="actor.save"/>'
+		onclick=" javascript: return isValid();" />
 
 	<input type="button" name="cancel"
 		value="<spring:message code="message.cancel" />"

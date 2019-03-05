@@ -214,6 +214,14 @@ public class BoxService {
 		//TODO �Que es rootBox?
 		final Box rootbox = null;
 
+		// Iniciar notification box
+		final Box notification = new Box();
+		notification.setName("notification box");
+		notification.setIsSystem(true);
+		notification.setSubboxes(subboxes);
+		notification.setRootbox(rootbox);
+		notification.setActor(actor);
+
 		// Iniciar trash box
 		final Box trash = new Box();
 		trash.setName("trash box");
@@ -249,6 +257,7 @@ public class BoxService {
 		//Se a�ade todas las boxes a la collection
 		result.add(inBox);
 		result.add(outBox);
+		result.add(notification);
 		result.add(spamBox);
 		result.add(trash);
 

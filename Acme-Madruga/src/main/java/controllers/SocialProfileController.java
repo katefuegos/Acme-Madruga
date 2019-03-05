@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.util.Collection;
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.ActorService;
-import services.BrotherhoodService;
 import services.SocialProfileService;
 import domain.Actor;
 import domain.SocialProfile;
@@ -25,22 +23,20 @@ import domain.SocialProfile;
 public class SocialProfileController extends AbstractController {
 
 	@Autowired
-	private SocialProfileService	socialProfileService;
+	private SocialProfileService socialProfileService;
 
 	@Autowired
-	private ActorService			actorService;
-
-	@Autowired
-	private BrotherhoodService		brotherhoodService;
-
+	private ActorService actorService;
 
 	// List------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView;
 
-		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAll();
-		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final Actor a = this.actorService.findByUserAccount(LoginService
+				.getPrincipal());
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService
+				.findByActor(a.getId());
 
 		modelAndView = new ModelAndView("socialProfile/list");
 		modelAndView.addObject("socialProfiles", socialProfiles);
@@ -57,7 +53,7 @@ public class SocialProfileController extends AbstractController {
 		ModelAndView result;
 		final SocialProfile socialProfile = this.socialProfileService.create();
 
-		result = this.createEditModelAndView(socialProfile);
+		result = this.createModelAndView(socialProfile);
 
 		return result;
 	}
@@ -66,13 +62,15 @@ public class SocialProfileController extends AbstractController {
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int socialProfileId) {
-		final ModelAndView modelAndView = new ModelAndView("socialProfile/edit");
+		final ModelAndView modelAndView = new ModelAndView("socialProfile/show");
 
-		final SocialProfile socialProfile = this.socialProfileService.findOne(socialProfileId);
+		final SocialProfile socialProfile = this.socialProfileService
+				.findOne(socialProfileId);
 
 		modelAndView.addObject("socialProfile", socialProfile);
 		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI", "/socialProfile/show.do?socialProfileId=" + socialProfileId);
+		modelAndView.addObject("requestURI",
+				"/socialProfile/show.do?socialProfileId=" + socialProfileId);
 
 		return modelAndView;
 
@@ -81,21 +79,26 @@ public class SocialProfileController extends AbstractController {
 	// Edit ---------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int socialProfileId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(@RequestParam final int socialProfileId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		SocialProfile socialProfile;
 		try {
-			final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+			final Actor a = this.actorService.findByUserAccount(LoginService
+					.getPrincipal());
 			socialProfile = this.socialProfileService.findOne(socialProfileId);
 			Assert.notNull(socialProfile);
-			result = this.createEditModelAndView(socialProfile);
+			result = this.editModelAndView(socialProfile);
 			result.addObject("actorId", a.getId());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/socialProfile/list.do");
 			if (this.socialProfileService.findOne(socialProfileId) == null)
-				redirectAttrs.addFlashAttribute("message", "socialProfile.error.unexist");
-			else if (this.socialProfileService.findOne(socialProfileId).getActor() == null)
-				redirectAttrs.addFlashAttribute("message", "socialProfile.error.notFromActor");
+				redirectAttrs.addFlashAttribute("message",
+						"socialProfile.error.unexist");
+			else if (this.socialProfileService.findOne(socialProfileId)
+					.getActor() == null)
+				redirectAttrs.addFlashAttribute("message",
+						"socialProfile.error.notFromActor");
 
 		}
 		return result;
@@ -103,50 +106,78 @@ public class SocialProfileController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final SocialProfile socialProfile, final BindingResult binding) {
+	public ModelAndView save(final SocialProfile socialProfile,
+			final BindingResult binding) {
 
 		ModelAndView result;
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(socialProfile);
+			result = this.editModelAndView(socialProfile);
 		else
 			try {
-				//Llamar al reconstruct y rellenarlos con los atributos que
-				//no se han modificado en la vista
+				// Llamar al reconstruct y rellenarlos con los atributos que
+				// no se han modificado en la vista
 				this.socialProfileService.reconstruct(socialProfile, binding);
 				this.socialProfileService.save(socialProfile);
 				result = new ModelAndView("redirect:/socialProfile/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
+				result = this.editModelAndView(socialProfile,
+						"socialProfile.commit.error");
 			}
 		return result;
 	}
 
-	//delete
+	// delete
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final SocialProfile socialProfile, final BindingResult binding) {
+	public ModelAndView delete(final SocialProfile socialProfile,
+			final BindingResult binding) {
 		ModelAndView result;
 		try {
 			this.socialProfileService.delete(socialProfile);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
+			result = this.editModelAndView(socialProfile,
+					"socialProfile.commit.error");
 		}
 		return result;
 	}
 
 	// CreateModelAndView
 
-	protected ModelAndView createEditModelAndView(final SocialProfile socialProfile) {
+	protected ModelAndView createModelAndView(final SocialProfile socialProfile) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(socialProfile, null);
+		result = this.createModelAndView(socialProfile, null);
 
 		return result;
 
 	}
 
-	protected ModelAndView createEditModelAndView(final SocialProfile socialProfile, final String message) {
+	protected ModelAndView createModelAndView(final SocialProfile socialProfile,
+			final String message) {
+		final ModelAndView result;
+
+		result = new ModelAndView("socialProfile/create");
+		result.addObject("socialProfile", socialProfile);
+		result.addObject("message", message);
+		result.addObject("isRead", false);
+
+		result.addObject("requestURI", "socialProfile/create.do");
+
+		return result;
+	}
+
+	protected ModelAndView editModelAndView(final SocialProfile socialProfile) {
+		ModelAndView result;
+
+		result = this.editModelAndView(socialProfile, null);
+
+		return result;
+
+	}
+
+	protected ModelAndView editModelAndView(final SocialProfile socialProfile,
+			final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("socialProfile/edit");
@@ -154,7 +185,32 @@ public class SocialProfileController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 
-		result.addObject("requestURI", "socialProfile/edit.do");
+		result.addObject("requestURI", "socialProfile/edit.do?socialProfileId="
+				+ socialProfile.getId());
+
+		return result;
+	}
+
+	protected ModelAndView showModelAndView(final SocialProfile socialProfile) {
+		ModelAndView result;
+
+		result = this.showModelAndView(socialProfile, null);
+
+		return result;
+
+	}
+
+	protected ModelAndView showModelAndView(final SocialProfile socialProfile,
+			final String message) {
+		final ModelAndView result;
+
+		result = new ModelAndView("socialProfile/display");
+		result.addObject("socialProfile", socialProfile);
+		result.addObject("message", message);
+		result.addObject("isRead", true);
+
+		result.addObject("requestURI", "socialProfile/show.do?socialProfileId="
+				+ socialProfile.getId());
 
 		return result;
 	}

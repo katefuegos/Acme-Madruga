@@ -17,6 +17,7 @@ import org.springframework.util.Assert;
 
 import repositories.AdministratorRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
@@ -71,7 +72,7 @@ public class AdministratorService {
 		administrator.setUserAccount(userAccount);
 
 		administrator.setIsBanned(false);
-		administrator.setIsSpammer(false);
+		administrator.setIsSpammer(null);
 		return administrator;
 	}
 	public List<Administrator> findAll() {
@@ -84,6 +85,11 @@ public class AdministratorService {
 
 	public Administrator save(final Administrator administrator) {
 		Assert.notNull(administrator);
+
+		final Authority admin = new Authority();
+		admin.setAuthority(Authority.ADMIN);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(admin), "actor.register.error.authority");
+
 		final Administrator saved = this.administratorRepository.save(administrator);
 		return saved;
 	}

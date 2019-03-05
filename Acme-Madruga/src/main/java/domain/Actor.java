@@ -33,7 +33,7 @@ public class Actor extends DomainEntity {
 	private String	email;
 	private String	phone;
 	private String	address;
-	private boolean	isSpammer;
+	private Boolean	isSpammer;
 	private boolean	isBanned;
 	private Double	polarityScore;
 
@@ -99,12 +99,11 @@ public class Actor extends DomainEntity {
 		this.address = address;
 	}
 
-	@NotNull
-	public boolean getIsSpammer() {
+	public Boolean getIsSpammer() {
 		return this.isSpammer;
 	}
 
-	public void setIsSpammer(final boolean isSpammer) {
+	public void setIsSpammer(final Boolean isSpammer) {
 		this.isSpammer = isSpammer;
 	}
 
@@ -117,7 +116,6 @@ public class Actor extends DomainEntity {
 		this.isBanned = isBanned;
 	}
 
-	@NotNull
 	public Double getPolarityScore() {
 		return this.polarityScore;
 	}

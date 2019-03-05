@@ -18,14 +18,13 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="register/actor.do" modelAttribute="actor">
+<form:form action="register/actor.do" modelAttribute="actorForm">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="isSpammer" />
-	<form:hidden path="isBanned" />
 	<form:hidden path="userAccount.authorities" />
 	<form:hidden path="userAccount.enabled" />
+	<form:hidden path="auth" />
 
 
 	<form:label path="userAccount.username">
@@ -86,6 +85,54 @@
 	<form:errors path="phone" cssClass="error" />
 	<br />
 
+	<form:label path="address">
+		<spring:message code="actor.address" />
+	</form:label>
+	<form:input path="address" readonly="${isRead}" />
+	<form:errors cssClass="error" path="address" />
+	<br />
+
+
+<jstl:if test="${actorForm.auth != 'BROTHERHOOD'}">
+	<form:hidden path="title" />
+	<form:hidden path="pictures" />
+	<form:hidden path="area" />
+</jstl:if>
+	<jstl:if test="${actorForm.auth == 'BROTHERHOOD'}">
+
+
+		<form:label path="title">
+			<spring:message code="actor.title" />
+		</form:label>
+		<form:input path="title" readonly="${isRead}" />
+		<form:errors cssClass="error" path="title" />
+		<br />
+
+		<form:label path="pictures">
+			<spring:message code="actor.pictures" />
+		</form:label>
+		<form:textarea path="pictures" readonly="${isRead}" />
+		<form:errors cssClass="error" path="pictures" />
+		<br />
+
+		<form:label path="area">
+			<spring:message code="actor.area" />:
+			</form:label>
+		<form:select id="areas" path="area">
+			<form:options items="${areas}" itemValue="id" itemLabel="name" />
+		</form:select>
+		<form:errors cssClass="error" path="area" />
+		<br>
+
+	</jstl:if>
+
+	<form:label path="checkTerms">
+		<spring:message code="actor.check" />
+	</form:label>
+	<form:checkbox path="checkTerms" readonly="${isRead}" />
+	<form:errors cssClass="error" path="checkTerms" />
+	<br />
+
 	<script type="text/javascript">
 		function isValid() {
 			var phoneRe = /^(((\+[1-9][0-9]{0,2}) \(([1-9][0-9]{0,2})\) (\d\d\d\d+))|((\+[1-9][0-9]{0,2}) (\d\d\d\d+))|((\d\d\d\d+)))$/;
@@ -98,24 +145,10 @@
 			}
 		}
 	</script>
-	
-	<form:label path="address">
-		<spring:message code="actor.address" />
-	</form:label>
-	<form:input path="address" readonly="${isRead}" />
-	<form:errors cssClass="error" path="address" />
-	<br />
-	
-	<form:label path="polarityScore">
-		<spring:message code="actor.polarityScore" />
-	</form:label>
-	<form:input path="polarityScore" />
-	<form:errors cssClass="error" path="polarityScore" />
-	<br />
 
 	<input type="submit" name="save"
-	value='<spring:message code="actor.save"/>'
-	onclick="javascript: relativeRedir('welcome/index.do');" />
+		value='<spring:message code="actor.save"/>'
+		onclick=" javascript: return isValid();" />
 
 	<input type="button" name="cancel"
 		value="<spring:message code="message.cancel" />"

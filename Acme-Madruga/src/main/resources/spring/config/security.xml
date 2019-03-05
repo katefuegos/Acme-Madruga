@@ -206,17 +206,19 @@
 			access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/actor/register.do"
-			access="permitAll" />
-
+			access="isAnonymous()" />
+		
 		<security:intercept-url pattern="/register/actor.do"
-			access="permitAll" />
-
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/register/administrator/newActor.do"
+			access="hasRole('ADMIN')" />
+			
 		<security:intercept-url pattern="/actor/registerBrotherhood.do"
-			access="permitAll" />
-
+			access="isAnonymous()" />
+			
 		<security:intercept-url pattern="/actor/registerMember.do"
-			access="permitAll" />
-
+			access="isAnonymous()" />
+			
 		<security:intercept-url pattern="/actor/registerAdmin.do"
 			access="hasRole('ADMIN')" />
 
