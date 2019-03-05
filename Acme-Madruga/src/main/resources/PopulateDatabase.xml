@@ -1292,11 +1292,9 @@
 	<!-- ENROLMENT -->
 
 	<bean id="enrolment1" class="domain.Enrolment">
-		<property name="momentEnrol" value="2018/02/02 11:12" />
-		<property name="position" ref="position1" />
 		<property name="momentDropOut" value="2018/03/02 11:12" />
 		<property name="brotherhood" ref="brotherhood1" />
-		<property name="accepted" value="true" />
+		<property name="accepted" value="false" />
 	</bean>
 
 
@@ -1311,7 +1309,7 @@
 		<property name="momentEnrol" value="2018/01/02 11:13" />
 		<property name="position" ref="position2" />
 		<property name="brotherhood" ref="brotherhood2" />
-		<property name="accepted" value="false" />
+		<property name="accepted" value="true" />
 	</bean>
 
 	<bean id="enrolment4" class="domain.Enrolment">
@@ -1325,7 +1323,7 @@
 		<property name="momentEnrol" value="2018/03/02 13:12" />
 		<property name="position" ref="position2" />
 		<property name="brotherhood" ref="brotherhood3" />
-		<property name="accepted" value="false" />
+		<property name="accepted" value="true" />
 	</bean>
 
 

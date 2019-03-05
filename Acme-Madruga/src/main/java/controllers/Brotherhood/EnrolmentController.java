@@ -117,7 +117,7 @@ public class EnrolmentController extends AbstractController {
 				Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 				Assert.notNull(enrolment);
 				Assert.isTrue(enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)));
-
+				enrolment.setMomentDropOut(null);
 				enrolment.setAccepted(true);
 				enrolment.setMomentEnrol(new Date(System.currentTimeMillis() - 1000));
 				this.enrolmentService.save(enrolment);
@@ -178,7 +178,7 @@ public class EnrolmentController extends AbstractController {
 				Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 				Assert.notNull(enrolment);
 				Assert.isTrue(enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)));
-
+				enrolment.setMomentEnrol(null);
 				enrolment.setAccepted(false);
 				enrolment.setMomentDropOut(new Date(System.currentTimeMillis() - 1000));
 				this.enrolmentService.save(enrolment);
