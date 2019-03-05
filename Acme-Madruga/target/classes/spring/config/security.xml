@@ -91,8 +91,6 @@
 		<!-- BROTHERHOOD -->
 		<security:intercept-url pattern="/brotherhood/list.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/brotherhood/edit.do"
-			access="hasRole('BROTHERHOOD')" />
 			
 		<!-- PROCESSION -->
 		<security:intercept-url pattern="/procession/brotherhood/list.do"

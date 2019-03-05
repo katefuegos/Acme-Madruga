@@ -228,6 +228,7 @@ public class EnrolmentController extends AbstractController {
 				enrolment.setAccepted(false);
 				enrolment.setMomentDropOut(new Date(
 						System.currentTimeMillis() - 1000));
+				enrolment.setPosition(null);
 				this.enrolmentService.save(enrolment);
 
 				result = new ModelAndView(
