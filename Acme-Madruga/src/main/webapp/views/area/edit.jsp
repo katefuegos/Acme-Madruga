@@ -54,6 +54,6 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="area.cancel" />"
-			onclick="javascript: relativeRedir('area/administrator/list.do');" />
+			onclick="javascript: relativeRedir('area/list.do');" />
 
 </form:form>

@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.util.Collection;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.AreaService;
-import services.BrotherhoodService;
 import domain.Area;
 
 @Controller
@@ -25,11 +23,7 @@ public class AreaController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
-	private AreaService			areaService;
-
-	@Autowired
-	private BrotherhoodService	brotherhoodService;
-
+	private AreaService areaService;
 
 	// Constructor---------------------------------------------------------
 
@@ -62,12 +56,13 @@ public class AreaController extends AbstractController {
 		return result;
 	}
 
-	//Edit
+	// Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int areaId) {
+	public ModelAndView edit(@RequestParam final int areaId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		Area area;
+		Area area = null;
 		try {
 			area = this.areaService.findOne(areaId);
 			Assert.notNull(area);
@@ -75,12 +70,18 @@ public class AreaController extends AbstractController {
 			result = this.createEditModelAndView(area);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/area/list.do");
-			result.addObject("message", "org.hibernate.validator.constraints.URL.message");
+			result.addObject("message",
+					"org.hibernate.validator.constraints.URL.message");
+			if (area == null) {
+				redirectAttrs.addFlashAttribute("message",
+						"area.error.unexist");
+			}
 		}
 
 		return result;
 	}
-	//Save
+
+	// Save
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Area area, final BindingResult binding) {
@@ -98,7 +99,7 @@ public class AreaController extends AbstractController {
 		return result;
 	}
 
-	//delete
+	// delete
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Area area, final BindingResult binding) {
@@ -123,7 +124,8 @@ public class AreaController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Area area, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Area area,
+			final String messageCode) {
 		final ModelAndView result;
 
 		result = new ModelAndView("area/edit");
