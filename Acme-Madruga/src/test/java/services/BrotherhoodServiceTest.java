@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -17,17 +16,15 @@ import utilities.AbstractTest;
 import domain.Brotherhood;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
-})
+@ContextConfiguration(locations = { "classpath:spring/datasource.xml",
+		"classpath:spring/config/packages.xml" })
 @Transactional
 public class BrotherhoodServiceTest extends AbstractTest {
 
 	// Service under test
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
-
+	private BrotherhoodService brotherhoodService;
 
 	// Tests
 
@@ -39,7 +36,8 @@ public class BrotherhoodServiceTest extends AbstractTest {
 		try {
 
 			final int idBusqueda = super.getEntityId("brotherhood1");
-			final Brotherhood brotherhood = this.brotherhoodService.findOne(idBusqueda);
+			final Brotherhood brotherhood = this.brotherhoodService
+					.findOne(idBusqueda);
 
 			Assert.notNull(brotherhood);
 
@@ -60,7 +58,8 @@ public class BrotherhoodServiceTest extends AbstractTest {
 
 		try {
 
-			final Collection<Brotherhood> brotherhoods = new ArrayList<>(this.brotherhoodService.findAll());
+			final Collection<Brotherhood> brotherhoods = new ArrayList<>(
+					this.brotherhoodService.findAll());
 
 			Assert.notEmpty(brotherhoods);
 
@@ -88,7 +87,8 @@ public class BrotherhoodServiceTest extends AbstractTest {
 		try {
 
 			final int idBusqueda = super.getEntityId("brotherhood1");
-			final Brotherhood brotherhood = this.brotherhoodService.findOne(idBusqueda);
+			final Brotherhood brotherhood = this.brotherhoodService
+					.findOne(idBusqueda);
 
 			brotherhood.setSurname("cambiado");
 
@@ -96,7 +96,8 @@ public class BrotherhoodServiceTest extends AbstractTest {
 
 			final Brotherhood saved = this.brotherhoodService.save(brotherhood);
 
-			final Collection<Brotherhood> brotherhoods = new ArrayList<>(this.brotherhoodService.findAll());
+			final Collection<Brotherhood> brotherhoods = new ArrayList<>(
+					this.brotherhoodService.findAll());
 
 			Assert.isTrue(brotherhoods.contains(saved));
 
@@ -121,8 +122,6 @@ public class BrotherhoodServiceTest extends AbstractTest {
 
 		try {
 			final Brotherhood brotherhood = this.brotherhoodService.create();
-			final int idBusqueda = super.getEntityId("brotherhood1");
-			final Brotherhood bro = this.brotherhoodService.findOne(idBusqueda);
 
 			brotherhood.setSurname("Description");
 

@@ -121,8 +121,6 @@ public class AreaServiceTest extends AbstractTest {
 
 		try {
 			final Area area = this.areaService.create();
-			final int idBusqueda = super.getEntityId("brotherhood1");
-
 			area.setName("Name");
 
 			area.setPictures("www.google.es");

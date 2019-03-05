@@ -125,8 +125,6 @@ public class BoxServiceTest extends AbstractTest {
 	public void testDelete() {
 		System.out.println("========== testDelete() ==========");
 		this.authenticate("handyWorker1");
-		final UserAccount userAccount = LoginService.getPrincipal();
-		final Actor actor = this.actorService.findByUserAccount(userAccount);
 
 		try {
 			// Se añade las system Box a actor
