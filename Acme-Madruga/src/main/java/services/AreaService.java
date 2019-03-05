@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.AreaRepository;
 import domain.Area;
+import domain.Brotherhood;
 
 @Service
 @Transactional
@@ -19,7 +20,10 @@ public class AreaService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private AreaRepository	areaRepository;
+	private AreaRepository		areaRepository;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
 
 	// Services-------------------------------------------------
@@ -62,6 +66,12 @@ public class AreaService {
 
 	public void delete(final Area area) {
 		Assert.notNull(area);
+
+		final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findByBrotherhood(area.getId());
+
+		Assert.notNull(brotherhoods, "area.error.used");
+		Assert.isTrue(brotherhoods.isEmpty(), "area.error.used");
+
 		this.areaRepository.delete(area);
 	}
 	// Other Methods--------------------------------------------

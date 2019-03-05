@@ -15,7 +15,10 @@
 
 	<display:column property="name" titleKey="area.name" />
 	
-	<display:column property="pictures" titleKey="area.pictures" />
+	
+	<display:column titleKey="area.pictures">
+		<img src="${row.pictures}" height="100px" width="100px" />
+	</display:column>
 	
 	<display:column >
 			<a href="area/edit.do?areaId=${row.id}">

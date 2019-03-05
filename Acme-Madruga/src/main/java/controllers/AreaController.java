@@ -68,10 +68,15 @@ public class AreaController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int areaId) {
 		ModelAndView result;
 		Area area;
+		try {
+			area = this.areaService.findOne(areaId);
+			Assert.notNull(area);
 
-		area = this.areaService.findOne(areaId);
-		Assert.notNull(area);
-		result = this.createEditModelAndView(area);
+			result = this.createEditModelAndView(area);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/area/list.do");
+			result.addObject("message", "org.hibernate.validator.constraints.URL.message");
+		}
 
 		return result;
 	}
@@ -86,7 +91,7 @@ public class AreaController extends AbstractController {
 		else
 			try {
 				this.areaService.save(area);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/area/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(area, "area.commit.error");
 			}
@@ -100,9 +105,12 @@ public class AreaController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.areaService.delete(area);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/area/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(area, "area.commit.error");
+			if (oops.getMessage() == "area.error.used")
+				result = this.createEditModelAndView(area, oops.getMessage());
+			else
+				result = this.createEditModelAndView(area, "area.commit.error");
 		}
 		return result;
 	}
