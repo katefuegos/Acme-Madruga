@@ -29,7 +29,6 @@ import security.LoginService;
 import services.ActorService;
 import services.AreaService;
 import services.BrotherhoodService;
-import services.MemberService;
 import domain.Actor;
 import domain.Brotherhood;
 import forms.ActorForm;
@@ -40,9 +39,6 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private ActorService		actorService;
-
-	@Autowired
-	private MemberService		memberService;
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
