@@ -24,11 +24,13 @@
 
 
 
-<form:form action="${requestURI}" modelAttribute="actor">
+<form:form action="${requestURI}" modelAttribute="actorForm">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="isSpammer" />
 	<form:hidden path="userAccount" />
+	<form:hidden path="auth" />
+	<form:hidden path="auth" />
+	<form:hidden path="area" />
 
 
 	<jstl:if test="${isRead==true}">
@@ -119,6 +121,31 @@
 				<jstl:out value="${establishmentDate}" />
 			</h3>
 		</jstl:if>
+	</jstl:if>
+
+<jstl:if test="${actorForm.auth != 'BROTHERHOOD'}">
+	<form:hidden path="title" />
+	<form:hidden path="pictures" />
+	
+</jstl:if>
+	<jstl:if test="${actorForm.auth == 'BROTHERHOOD'}">
+
+		<form:label path="title">
+			<spring:message code="actor.title" />
+		</form:label>
+		<form:input path="title" readonly="${isRead}" />
+		<form:errors cssClass="error" path="title" />
+		<br />
+
+		<form:label path="pictures">
+			<spring:message code="actor.pictures" />
+		</form:label>
+		<form:input path="pictures" readonly="${isRead}" />
+		<form:errors cssClass="error" path="pictures" />
+		<br />
+
+		
+
 	</jstl:if>
 
 

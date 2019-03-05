@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,9 +20,9 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
 import domain.Configuration;
-import domain.Enrolment;
 import domain.Member;
 import domain.Message;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -141,21 +140,19 @@ public class ActorService {
 
 	}
 
-	public Collection<Actor> asignSpammers() {
+	public void asignSpammers() {
 
-		Collection<Actor> result = this.actorRepository.asignSpammersActors();
+		final Collection<Actor> result = this.actorRepository.asignSpammersActors();
+		final Collection<Actor> allActor = this.actorRepository.findAll();
 
-		final Collection<Actor> actors = new ArrayList<>();
-		for (final Actor actor : result) {
-			actor.setIsSpammer(true);
-			actors.add(actor);
-		}
-		if (!actors.isEmpty())
-			result = this.actorRepository.save(actors);
-		else
-			result = actors;
+		for (final Actor actor : allActor)
+			if (result.contains(actor))
+				actor.setIsSpammer(true);
+			else
+				actor.setIsSpammer(false);
 
-		return result;
+		this.actorRepository.save(allActor);
+
 	}
 	public void updatePolarity() {
 		final Collection<Actor> allActors = this.actorRepository.findAll();
@@ -232,91 +229,85 @@ public class ActorService {
 		return this.actorRepository.findByUserAccountId(id);
 	}
 
-	public void update(final Actor actor) {
+	public void update(final ActorForm actorform) {
 
-		Assert.notNull(actor);
+		Assert.notNull(actorform);
 
-		final Collection<Authority> authorities = actor.getUserAccount().getAuthorities();
+		final Collection<Authority> authorities = actorform.getUserAccount().getAuthorities();
 		final Authority member = new Authority();
 		member.setAuthority(Authority.MEMBER);
 		final Authority brotherhood = new Authority();
 		brotherhood.setAuthority(Authority.BROTHERHOOD);
+
 		final Authority admin = new Authority();
 		admin.setAuthority(Authority.ADMIN);
 
 		if (authorities.contains(member)) {
 			Member memb = null;
-			if (actor.getId() != 0)
-				memb = this.memberService.findOne(actor.getId());
+			if (actorform.getId() != 0)
+				memb = this.memberService.findOne(actorform.getId());
 			else {
 				memb = this.memberService.create();
-				memb.setUserAccount(actor.getUserAccount());
+				memb.setUserAccount(actorform.getUserAccount());
 				// TODO adaptar a requisitos
 			}
-
-			memb.setName(actor.getName());
-			memb.setSurname(actor.getSurname());
-			memb.setMiddleName(actor.getMiddleName());
-			memb.setAddress(actor.getAddress());
-			memb.setEmail(actor.getEmail());
-			memb.setIsBanned(actor.getIsBanned());
-			memb.setIsSpammer(actor.getIsSpammer());
-			memb.setPolarityScore(actor.getPolarityScore());
-			memb.setPhone(actor.getPhone());
-			memb.setPhoto(actor.getPhoto());
-			final Collection<Enrolment> enrols = new ArrayList<>();
-			memb.setEnrolments(enrols);
+			memb.setId(actorform.getId());
+			memb.setVersion(actorform.getVersion());
+			memb.setName(actorform.getName());
+			memb.setSurname(actorform.getSurname());
+			memb.setMiddleName(actorform.getMiddleName());
+			memb.setAddress(actorform.getAddress());
+			memb.setEmail(actorform.getEmail());
+			memb.setPhone(actorform.getPhone());
+			memb.setPhoto(actorform.getPhoto());
 
 			final Actor actor1 = this.memberService.save(memb);
 			this.boxService.addSystemBox(actor1);
 
 		} else if (authorities.contains(brotherhood)) {
 			Brotherhood brother = null;
-			if (actor.getId() != 0)
-				brother = this.brotherhoodService.findOne(actor.getId());
+			if (actorform.getId() != 0)
+				brother = this.brotherhoodService.findOne(actorform.getId());
 			else {
 				brother = this.brotherhoodService.create();
-				brother.setUserAccount(actor.getUserAccount());
+				brother.setUserAccount(actorform.getUserAccount());
 
 			}
 
-			brother.setName(actor.getName());
-			brother.setSurname(actor.getSurname());
-			brother.setMiddleName(actor.getMiddleName());
-			brother.setAddress(actor.getAddress());
-			brother.setEmail(actor.getEmail());
-			brother.setIsBanned(actor.getIsBanned());
-			brother.setIsSpammer(actor.getIsSpammer());
-			brother.setPolarityScore(actor.getPolarityScore());
-			brother.setPhone(actor.getPhone());
-			brother.setPhoto(actor.getPhoto());
-			brother.setTitle("");
-			brother.setPictures("");
-			final Date currentDate = new Date();
-			brother.setEstablishmentDate(currentDate);
+			brother.setId(actorform.getId());
+			brother.setVersion(actorform.getVersion());
+			brother.setName(actorform.getName());
+			brother.setSurname(actorform.getSurname());
+			brother.setMiddleName(actorform.getMiddleName());
+			brother.setAddress(actorform.getAddress());
+			brother.setEmail(actorform.getEmail());
+			brother.setPhone(actorform.getPhone());
+			brother.setPhoto(actorform.getPhoto());
+
+			brother.setTitle(actorform.getTitle());
+			brother.setPictures(actorform.getPictures());
 
 			final Actor actor1 = this.brotherhoodService.save(brother);
 			this.boxService.addSystemBox(actor1);
 
 		} else if (authorities.contains(admin)) {
 			Administrator administrator = null;
-			if (actor.getId() != 0)
-				administrator = this.administratorService.findOne(actor.getId());
+			if (actorform.getId() != 0)
+				administrator = this.administratorService.findOne(actorform.getId());
 			else {
 				administrator = this.administratorService.create();
-				administrator.setUserAccount(actor.getUserAccount());
+				administrator.setUserAccount(actorform.getUserAccount());
 			}
 
-			administrator.setName(actor.getName());
-			administrator.setSurname(actor.getSurname());
-			administrator.setMiddleName(actor.getMiddleName());
-			administrator.setAddress(actor.getAddress());
-			administrator.setEmail(actor.getEmail());
-			administrator.setIsBanned(actor.getIsBanned());
-			administrator.setIsSpammer(actor.getIsSpammer());
-			administrator.setPolarityScore(actor.getPolarityScore());
-			administrator.setPhone(actor.getPhone());
-			administrator.setPhoto(actor.getPhoto());
+			administrator.setId(actorform.getId());
+			administrator.setVersion(actorform.getVersion());
+			administrator.setName(actorform.getName());
+			administrator.setSurname(actorform.getSurname());
+			administrator.setMiddleName(actorform.getMiddleName());
+			administrator.setAddress(actorform.getAddress());
+			administrator.setEmail(actorform.getEmail());
+			administrator.setPhone(actorform.getPhone());
+			administrator.setPhoto(actorform.getPhoto());
 
 			final Actor actor1 = this.administratorService.save(administrator);
 			this.boxService.addSystemBox(actor1);

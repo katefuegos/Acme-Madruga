@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -48,7 +49,15 @@ public class BrotherhoodService {
 		res.setUserAccount(userAccount);
 
 		res.setIsBanned(false);
-		res.setIsSpammer(false);
+		res.setIsSpammer(null);
+
+		final String title = "";
+		final Date establishmentDate = new Date();
+		final String pictures = "";
+
+		res.setTitle(title);
+		res.setEstablishmentDate(establishmentDate);
+		res.setPictures(pictures);
 
 		return res;
 	}

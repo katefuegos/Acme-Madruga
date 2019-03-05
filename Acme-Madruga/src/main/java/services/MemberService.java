@@ -51,7 +51,7 @@ public class MemberService {
 		res.setUserAccount(userAccount);
 
 		res.setIsBanned(false);
-		res.setIsSpammer(false);
+		res.setIsSpammer(null);
 
 		final Collection<Enrolment> enrolments = new ArrayList<Enrolment>();
 		res.setEnrolments(enrolments);

@@ -53,11 +53,19 @@
 
 					<li><a href="register/actor.do?authority=BROTHERHOOD"><spring:message
 								code="master.page.register.brotherhood" /></a></li>
-
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a
+							href="register/administrator/newActor.do?authority=ADMIN"><spring:message
+									code="master.page.register.admin" /></a></li>
+					</security:authorize>
 				</ul></li>
+
+
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
 						code="master.page.brotherhood" /></a></li>
 		</security:authorize>
+
+		
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"> <spring:message
@@ -92,6 +100,18 @@
 
 		</security:authorize>
 
+<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+
+					<li><a
+						href="register/administrator/newActor.do?authority=ADMIN"><spring:message
+								code="master.page.register.admin" /></a></li>
+
+				</ul></li>
+		</security:authorize>
+
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a class="fNiv" href="procession/brotherhood/list.do"><spring:message
 						code="master.page.myProcessions" /></a></li>
@@ -113,14 +133,6 @@
 			<li><a class="fNiv" href="finder/member/listProcessions.do"><spring:message
 						code="master.page.finder" /></a></li>
 		</security:authorize>
-
-		<security:authorize access="hasRole('ADMIN')">
-
-			<li><a href="register/actor.do?authority=ADMIN"><spring:message
-						code="master.page.register.admin" /></a></li>
-
-		</security:authorize>
-
 
 
 	</ul>

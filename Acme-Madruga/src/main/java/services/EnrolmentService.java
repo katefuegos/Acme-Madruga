@@ -85,16 +85,15 @@ public class EnrolmentService {
 		return this.enrolmentRepository.findByPosition(positionId);
 	}
 
-	public void deleteRelationshipPosition(final int positionId) {
+	public boolean deleteRelationshipPosition(final int positionId) {
 		Assert.notNull(positionId);
 
 		final Collection<Enrolment> collection = this.findByPosition(positionId);
 
-		// TODO ENROLMENT - POSITION revisar relación con position
-		for (final Enrolment enrolment : collection)
-			enrolment.setPosition(null);
-
-		this.enrolmentRepository.save(collection);
+		if (collection.isEmpty())
+			return false;
+		else
+			return true;
 
 	}
 

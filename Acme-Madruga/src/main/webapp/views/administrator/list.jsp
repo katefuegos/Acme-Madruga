@@ -25,9 +25,30 @@
 
 	<display:column property="phone" titleKey="actor.phone" />
 
-	<display:column property="isSpammer" titleKey="actor.spammer" />
+	<display:column titleKey="actor.spammer" >
+		<jstl:if
+				test="${row.isSpammer == null }">
+				N/A
+		</jstl:if>		
+		<jstl:if
+				test="${row.isSpammer != null}">
+				<jstl:out value="${row.isSpammer} "/>
+		</jstl:if>		
+	
+	</display:column>
 
-	<display:column property="polarityScore" titleKey="actor.polarity" />
+	<display:column titleKey="actor.polarity" >
+		
+		<jstl:if
+				test="${row.polarityScore == null }">
+				N/A
+		</jstl:if>		
+		<jstl:if
+				test="${row.polarityScore != null}">
+				<jstl:out value="${row.polarityScore} "/>
+		</jstl:if>		
+		
+	</display:column>
 
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>

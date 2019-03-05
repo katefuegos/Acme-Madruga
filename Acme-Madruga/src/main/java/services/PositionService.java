@@ -80,7 +80,7 @@ public class PositionService {
 			Assert.notNull(null, "SOLO PUEDE BORRAR position ADMIN");
 
 		// BORRO position
-		this.enrolmentService.deleteRelationshipPosition(position.getId());
+		Assert.isTrue(!this.enrolmentService.deleteRelationshipPosition(position.getId()), "position.error.used");
 
 		this.positionRepository.delete(position);
 
