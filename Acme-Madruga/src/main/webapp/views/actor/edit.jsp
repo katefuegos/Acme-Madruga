@@ -140,7 +140,7 @@
 		<form:label path="pictures">
 			<spring:message code="actor.pictures" />
 		</form:label>
-		<form:input path="pictures" readonly="${isRead}" />
+		<form:textarea path="pictures" readonly="${isRead}" />
 		<form:errors cssClass="error" path="pictures" />
 		<br />
 
@@ -152,9 +152,8 @@
 	<jstl:if test="${isRead == false}">
 		<br />
 		<input type="submit" name="save"
-			value='<spring:message code="actor.save"/>'
-			onclick=" javascript: relativeRedir('welcome/index.do');">
-
+		value='<spring:message code="actor.save"/>'
+		onclick=" javascript: return isValid();" />
 
 		<input type="button" name="cancel"
 			value="<spring:message code="actor.cancel" />"

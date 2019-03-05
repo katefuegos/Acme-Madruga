@@ -135,8 +135,10 @@ public class PositionAdministratorController extends AbstractController {
 				this.positionService.save(position);
 				result = new ModelAndView("redirect:/position/administrator/list.do");
 			} catch (final Throwable oops) {
-
-				result = this.editModelAndView(positionForm, "commit.error");
+				if (oops.getMessage() == "position.error.used")
+					result = this.editModelAndView(positionForm, oops.getMessage());
+				else
+					result = this.editModelAndView(positionForm, "commit.error");
 			}
 
 		return result;
@@ -152,8 +154,10 @@ public class PositionAdministratorController extends AbstractController {
 
 			result = new ModelAndView("redirect:/position/administrator/list.do");
 		} catch (final Throwable oops) {
-
-			result = this.editModelAndView(positionForm, "commit.error");
+			if (oops.getMessage() == "position.error.used")
+				result = this.editModelAndView(positionForm, oops.getMessage());
+			else
+				result = this.editModelAndView(positionForm, "commit.error");
 		}
 
 		return result;

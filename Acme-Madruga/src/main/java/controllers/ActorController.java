@@ -120,7 +120,8 @@ public class ActorController extends AbstractController {
 			try {
 
 				this.actorService.update(actorForm);
-				result = new ModelAndView("redirect:/welcome/index.do");
+				result = this.createEditModelAndView(actorForm, "actor.commit.ok");
+
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actorForm, "actor.commit.error");
 

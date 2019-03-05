@@ -25,6 +25,9 @@
 	<form:hidden path="userAccount.authorities" />
 	<form:hidden path="userAccount.enabled" />
 	<form:hidden path="auth" />
+	<form:hidden path="title" />
+	<form:hidden path="pictures" />
+	<form:hidden path="area" />
 
 
 

@@ -111,7 +111,7 @@
 		<form:label path="pictures">
 			<spring:message code="actor.pictures" />
 		</form:label>
-		<form:input path="pictures" readonly="${isRead}" />
+		<form:textarea path="pictures" readonly="${isRead}" />
 		<form:errors cssClass="error" path="pictures" />
 		<br />
 
