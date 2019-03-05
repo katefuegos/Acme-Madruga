@@ -33,7 +33,7 @@
 	
 	
 </display:table>
-
+<br>
 <a href="socialProfile/create.do"> <spring:message
 			code="socialProfile.create" />
 	</a>
