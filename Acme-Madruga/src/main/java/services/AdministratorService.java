@@ -41,9 +41,6 @@ public class AdministratorService {
 	private BrotherhoodService		brotherhoodService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
-
-	@Autowired
 	private MemberService			memberService;
 
 	@Autowired

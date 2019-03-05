@@ -202,7 +202,7 @@
 
 	<bean id="member2" class="domain.Member">
 
-		<property name="name" value="Claudia" />
+		<property name="name" value="Sara" />
 		<property name="middleName" value="Diva" />
 		<property name="surname" value="Sa" />
 		<property name="photo"
