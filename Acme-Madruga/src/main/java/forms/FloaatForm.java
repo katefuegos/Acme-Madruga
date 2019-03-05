@@ -1,22 +1,19 @@
 
-package domain;
+package forms;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
-@Entity
 @Access(AccessType.PROPERTY)
-public class Floaat extends DomainEntity {
+public class FloaatForm {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private int id;
+	private int		id;
 	private String	title;
 	private String	description;
 	private String	pictures;
@@ -49,19 +46,12 @@ public class Floaat extends DomainEntity {
 		this.pictures = pictures;
 	}
 
-
-	// Relationships ---------------------------------------------------------
-	private Brotherhood	brotherhood;
-
-
-	@Valid
-	@ManyToOne(optional = false)
-	public Brotherhood getBrotherhood() {
-		return this.brotherhood;
+	@NotNull
+	public int getId() {
+		return this.id;
 	}
 
-	public void setBrotherhood(final Brotherhood brotherhood) {
-		this.brotherhood = brotherhood;
+	public void setId(final int id) {
+		this.id = id;
 	}
-
 }

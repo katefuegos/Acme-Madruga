@@ -15,8 +15,9 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
-<div>
-	<a href="#"><img src="images/logo.png" alt="Sample Co., Inc." /></a>
+<div align="left">
+	<a href="#"><img src="images/logo2.png"
+		alt="Acme-madruga Co., Inc." /></a>
 </div>
 
 <div>
@@ -76,12 +77,11 @@
 					<li class="arrow"></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
-					<li><a class="fNiv" href="socialProfile/list.do"><spring:message
-								code="master.page.socialProfile" /></a></li>
 				</ul></li>
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
 						code="master.page.brotherhood" /></a></li>
-
+			<li><a class="fNiv" href="socialProfile/list.do"><spring:message
+								code="master.page.socialProfile" /></a></li>
 			<li><a class="fNiv" href="box/actor/list.do"><spring:message
 						code="master.page.box" /></a>
 				<ul>
@@ -128,7 +128,7 @@
 		<security:authorize access="hasRole('MEMBER')">
 			<li><a class="fNiv" href="request/member/listMember.do"><spring:message
 						code="master.page.myRequest" /></a></li>
-			<li><a class="fNiv" href="brotherhood/member/list.do"><spring:message
+			<li><a class="fNiv" href="enrolment/member/list.do"><spring:message
 						code="master.page.brotherhood.member" /></a></li>
 			<li><a class="fNiv" href="finder/member/listProcessions.do"><spring:message
 						code="master.page.finder" /></a></li>

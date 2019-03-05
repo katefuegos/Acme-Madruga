@@ -14,26 +14,29 @@
 	pagesize="5" class="displaytag">
 
 	<display:column property="title" titleKey="floaat.title" />
-	
+
 	<display:column property="description" titleKey="floaat.description" />
-	
+
+	<display:column property="pictures" titleKey="floaat.pictures" />
+
 	<security:authorize access="hasRole('BROTHERHOOD')">
-	<display:column >
-			<a href="float/brotherhood/display.do?floaatId=${row.id}">
-			<spring:message code="floaat.display"></spring:message></a>
-	</display:column>
-	
-	<display:column >
-			<a href="float/brotherhood/edit.do?floaatId=${row.id}">
-			<spring:message code="floaat.edit"></spring:message></a>
-	</display:column>
-	
+		<display:column>
+			<a href="float/brotherhood/display.do?floaatId=${row.id}"> <spring:message
+					code="floaat.display"></spring:message></a>
+		</display:column>
+
+		<display:column>
+			<a href="float/brotherhood/edit.do?floaatId=${row.id}"> <spring:message
+					code="floaat.edit"></spring:message></a>
+		</display:column>
+
 
 	</security:authorize>
 
-	
+
 </display:table>
-	
-	<security:authorize access="hasRole('BROTHERHOOD')">
-<a href="float/brotherhood/create.do"> <spring:message code="floaat.create" /></a>
-	</security:authorize>
+<br>
+<security:authorize access="hasRole('BROTHERHOOD')">
+	<a href="float/brotherhood/create.do"> <spring:message
+			code="floaat.create" /></a>
+</security:authorize>

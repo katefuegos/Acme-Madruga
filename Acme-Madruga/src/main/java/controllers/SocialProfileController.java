@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.ActorService;
+import services.BrotherhoodService;
 import services.SocialProfileService;
 import domain.Actor;
 import domain.SocialProfile;
@@ -27,6 +29,9 @@ public class SocialProfileController extends AbstractController {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private BrotherhoodService		brotherhoodService;
 
 
 	// List------------------------------------------------------
@@ -76,14 +81,23 @@ public class SocialProfileController extends AbstractController {
 	// Edit ---------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int socialProfileId) {
-		final ModelAndView result;
+	public ModelAndView edit(@RequestParam final int socialProfileId, final RedirectAttributes redirectAttrs) {
+		ModelAndView result;
 		SocialProfile socialProfile;
-		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		socialProfile = this.socialProfileService.findOne(socialProfileId);
-		Assert.notNull(socialProfile);
-		result = this.createEditModelAndView(socialProfile);
-		result.addObject("actorId", a.getId());
+		try {
+			final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+			socialProfile = this.socialProfileService.findOne(socialProfileId);
+			Assert.notNull(socialProfile);
+			result = this.createEditModelAndView(socialProfile);
+			result.addObject("actorId", a.getId());
+		} catch (final Throwable e) {
+			result = new ModelAndView("redirect:/socialProfile/list.do");
+			if (this.socialProfileService.findOne(socialProfileId) == null)
+				redirectAttrs.addFlashAttribute("message", "socialProfile.error.unexist");
+			else if (this.socialProfileService.findOne(socialProfileId).getActor() == null)
+				redirectAttrs.addFlashAttribute("message", "socialProfile.error.notFromActor");
+
+		}
 		return result;
 	}
 
@@ -92,7 +106,6 @@ public class SocialProfileController extends AbstractController {
 	public ModelAndView save(final SocialProfile socialProfile, final BindingResult binding) {
 
 		ModelAndView result;
-
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(socialProfile);
 		else
@@ -101,10 +114,9 @@ public class SocialProfileController extends AbstractController {
 				//no se han modificado en la vista
 				this.socialProfileService.reconstruct(socialProfile, binding);
 				this.socialProfileService.save(socialProfile);
-				result = new ModelAndView("redirect:/welcome/index.do");
+				result = new ModelAndView("redirect:/socialProfile/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
-
 			}
 		return result;
 	}

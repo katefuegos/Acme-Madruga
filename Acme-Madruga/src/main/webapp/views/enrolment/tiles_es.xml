@@ -15,6 +15,11 @@
 		<put-attribute name="body" value="/views/enrolment/list.jsp" />
 	</definition>
 
+	<definition name="enrolment/list2" extends="master.page">
+		<put-attribute name="title" value="Mis peticiones a hermandades" />
+		<put-attribute name="body" value="/views/enrolment/list2.jsp" />
+	</definition>
+
 	<definition name="enrolment/enrol" extends="master.page">
 		<put-attribute name="title" value="Aceptar mimebro en la hermandad" />
 		<put-attribute name="body" value="/views/enrolment/enrol.jsp" />

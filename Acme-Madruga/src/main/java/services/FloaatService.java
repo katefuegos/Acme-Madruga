@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FloaatRepository;
+import security.LoginService;
 import domain.Floaat;
 
 @Service
@@ -19,10 +21,12 @@ public class FloaatService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private FloaatRepository	floaatRepository;
-
+	private FloaatRepository	repository;
 
 	// Services-------------------------------------------------
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
 
 	// Constructor----------------------------------------------
 
@@ -34,42 +38,34 @@ public class FloaatService {
 
 	public Floaat create() {
 		final Floaat res = new Floaat();
+		res.setBrotherhood(this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()));
 		return res;
 	}
 
-	public Collection<Floaat> findAll() {
-		Collection<Floaat> floaats;
-
-		floaats = this.floaatRepository.findAll();
-		Assert.notNull(floaats);
-
-		return floaats;
+	public List<Floaat> findAll() {
+		return this.repository.findAll();
 	}
 
 	public Floaat findOne(final Integer floaatId) {
-		Floaat floaat;
-		floaat = this.floaatRepository.findOne(floaatId);
-		Assert.notNull(floaat);
-
-		return floaat;
+		return this.repository.findOne(floaatId);
 	}
 
 	public Floaat save(final Floaat floaat) {
 		Assert.notNull(floaat);
-		final Floaat saved = this.floaatRepository.save(floaat);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("BROTHERHOOD"), "SOLO UN BROTHERHOOD PUEDE CREAR/EDITAR PROCESSION");
+		final Floaat saved = this.repository.save(floaat);
 		return saved;
 	}
 
 	public void delete(final Floaat floaat) {
-		Assert.notNull(floaat);
-		this.floaatRepository.delete(floaat);
+		this.repository.delete(floaat);
 	}
 
 	// Other Methods--------------------------------------------
 
 	public Collection<Floaat> findByBrotherhoodId(final int brotherhoodId) {
 		Assert.notNull(brotherhoodId);
-		return this.floaatRepository.findByBrotherhoodId(brotherhoodId);
+		return this.repository.findByBrotherhoodId(brotherhoodId);
 	}
 
 }

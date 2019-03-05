@@ -26,11 +26,9 @@
 	
 	
 	<display:column>
-		<jstl:if test="${username==row.actor.userAccount.username}">
 		<a href="socialProfile/edit.do?socialProfileId=${row.id}"> <spring:message
 				code="socialProfile.edit" />
 		</a>
-	</jstl:if>
 	</display:column>
 	
 	

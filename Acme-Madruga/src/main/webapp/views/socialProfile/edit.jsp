@@ -38,9 +38,9 @@
 		<acme:submit name="save" code="socialProfile.save"/>
 		<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>
 	</jstl:if>
-
+	<jstl:if test="${socialProfile.id != 0}">
 	<acme:delete confirmDelete="socialProfile.confirm.delete" name="delete" code="socialProfile.delete"/>
-	
+	</jstl:if>
 	<jstl:if test="${isRead == true }">
 	<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>
 	</jstl:if>
