@@ -1248,13 +1248,13 @@
 	<!-- AREA -->
 
 	<bean id="area1" class="domain.Area">
-		<property name="name" value="Itinerario de nuestras hermandades 2013" />
+		<property name="name" value="Sevilla Este" />
 		<property name="pictures"
 			value="http://2.bp.blogspot.com/--QxfoXHpdJg/UU3QwoXUSxI/AAAAAAAABDg/zOn8azdv-ik/s1600/mapa+cautivo.jpg" />
 	</bean>
 
 	<bean id="area2" class="domain.Area">
-		<property name="name" value="Itinerario de nuestras hermandades 2013" />
+		<property name="name" value="La Palmera" />
 		<property name="pictures"
 			value="http://practicopedia.lainformacion.com/files/jueves_santo_madrugada.jpg" />
 	</bean>

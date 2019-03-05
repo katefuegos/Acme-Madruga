@@ -18,9 +18,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<img src="${banner}" width="500" height="250">
-</p>
 
 <p>${welomeMessage}</p>
 
