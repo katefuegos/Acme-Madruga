@@ -17,6 +17,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="register/actor.do" modelAttribute="actorForm">
 
@@ -27,72 +28,16 @@
 	<form:hidden path="auth" />
 
 
-	<form:label path="userAccount.username">
-		<spring:message code="actor.userAccount.username" />:
-	</form:label>
-	<form:input path="userAccount.username" />
-	<form:errors cssClass="error" path="userAccount.username" />
-	<br />
-
-	<form:label path="userAccount.password">
-		<spring:message code="actor.userAccount.password" />:
-	</form:label>
-	<form:password path="userAccount.password" />
-	<form:errors cssClass="error" path="userAccount.password" />
-	<br />
-
-	<form:label path="name">
-		<spring:message code="actor.name" />:
-	</form:label>
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
-	<br />
-
-
-	<form:label path="middleName">
-		<spring:message code="actor.middleName" />:
-	</form:label>
-	<form:input path="middleName" />
-	<form:errors cssClass="error" path="middleName" />
-	<br />
-
-
-	<form:label path="surname">
-		<spring:message code="actor.surname" />:
-	</form:label>
-	<form:input path="surname" />
-	<form:errors cssClass="error" path="surname" />
-	<br />
-
-	<form:label path="photo">
-		<spring:message code="actor.photo" />:
-	</form:label>
-	<form:input path="photo" />
-	<form:errors cssClass="error" path="photo" />
-	<br />
-
-	<form:label path="email">
-		<spring:message code="actor.email" />
-	</form:label>
-	<form:input path="email" readonly="${isRead}" />
-	<form:errors cssClass="error" path="email" />
-	<br />
-
-	<form:label path="phone">
-		<spring:message code="actor.phone" />
-	</form:label>
-	<form:input path="phone" id="tlf" readonly="${isRead}" />
-	<form:errors path="phone" cssClass="error" />
-	<br />
-
-	<form:label path="address">
-		<spring:message code="actor.address" />
-	</form:label>
-	<form:input path="address" readonly="${isRead}" />
-	<form:errors cssClass="error" path="address" />
-	<br />
-
-
+	<acme:textbox code="actor.userAccount.username" path="userAccount.username"/>
+	<acme:textbox code="actor.userAccount.password" path="userAccount.password"/>
+	<acme:textbox code="actor.name" path="name"/>
+	<acme:textbox code="actor.middleName" path="middleName"/>
+	<acme:textbox code="actor.surname" path="surname"/>
+	<acme:textbox code="actor.photo" path="photo"/>
+	<acme:textbox code="actor.email" path="email"/>
+	<acme:textbox code="actor.phone" path="phone"/>
+	<acme:textbox code="actor.address" path="address"/>
+	
 	<jstl:if test="${actorForm.auth != 'BROTHERHOOD'}">
 		<form:hidden path="title" />
 		<form:hidden path="pictures" />
@@ -100,21 +45,9 @@
 	</jstl:if>
 	<jstl:if test="${actorForm.auth == 'BROTHERHOOD'}">
 
-
-		<form:label path="title">
-			<spring:message code="actor.title" />
-		</form:label>
-		<form:input path="title" readonly="${isRead}" />
-		<form:errors cssClass="error" path="title" />
-		<br />
-
-		<form:label path="pictures">
-			<spring:message code="actor.pictures" />
-		</form:label>
-		<form:textarea path="pictures" readonly="${isRead}" />
-		<form:errors cssClass="error" path="pictures" />
-		<br />
-
+		
+		<acme:textbox code="actor.title" path="title"/>
+		<acme:textarea code="actor.pictures" path="pictures"/>
 		<form:label path="area">
 			<spring:message code="actor.area" />:
 			</form:label>
@@ -123,7 +56,6 @@
 		</form:select>
 		<form:errors cssClass="error" path="area" />
 		<br>
-
 	</jstl:if>
 
 	<form:label path="checkTerms">
@@ -150,13 +82,7 @@
 		}
 	</script>
 
-	<input type="submit" name="save"
-		value='<spring:message code="actor.save"/>'
-		onclick=" javascript: return isValid();" />
-
-	<input type="button" name="cancel"
-		value="<spring:message code="message.cancel" />"
-		onclick="javascript: relativeRedir('welcome/index.do');" />
-	<br />
+	<acme:submit name="save" code="actor.save"/>
+	<acme:cancel url="welcom/index.do" code="message.cancel"/>
 
 </form:form>

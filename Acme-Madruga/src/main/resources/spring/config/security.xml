@@ -209,7 +209,7 @@
 		
 		
 		<security:intercept-url pattern="/actor/showMember.do"
-			access="hasAnyRole('ADMIN','BROTHERHOOD')" />
+			access="hasRole('BROTHERHOOD')"  />
 		
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
@@ -274,6 +274,8 @@
 		<security:intercept-url pattern="/configuration/administrator/create.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/configuration/administrator/edit.do"
+			access="hasRole('ADMIN')" />
+			<security:intercept-url pattern="/configuration/administrator/show.do"
 			access="hasRole('ADMIN')" />
 
 		<!-- OTHERS -->

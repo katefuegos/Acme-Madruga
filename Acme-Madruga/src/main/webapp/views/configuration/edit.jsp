@@ -24,10 +24,15 @@
 <form:form action="${requestURI}" modelAttribute="configurationForm">
 
 
-	<jstl:if test="${isRead==true}">
-		<img src="${configurationForm.banner}" height="250px" width="350px" />
-		<br />
-	</jstl:if>
+	<img src="${configurationForm.bannerr}" height="250px" width="350px" />
+	<br />
+	<br />
+	<form:label path="bannerr">
+		<spring:message code="configuration.banner" />
+	</form:label>
+	<form:input path="bannerr" readonly="${isRead}" />
+	<form:errors cssClass="error" path="bannerr" />
+	<br />
 	<form:label path="systemName">
 		<spring:message code="configuration.systemName" />
 	</form:label>
@@ -49,15 +54,6 @@
 	<form:input path="countryCode" readonly="${isRead}" />
 	<form:errors cssClass="error" path="countryCode" />
 	<br />
-
-	<jstl:if test="${isRead==false}">
-		<form:label path="banner">
-			<spring:message code="configuration.banner" />
-		</form:label>
-		<form:input path="banner" />
-		<form:errors cssClass="error" path="banner" />
-		<br />
-	</jstl:if>
 	<form:label path="finderCacheTime">
 		<spring:message code="configuration.cache" />
 	</form:label>
@@ -150,14 +146,6 @@
 		<input type="button" name="cancel"
 			value="<spring:message code="configuration.cancel" />"
 			onclick="javascript: relativeRedir('configuration/administrator/list.do');" />
-	</jstl:if>
-
-	<jstl:if test="${configuration.id != 0}">
-
-		<input type="submit" name="delete"
-			value="<spring:message code="configuration.delete" />"
-			onclick="javascript: return confirm('<spring:message code="configuration.confirm.delete" />')" />
-
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
