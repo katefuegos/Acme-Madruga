@@ -18,103 +18,103 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="message/actor/edit.do" modelAttribute="entityMessage">
+<form:form action="message/actor/edit.do" modelAttribute="messageForm">
 
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="moment" />
-	<form:hidden path="sender" />
+	<form:hidden path="message.id" />
+	<form:hidden path="message.version" />
+	<form:hidden path="message.moment" />
+	<form:hidden path="message.sender" />
 	<jstl:if test="${isRead==true}">
 		<spring:message code="message.sender" />:
-		<jstl:out value="${entityMessage.sender.userAccount.username}"></jstl:out>
+		<jstl:out value="${messageForm.message.sender.userAccount.username}"></jstl:out>
 		<br />
 
-		<form:hidden path="recipient" />
+		<form:hidden path="message.recipient" />
 		<spring:message code="message.receiver" />:
-		<jstl:out value="${entityMessage.recipient.userAccount.username}"></jstl:out>
+		<jstl:out value="${messageForm.message.recipient.userAccount.username}"></jstl:out>
 		<br />
 		<jstl:if test="${isMove==false }">
-			<form:hidden path="box" />
+			<form:hidden path="message.box" />
 			<spring:message code="message.box" />:
-			<jstl:out value="${entityMessage.box.name}"></jstl:out>
+			<jstl:out value="${messageForm.message.box.name}"></jstl:out>
 			<br />
 		</jstl:if>
 		<jstl:if test="${isMove==true }">
-			<form:label path="box">
+			<form:label path="message.box">
 				<spring:message code="message.box" />:
 			</form:label>
-			<form:select id="boxes" path="box">
+			<form:select id="boxes" path="message.box">
 				<form:options items="${boxes}" itemValue="id" itemLabel="name" />
 			</form:select>
-			<form:errors cssClass="error" path="box" />
+			<form:errors cssClass="error" path="message.box" />
 			<br />
 		</jstl:if>
-		<form:label path="priority">
+		<form:label path="message.priority">
 			<spring:message code="message.priority" />:
 		</form:label>
-		<form:input path="priority" readonly="${isRead}" />
-		<form:errors cssClass="error" path="priority" />
+		<form:input path="message.priority" readonly="${isRead}" />
+		<form:errors cssClass="error" path="message.priority" />
 		<br />
 
-		<form:label path="moment">
+		<form:label path="message.moment">
 			<spring:message code="message.moment" />:
 	</form:label>
-		<form:input path="moment" readonly="${isRead}" />
-		<form:errors cssClass="error" path="moment" />
+		<form:input path="message.moment" readonly="${isRead}" />
+		<form:errors cssClass="error" path="message.moment" />
 		<br />
 
 
 	</jstl:if>
-	<form:label path="subject">
+	<form:label path="message.subject">
 		<spring:message code="message.subject" />:
 	</form:label>
-	<form:textarea path="subject" readonly="${isRead}" />
-	<form:errors cssClass="error" path="subject" />
+	<form:textarea path="message.subject" readonly="${isRead}" />
+	<form:errors cssClass="error" path="message.subject" />
 	<br />
 
-	<form:label path="body">
+	<form:label path="message.body">
 		<spring:message code="message.body" />:
 	</form:label>
-	<form:textarea path="body" readonly="${isRead}" />
-	<form:errors cssClass="error" path="body" />
+	<form:textarea path="message.body" readonly="${isRead}" />
+	<form:errors cssClass="error" path="message.body" />
 	<br />
 
 
-	<form:label path="tags">
+	<form:label path="message.tags">
 		<spring:message code="message.tags" />:
 	</form:label>
-	<form:textarea path="tags" readonly="${isRead}" />
-	<form:errors cssClass="error" path="tags" />
+	<form:textarea path="message.tags" readonly="${isRead}" />
+	<form:errors cssClass="error" path="message.tags" />
 	<br />
 
 
 
 	<jstl:if test="${isRead!=true}">
-		<form:hidden path="box" />
-		<form:label path="priority">
+		<form:hidden path="message.box" />
+		<form:label path="message.priority">
 			<spring:message code="message.priority" />:
 	</form:label>
-		<form:select id="priorities" path="priority">
+		<form:select id="priorities" path="message.priority">
 			<form:options items="${priorities}" />
 		</form:select>
-		<form:errors cssClass="error" path="priority" />
+		<form:errors cssClass="error" path="message.priority" />
 
 
-		<form:label path="recipient">
+		<form:label path="message.recipient">
 			<spring:message code="message.receiver" />:
 	</form:label>
-		<form:select id="receivers" path="recipient">
+		<form:select id="receivers" path="message.recipient">
 			<form:options items="${receivers}" itemValue="id"
 				itemLabel="userAccount.username" />
 		</form:select>
-		<form:errors cssClass="error" path="recipient" />
+		<form:errors cssClass="error" path="message.recipient" />
 		<br />
 	</jstl:if>
 	<jstl:if test="${isRead!=true || (isMove==true && isRead==true)}">
 		<input type="submit" name="save"
 			value="<spring:message code="message.save" />" />&nbsp; 
 		
-		<jstl:if test="${entityMessage.id!=0}">
+		<jstl:if test="${messageForm.message.id!=0}">
 			<input type="submit" name="delete"
 				value="<spring:message code="message.delete" />"
 				onclick="javascript: return confirm('<spring:message code="message.confirm.delete" />')" />

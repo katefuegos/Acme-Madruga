@@ -17,44 +17,44 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="message/administrator/broadcastMessage.do" modelAttribute="entityMessage">
+<form:form action="message/administrator/broadcastMessage.do" modelAttribute="messageForm">
 
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="moment" />
-	<form:hidden path="sender" />
-	<form:hidden path="recipient" />
-	<form:hidden path="box" />
+	<form:hidden path="message.id" />
+	<form:hidden path="message.version" />
+	<form:hidden path="message.moment" />
+	<form:hidden path="message.sender" />
+	<form:hidden path="message.recipient" />
+	<form:hidden path="message.box" />
 	
 
-	<form:label path="subject">
+	<form:label path="message.subject">
 		<spring:message code="message.subject" />:
 	</form:label>
-	<form:input path="subject" />
-	<form:errors cssClass="error" path="subject" />
+	<form:input path="message.subject" />
+	<form:errors cssClass="error" path="message.subject" />
 	<br />
 
-	<form:label path="body">
+	<form:label path="message.body">
 		<spring:message code="message.body" />:
 	</form:label>
-	<form:textarea path="body" />
-	<form:errors cssClass="error" path="body" />
+	<form:textarea path="message.body" />
+	<form:errors cssClass="error" path="message.body" />
 	<br />
 
-	<form:label path="priority">
+	<form:label path="message.priority">
 		<spring:message code="message.priority" />:
 	</form:label>
-	<form:select id="priorities" path="priority">
+	<form:select id="priorities" path="message.priority">
 		<form:options items="${priorities}"/>
 	</form:select>
-	<form:errors cssClass="error" path="priority" />
+	<form:errors cssClass="error" path="message.priority" />
 <br />
 
-	<form:label path="tags">
+	<form:label path="message.tags">
 		<spring:message code="message.tags" />:
 	</form:label>
-	<form:input path="tags" />
-	<form:errors cssClass="error" path="tags" />
+	<form:input path="message.tags" />
+	<form:errors cssClass="error" path="message.tags" />
 	<br />
 
 

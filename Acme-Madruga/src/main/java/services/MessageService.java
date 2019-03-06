@@ -171,6 +171,12 @@ public class MessageService {
 
 	}
 	public Message moveMessage(final Message message, final Box newBox) {
+		final Message oldMessage = this.findOne(message.getId());
+
+		final int actorId = this.actorService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+		final Collection<Box> boxes = this.boxService.findBoxesByActorId(actorId);
+		Assert.isTrue(boxes.contains(oldMessage.getBox()));
+
 		this.checkPrincipal(message);
 		message.setBox(newBox);
 		final Message saved = this.messageRepository.save(message);

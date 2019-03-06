@@ -1,7 +1,6 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -20,23 +19,28 @@ import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.BoxService;
+import services.ConfigurationService;
 import services.MessageService;
 import domain.Actor;
 import domain.Box;
 import domain.Message;
+import forms.MessageForm;
 
 @Controller
 @RequestMapping("/message")
 public class MessageController extends AbstractController {
 
 	@Autowired
-	private MessageService	messageService;
+	private MessageService			messageService;
 
 	@Autowired
-	private BoxService		boxService;
+	private BoxService				boxService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	@RequestMapping(value = "/actor/list", method = RequestMethod.GET)
@@ -75,9 +79,13 @@ public class MessageController extends AbstractController {
 		final ModelAndView modelAndView;
 
 		final Message message = this.messageService.create();
+		final MessageForm messageForm = new MessageForm();
+
 		message.setRecipient(this.actorService.findByUserAccount(LoginService.getPrincipal()));
 
-		modelAndView = this.createEditModelAndView(message);
+		messageForm.setMessage(message);
+
+		modelAndView = this.createEditModelAndView(messageForm);
 
 		modelAndView.setViewName("message/administrator/broadcastMessage");
 
@@ -86,20 +94,22 @@ public class MessageController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/administrator/broadcastMessage", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveBroadcast(@Valid final Message message, final BindingResult binding) {
+	public ModelAndView saveBroadcast(@Valid final MessageForm messageForm, final BindingResult binding) {
 
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(message);
+			result = this.createEditModelAndView(messageForm);
 			result.setViewName("message/administrator/broadcastMessage");
 		} else
 			try {
+				final Message message = messageForm.getMessage();
+
 				this.messageService.broadcastMessage(message);
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
-				System.out.println("==============   " + oops);
-				result = this.createEditModelAndView(message, "message.commit.error");
+
+				result = this.createEditModelAndView(messageForm, "message.commit.error");
 				result.setViewName("message/administrator/broadcastMessage");
 			}
 		return result;
@@ -112,7 +122,10 @@ public class MessageController extends AbstractController {
 
 		final Message message = this.messageService.create();
 
-		modelAndView = this.createEditModelAndView(message);
+		final MessageForm messageForm = new MessageForm();
+		messageForm.setMessage(message);
+
+		modelAndView = this.createEditModelAndView(messageForm);
 
 		return modelAndView;
 	}
@@ -125,7 +138,11 @@ public class MessageController extends AbstractController {
 		try {
 			Assert.notNull(message);
 			this.messageService.checkPrincipal(message);
-			modelAndView = this.createEditModelAndView(message);
+
+			final MessageForm messageForm = new MessageForm();
+			messageForm.setMessage(message);
+
+			modelAndView = this.createEditModelAndView(messageForm);
 			modelAndView.setViewName("message/actor/show");
 			modelAndView.addObject("isRead", true);
 
@@ -155,8 +172,12 @@ public class MessageController extends AbstractController {
 			this.messageService.checkPrincipal(message);
 
 			final Collection<Box> boxes = this.boxService.findBoxesByActorId(actor.getId());
+			Assert.isTrue(boxes.contains(message.getBox()), "message.commit.error");
 
-			modelAndView = this.createEditModelAndView(message);
+			final MessageForm messageForm = new MessageForm();
+			messageForm.setMessage(message);
+
+			modelAndView = this.createEditModelAndView(messageForm);
 			modelAndView.setViewName("message/actor/move");
 			modelAndView.addObject("isRead", true);
 			modelAndView.addObject("isMove", true);
@@ -167,6 +188,8 @@ public class MessageController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message", "message.error.unexist");
 			else if (!(message.getSender().equals(actor) || message.getRecipient().equals(actor)))
 				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
+			else
+				redirectAttrs.addFlashAttribute("message", "message.commit.error");
 		}
 
 		return modelAndView;
@@ -174,11 +197,11 @@ public class MessageController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/actor/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Message message, final BindingResult binding) {
+	public ModelAndView save(@Valid final MessageForm messageForm, final BindingResult binding) {
 		ModelAndView result;
-
+		final Message message = messageForm.getMessage();
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(message, "message.error.field");
+			result = this.createEditModelAndView(messageForm, "message.error.field");
 			if (message.getId() != 0) {
 				result.setViewName("message/actor/move");
 				result.addObject("isRead", true);
@@ -192,8 +215,8 @@ public class MessageController extends AbstractController {
 					this.messageService.save(message);
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(message, "message.commit.error");
-				result.addObject("oops", oops.getStackTrace());
+				result = this.createEditModelAndView(messageForm, "message.commit.error");
+				//result.addObject("oops", oops.getStackTrace());
 				if (message.getId() != 0) {
 					result.setViewName("message/actor/move");
 					result.addObject("isRead", true);
@@ -205,14 +228,15 @@ public class MessageController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/actor/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView edit(final Message message) {
+	public ModelAndView edit(final MessageForm messageForm) {
 
 		ModelAndView result;
 		try {
+			final Message message = messageForm.getMessage();
 			this.messageService.delete(message);
 			result = new ModelAndView("redirect:/box/actor/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(message, "message.commit.error");
+			result = this.createEditModelAndView(messageForm, "message.commit.error");
 			System.out.println("========== " + oops.getMessage() + " ==========");
 			result.setViewName("message/actor/move");
 			result.addObject("isRead", true);
@@ -223,28 +247,24 @@ public class MessageController extends AbstractController {
 
 	// CreateModelAndView
 
-	protected ModelAndView createEditModelAndView(final Message message) {
+	protected ModelAndView createEditModelAndView(final MessageForm messageForm) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(message, null);
+		result = this.createEditModelAndView(messageForm, null);
 
 		return result;
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Message entityMessage, final String message) {
+	protected ModelAndView createEditModelAndView(final MessageForm entityMessage, final String message) {
 		ModelAndView result;
 		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final Collection<Actor> actors = this.actorService.findAll();
 		actors.remove(actor);
-		final Collection<String> priorities = new ArrayList<>();
-
-		priorities.add("HIGH");
-		priorities.add("NEUTRAL");
-		priorities.add("LOW");
+		final Collection<String> priorities = this.configurationService.findAll().iterator().next().getPriorities();
 
 		result = new ModelAndView("message/actor/exchangeMessage");
-		result.addObject("entityMessage", entityMessage);
+		result.addObject("messageForm", entityMessage);
 		result.addObject("message", message);
 		result.addObject("receivers", actors);
 		result.addObject("priorities", priorities);
