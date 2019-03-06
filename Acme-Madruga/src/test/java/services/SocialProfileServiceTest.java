@@ -37,7 +37,6 @@ public class SocialProfileServiceTest extends AbstractTest {
 
 		System.out.println("========== testCreate() ==========");
 
-		final int actorId = this.getEntityId("admin");
 		authenticate("admin");
 
 		try {
@@ -96,7 +95,6 @@ public class SocialProfileServiceTest extends AbstractTest {
 
 		final Collection<SocialProfile> SocialProfiles;
 
-		final int refereeId = this.getEntityId("administrator1");
 		authenticate("admin");
 
 		try {

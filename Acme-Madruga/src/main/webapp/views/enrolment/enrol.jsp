@@ -10,14 +10,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="enrolment">
+<form:form action="${requestURI}" modelAttribute="enrolmentForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="brotherhood" />
-	<form:hidden path="momentEnrol" />
-	<form:hidden path="momentDropOut" />
-	<form:hidden path="accepted" />
 
 	<form:label path="position">
 		<spring:message code="enrolment.position" />:

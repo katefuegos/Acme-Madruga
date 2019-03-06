@@ -1,4 +1,3 @@
-
 package controllers.Brotherhood;
 
 import java.util.ArrayList;
@@ -25,6 +24,8 @@ import services.PositionService;
 import controllers.AbstractController;
 import domain.Enrolment;
 import forms.EnrolmentForm;
+import forms.EnrolmentForm2;
+import forms.EnrolmentForm3;
 
 @Controller
 @RequestMapping("/enrolment/brotherhood")
@@ -32,17 +33,16 @@ public class EnrolmentController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
-	private EnrolmentService		enrolmentService;
+	private EnrolmentService enrolmentService;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService brotherhoodService;
 
 	@Autowired
-	private MemberService			memberService;
+	private MemberService memberService;
 
 	@Autowired
-	private PositionService			positionService;
-
+	private PositionService positionService;
 
 	// Constructor---------------------------------------------------------
 
@@ -56,20 +56,27 @@ public class EnrolmentController extends AbstractController {
 		ModelAndView result;
 
 		try {
-			final Integer brotherhoodId = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+			final Integer brotherhoodId = this.brotherhoodService
+					.findByUserAccountId(LoginService.getPrincipal().getId())
+					.getId();
 			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 
-			final Collection<Enrolment> enrolments = this.enrolmentService.findByBrotherhood(brotherhoodId);
+			final Collection<Enrolment> enrolments = this.enrolmentService
+					.findByBrotherhood(brotherhoodId);
 
 			final Collection<EnrolmentForm> enrolmentForms = new ArrayList<EnrolmentForm>();
 			for (final Enrolment e : enrolments)
-				enrolmentForms.add(new EnrolmentForm(e, this.memberService.findByEnrolment(e)));
+				enrolmentForms.add(new EnrolmentForm(e, this.memberService
+						.findByEnrolment(e)));
 
-			final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+			final String lang = LocaleContextHolder.getLocale().getLanguage()
+					.toUpperCase();
 			result = new ModelAndView("enrolment/list");
 			result.addObject("lang", lang);
 			result.addObject("enrolmentForms", enrolmentForms);
-			result.addObject("requestURI", "enrolment/brotherhood/list.do?brotherhoodId=" + brotherhoodId);
+			result.addObject("requestURI",
+					"enrolment/brotherhood/list.do?brotherhoodId="
+							+ brotherhoodId);
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/");
 		}
@@ -78,157 +85,213 @@ public class EnrolmentController extends AbstractController {
 
 	// ENROL
 	@RequestMapping(value = "/enrol", method = RequestMethod.GET)
-	public ModelAndView enrol(final int enrolmentId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView enrol(final int enrolmentId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final Integer brotherhoodId = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+		final Integer brotherhoodId = this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId())
+				.getId();
 		final Enrolment enrolment = this.enrolmentService.findOne(enrolmentId);
+		EnrolmentForm2 enrolmentForm = new EnrolmentForm2();
 		try {
 			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 			Assert.notNull(enrolment);
-			Assert.isTrue(enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)));
+			Assert.isTrue(enrolment.getBrotherhood().equals(
+					this.brotherhoodService.findOne(brotherhoodId)));
 			Assert.isTrue(enrolment.isAccepted() == false);
-
-			result = this.enrolModelAndView(enrolment);
+			enrolmentForm.setId(enrolment.getId());
+			result = this.enrolModelAndView(enrolmentForm);
 
 		} catch (final Throwable e) {
 
 			result = new ModelAndView("redirect:/enrolment/brotherhood/list.do");
 			if (enrolment == null)
-				redirectAttrs.addFlashAttribute("message", "enrolment.error.unexist");
-			else if (!enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)))
-				redirectAttrs.addFlashAttribute("message", "enrolment.error.noBrotherhood");
+				redirectAttrs.addFlashAttribute("message",
+						"enrolment.error.unexist");
+			else if (!enrolment.getBrotherhood().equals(
+					this.brotherhoodService.findOne(brotherhoodId)))
+				redirectAttrs.addFlashAttribute("message",
+						"enrolment.error.noBrotherhood");
 			else if (enrolment.isAccepted() == true)
-				redirectAttrs.addFlashAttribute("message", "enrolment.error.isAccepted");
+				redirectAttrs.addFlashAttribute("message",
+						"enrolment.error.isAccepted");
 			else
-				result = this.enrolModelAndView(enrolment, "commit.error");
+				result = this.enrolModelAndView(enrolmentForm, "commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/enrol", method = RequestMethod.POST, params = "save")
-	public ModelAndView enrolSave(@Valid final Enrolment enrolment, final BindingResult binding, final RedirectAttributes redirectAttrs) {
+	public ModelAndView enrolSave(@Valid final EnrolmentForm2 enrolmentForm,
+			final BindingResult binding, final RedirectAttributes redirectAttrs) {
 		ModelAndView result = null;
-		final Integer brotherhoodId = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+		final Integer brotherhoodId = this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId())
+				.getId();
+		Enrolment enrolment = enrolmentService.findOne(enrolmentForm.getId());
 		if (binding.hasErrors())
-			result = this.enrolModelAndView(enrolment, "commit.error");
+			result = this.enrolModelAndView(enrolmentForm, "commit.error");
 		else
 			try {
+				Assert.notNull(enrolment);
 				Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 				Assert.notNull(enrolment);
-				Assert.isTrue(enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)));
+				Assert.isTrue(enrolment.getBrotherhood().equals(
+						this.brotherhoodService.findOne(brotherhoodId)));
 				enrolment.setMomentDropOut(null);
 				enrolment.setAccepted(true);
-				enrolment.setMomentEnrol(new Date(System.currentTimeMillis() - 1000));
+				enrolment.setMomentEnrol(new Date(
+						System.currentTimeMillis() - 1000));
+				enrolment.setPosition(enrolmentForm.getPosition());
 				this.enrolmentService.save(enrolment);
 
-				result = new ModelAndView("redirect:/enrolment/brotherhood/list.do");
+				result = new ModelAndView(
+						"redirect:/enrolment/brotherhood/list.do");
 
 			} catch (final Throwable oops) {
 
-				result = new ModelAndView("redirect:/enrolment/brotherhood/list.do");
+				result = new ModelAndView(
+						"redirect:/enrolment/brotherhood/list.do");
 				if (enrolment == null)
-					redirectAttrs.addFlashAttribute("message", "enrolment.error.unexist");
-				else if (!enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)))
-					redirectAttrs.addFlashAttribute("message", "enrolment.error.noBrotherhood");
+					redirectAttrs.addFlashAttribute("message",
+							"enrolment.error.unexist");
+				else if (!enrolment.getBrotherhood().equals(
+						this.brotherhoodService.findOne(brotherhoodId)))
+					redirectAttrs.addFlashAttribute("message",
+							"enrolment.error.noBrotherhood");
 				else
-					result = this.enrolModelAndView(enrolment, "commit.error");
+					result = this.enrolModelAndView(enrolmentForm,
+							"commit.error");
 			}
 		return result;
 	}
 
 	// DROPOUT
 	@RequestMapping(value = "/dropout", method = RequestMethod.GET)
-	public ModelAndView dropout(final int enrolmentId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView dropout(final int enrolmentId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final Integer brotherhoodId = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+		final Integer brotherhoodId = this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId())
+				.getId();
 		final Enrolment enrolment = this.enrolmentService.findOne(enrolmentId);
+		EnrolmentForm3 enrolmentForm = new EnrolmentForm3();
 		try {
 			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 			Assert.notNull(enrolment);
-			Assert.isTrue(enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)));
+			Assert.isTrue(enrolment.getBrotherhood().equals(
+					this.brotherhoodService.findOne(brotherhoodId)));
 			Assert.isTrue(enrolment.isAccepted() == true);
-
-			result = this.dropOutModelAndView(enrolment);
+			enrolmentForm.setId(enrolment.getId());
+			result = this.dropOutModelAndView(enrolmentForm);
 
 		} catch (final Throwable e) {
 
 			result = new ModelAndView("redirect:/enrolment/brotherhood/list.do");
 			if (enrolment == null)
-				redirectAttrs.addFlashAttribute("message", "enrolment.error.unexist");
-			else if (!enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)))
-				redirectAttrs.addFlashAttribute("message", "enrolment.error.noBrotherhood");
+				redirectAttrs.addFlashAttribute("message",
+						"enrolment.error.unexist");
+			else if (!enrolment.getBrotherhood().equals(
+					this.brotherhoodService.findOne(brotherhoodId)))
+				redirectAttrs.addFlashAttribute("message",
+						"enrolment.error.noBrotherhood");
 			else if (enrolment.isAccepted() == false)
-				redirectAttrs.addFlashAttribute("message", "enrolment.error.isNotAccepted");
+				redirectAttrs.addFlashAttribute("message",
+						"enrolment.error.isNotAccepted");
 			else
-				result = this.dropOutModelAndView(enrolment, "commit.error");
+				result = this
+						.dropOutModelAndView(enrolmentForm, "commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/dropout", method = RequestMethod.POST, params = "save")
-	public ModelAndView dropOutSave(@Valid final Enrolment enrolment, final BindingResult binding, final RedirectAttributes redirectAttrs) {
+	public ModelAndView dropOutSave(@Valid final EnrolmentForm3 enrolmentForm,
+			final BindingResult binding, final RedirectAttributes redirectAttrs) {
 		ModelAndView result = null;
-		final Integer brotherhoodId = this.brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+		final Integer brotherhoodId = this.brotherhoodService
+				.findByUserAccountId(LoginService.getPrincipal().getId())
+				.getId();
+		Enrolment enrolment = enrolmentService.findOne(enrolmentForm.getId());
 		if (binding.hasErrors())
-			result = this.dropOutModelAndView(enrolment, "commit.error");
+			result = this.dropOutModelAndView(enrolmentForm, "commit.error");
 		else
 			try {
+				Assert.notNull(enrolment);
 				Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 				Assert.notNull(enrolment);
-				Assert.isTrue(enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)));
+				Assert.isTrue(enrolment.getBrotherhood().equals(
+						this.brotherhoodService.findOne(brotherhoodId)));
 				enrolment.setMomentEnrol(null);
 				enrolment.setAccepted(false);
-				enrolment.setMomentDropOut(new Date(System.currentTimeMillis() - 1000));
+				enrolment.setMomentDropOut(new Date(
+						System.currentTimeMillis() - 1000));
+				enrolment.setPosition(null);
 				this.enrolmentService.save(enrolment);
 
-				result = new ModelAndView("redirect:/enrolment/brotherhood/list.do");
+				result = new ModelAndView(
+						"redirect:/enrolment/brotherhood/list.do");
 
 			} catch (final Throwable oops) {
 
-				result = new ModelAndView("redirect:/enrolment/brotherhood/list.do");
+				result = new ModelAndView(
+						"redirect:/enrolment/brotherhood/list.do");
 				if (enrolment == null)
-					redirectAttrs.addFlashAttribute("message", "enrolment.error.unexist");
-				else if (!enrolment.getBrotherhood().equals(this.brotherhoodService.findOne(brotherhoodId)))
-					redirectAttrs.addFlashAttribute("message", "enrolment.error.noBrotherhood");
+					redirectAttrs.addFlashAttribute("message",
+							"enrolment.error.unexist");
+				else if (!enrolment.getBrotherhood().equals(
+						this.brotherhoodService.findOne(brotherhoodId)))
+					redirectAttrs.addFlashAttribute("message",
+							"enrolment.error.noBrotherhood");
 				else
-					result = this.dropOutModelAndView(enrolment, "commit.error");
+					result = this.dropOutModelAndView(enrolmentForm,
+							"commit.error");
 			}
 		return result;
 	}
 
-	protected ModelAndView enrolModelAndView(final Enrolment enrolment) {
+	protected ModelAndView enrolModelAndView(final EnrolmentForm2 enrolmentForm) {
 		ModelAndView result;
-		result = this.enrolModelAndView(enrolment, null);
+		result = this.enrolModelAndView(enrolmentForm, null);
 		return result;
 	}
 
-	protected ModelAndView enrolModelAndView(final Enrolment enrolment, final String message) {
+	protected ModelAndView enrolModelAndView(
+			final EnrolmentForm2 enrolmentForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("enrolment/enrol");
 		result.addObject("message", message);
-		result.addObject("requestURI", "enrolment/brotherhood/enrol.do?enrolmentId=" + enrolment.getId());
-		result.addObject("enrolment", enrolment);
+		result.addObject(
+				"requestURI",
+				"enrolment/brotherhood/enrol.do?enrolmentId="
+						+ enrolmentForm.getId());
+		result.addObject("enrolmentForm", enrolmentForm);
 		result.addObject("positions", this.positionService.findAll());
 
 		return result;
 	}
 
-	protected ModelAndView dropOutModelAndView(final Enrolment enrolment) {
+	protected ModelAndView dropOutModelAndView(
+			final EnrolmentForm3 enrolmentForm) {
 		ModelAndView result;
-		result = this.dropOutModelAndView(enrolment, null);
+		result = this.dropOutModelAndView(enrolmentForm, null);
 		return result;
 	}
 
-	protected ModelAndView dropOutModelAndView(final Enrolment enrolment, final String message) {
+	protected ModelAndView dropOutModelAndView(
+			final EnrolmentForm3 enrolmentForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("enrolment/dropout");
 		result.addObject("message", message);
-		result.addObject("requestURI", "enrolment/brotherhood/dropout.do?enrolmentId=" + enrolment.getId());
-		result.addObject("enrolment", enrolment);
+		result.addObject(
+				"requestURI",
+				"enrolment/brotherhood/dropout.do?enrolmentId="
+						+ enrolmentForm.getId());
+		result.addObject("enrolmentForm", enrolmentForm);
 		return result;
 	}
 }

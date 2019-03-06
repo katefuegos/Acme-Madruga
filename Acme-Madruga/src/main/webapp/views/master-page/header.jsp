@@ -66,7 +66,7 @@
 						code="master.page.brotherhood" /></a></li>
 		</security:authorize>
 
-		
+
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"> <spring:message
@@ -81,7 +81,7 @@
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
 						code="master.page.brotherhood" /></a></li>
 			<li><a class="fNiv" href="socialProfile/list.do"><spring:message
-								code="master.page.socialProfile" /></a></li>
+						code="master.page.socialProfile" /></a></li>
 			<li><a class="fNiv" href="box/actor/list.do"><spring:message
 						code="master.page.box" /></a>
 				<ul>
@@ -100,7 +100,7 @@
 
 		</security:authorize>
 
-<security:authorize access="hasRole('ADMIN')">
+		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
 				<ul>
@@ -119,8 +119,6 @@
 						code="master.page.floats" /></a></li>
 			<li><a class="fNiv" href="request/brotherhood/list.do"><spring:message
 						code="master.page.request" /></a></li>
-			<li><a class="fNiv" href="brotherhood/edit.do"><spring:message
-						code="master.page.settle" /></a></li>
 			<li><a class="fNiv" href="enrolment/brotherhood/list.do"><spring:message
 						code="master.page.enrolment" /></a></li>
 		</security:authorize>

@@ -172,9 +172,9 @@
 
 	</bean>
 
-	
 
-	
+
+
 	<!-- Members -->
 
 	<bean id="member1" class="domain.Member">
@@ -202,7 +202,7 @@
 
 	<bean id="member2" class="domain.Member">
 
-		<property name="name" value="Claudia" />
+		<property name="name" value="Sara" />
 		<property name="middleName" value="Diva" />
 		<property name="surname" value="Sa" />
 		<property name="photo"
@@ -330,13 +330,29 @@
 		<property name="area" ref="area1" />
 	</bean>
 
-
+	<!-- SocialProfile -->
 	<bean id="socialProfile1" class="domain.SocialProfile">
 
 		<property name="nick" value="Manolete"></property>
 		<property name="nameSocialNetwork" value="Twitter"></property>
-		<property name="actor" ref="brotherhood3" />
-		<property name="linkSocialNetwork" value="https://profile.es/"></property>
+		<property name="actor" ref="brotherhood1" />
+		<property name="linkSocialNetwork" value="https://profileManolete.es/"></property>
+	</bean>
+	
+	<bean id="socialProfile2" class="domain.SocialProfile">
+
+		<property name="nick" value="Claudia"></property>
+		<property name="nameSocialNetwork" value="Instagram"></property>
+		<property name="actor" ref="member1" />
+		<property name="linkSocialNetwork" value="https://profileClaudia.es/"></property>
+	</bean>
+	
+	<bean id="socialProfile3" class="domain.SocialProfile">
+
+		<property name="nick" value="Pablo"></property>
+		<property name="nameSocialNetwork" value="Facebook"></property>
+		<property name="actor" ref="admin" />
+		<property name="linkSocialNetwork" value="https://profilePablo.es/"></property>
 	</bean>
 
 	<!-- BOX -->
@@ -395,7 +411,7 @@
 		</property>
 		<property name="actor" ref="admin" />
 	</bean>
-	
+
 	<bean id="notificationBoxA" class="domain.Box">
 		<property name="name" value="notification box" />
 		<property name="isSystem" value="true" />
@@ -409,9 +425,9 @@
 		<property name="actor" ref="admin" />
 	</bean>
 
-<!-- Notificationbox -->
+	<!-- Notificationbox -->
 
-<bean id="notificationBoxM1" class="domain.Box">
+	<bean id="notificationBoxM1" class="domain.Box">
 		<property name="name" value="notification box" />
 		<property name="isSystem" value="true" />
 		<property name="subboxes">
@@ -711,7 +727,7 @@
 
 	<!-- Outbox -->
 
-	
+
 
 	<bean id="outBoxM1" class="domain.Box">
 		<property name="name" value="out box" />
@@ -909,9 +925,9 @@
 		<property name="actor" ref="brotherhood4" />
 
 	</bean>
-	
-	
-	
+
+
+
 	<!-- BOX -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="box1" />
@@ -1068,7 +1084,7 @@
 		<property name="recipient" ref="member1" />
 
 	</bean>
-	
+
 	<bean id="message11" class="domain.Message">
 		<property name="subject" value="subject4" />
 		<property name="body" value="good" />
@@ -1300,7 +1316,7 @@
 
 	<bean id="enrolment2" class="domain.Enrolment">
 		<property name="momentEnrol" value="2018/01/02 11:12" />
-		<property name="position" ref="position3" />	
+		<property name="position" ref="position3" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="accepted" value="true" />
 	</bean>
@@ -1346,7 +1362,7 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="position2" class="domain.Position">
 		<property name="name">
 			<map>
@@ -1365,7 +1381,7 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="position3" class="domain.Position">
 		<property name="name">
 			<map>
@@ -1384,7 +1400,7 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="position4" class="domain.Position">
 		<property name="name">
 			<map>
@@ -1403,7 +1419,7 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="position5" class="domain.Position">
 		<property name="name">
 			<map>
@@ -1422,7 +1438,7 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="position6" class="domain.Position">
 		<property name="name">
 			<map>
@@ -1441,11 +1457,11 @@
 			</map>
 		</property>
 	</bean>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<!-- CONFIGURATION -->
 	<bean id="configuration1" class="domain.Configuration">
 		<property name="countryCode" value="+34" />

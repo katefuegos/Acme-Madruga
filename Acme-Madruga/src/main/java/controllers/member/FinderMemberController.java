@@ -19,7 +19,6 @@ import security.LoginService;
 import services.AreaService;
 import services.FinderService;
 import services.MemberService;
-import services.ProcessionService;
 import controllers.AbstractController;
 import domain.Area;
 import domain.Finder;
@@ -36,9 +35,6 @@ public class FinderMemberController extends AbstractController {
 
 	@Autowired
 	private MemberService		memberService;
-
-	@Autowired
-	private ProcessionService	processionService;
 
 	@Autowired
 	private AreaService			areaService;

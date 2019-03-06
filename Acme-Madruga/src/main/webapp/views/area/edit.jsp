@@ -36,7 +36,7 @@
 	<form:label path="pictures">
 		<spring:message code="area.pictures" />
 	</form:label>
-	<form:input path="pictures" />
+	<form:textarea path="pictures" />
 	<form:errors cssClass="error" path="pictures" />
 	<br />
 
@@ -54,6 +54,6 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="area.cancel" />"
-			onclick="javascript: relativeRedir('area/administrator/list.do');" />
+			onclick="javascript: relativeRedir('area/list.do');" />
 
 </form:form>

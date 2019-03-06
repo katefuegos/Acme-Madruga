@@ -16,6 +16,7 @@ public class Floaat extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
+	@SuppressWarnings("unused")
 	private int id;
 	private String	title;
 	private String	description;

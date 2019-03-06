@@ -38,7 +38,6 @@ public class EnrolmentForm {
 	}
 
 	@Valid
-	@NotNull
 	public Member getMember() {
 		return member;
 	}

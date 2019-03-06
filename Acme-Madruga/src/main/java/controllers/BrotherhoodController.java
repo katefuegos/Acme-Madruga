@@ -3,21 +3,13 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import security.LoginService;
-import security.UserAccount;
-import services.AreaService;
 import services.BrotherhoodService;
-import domain.Area;
 import domain.Brotherhood;
 
 @Controller
@@ -29,8 +21,6 @@ public class BrotherhoodController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
-	@Autowired
-	private AreaService			areaService;
 
 
 	// Constructor---------------------------------------------------------
@@ -48,65 +38,6 @@ public class BrotherhoodController extends AbstractController {
 		result = new ModelAndView("brotherhood/list");
 		result.addObject("brotherhoods", brotherhoods);
 		result.addObject("requestURI", "brotherhood/list.do");
-		return result;
-	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(final RedirectAttributes redirectAttrs) {
-		final UserAccount uA = LoginService.getPrincipal();
-		ModelAndView modelAndView;
-		final Brotherhood brotherhood = this.brotherhoodService.findByUserAccountId(uA.getId());
-		this.selected = brotherhood.getArea() != null;
-		try {
-
-			modelAndView = this.createEditModelAndView(brotherhood);
-		} catch (final Exception e) {
-
-			modelAndView = new ModelAndView("redirect:/index.do");
-		}
-
-		return modelAndView;
-	}
-
-	// Save
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Brotherhood brotherhood, final BindingResult binding) {
-
-		ModelAndView result;
-
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(brotherhood);
-		else
-			try {
-				if (!this.selected)
-					this.brotherhoodService.save(brotherhood);
-				else
-					throw new Exception("cannot.commit.error");
-				result = new ModelAndView("redirect:/");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(brotherhood, "brotherhood.commit.error");
-			}
-		return result;
-	}
-	// CreateModelAndView
-
-	protected ModelAndView createEditModelAndView(final Brotherhood brotherhood) {
-		ModelAndView result;
-
-		result = this.createEditModelAndView(brotherhood, null);
-
-		return result;
-
-	}
-
-	protected ModelAndView createEditModelAndView(final Brotherhood brotherhood, final String message) {
-		ModelAndView result;
-
-		result = new ModelAndView("brotherhood/edit");
-		final Collection<Area> areas = this.areaService.findAll();
-		result.addObject("brotherhood", brotherhood);
-		result.addObject("message", message);
-		result.addObject("areas", areas);
 		return result;
 	}
 }
