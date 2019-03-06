@@ -115,6 +115,8 @@ public class PositionAdministratorController extends AbstractController {
 			result = new ModelAndView("position/edit");
 			result.addObject("positionForm", positionForm);
 			result.addObject("positions", positions);
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		} catch (final Throwable e) {
 

@@ -1278,6 +1278,8 @@
 
 	<bean id="area3" class="domain.Area">
 		<property name="name" value="Parque alcosa" />
+		<property name="pictures"
+			value="http://practicopedia.lainformacion.com/files/jueves_santo_madrugada.jpg" />
 	</bean>
 
 
