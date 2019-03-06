@@ -53,9 +53,9 @@ public class AbstractController {
 			result = new ModelAndView("welcome/index");
 			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
 			result.addObject("moment", moment);
-			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 			result.addObject("welomeMessage", this.configurationService.findAll().iterator().next().getWelcomeMessage().get(LocaleContextHolder.getLocale().toString().toUpperCase()));
-
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		}
 		return result;
 	}

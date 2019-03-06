@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
+import services.ConfigurationService;
 import services.MemberService;
 import services.ProcessionService;
 import services.RequestService;
@@ -34,6 +35,9 @@ public class requestMemberController extends AbstractController {
 
 	@Autowired
 	private ProcessionService	processionService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 
 	// Constructor---------------------------------------------------------
@@ -86,6 +90,8 @@ public class requestMemberController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -122,7 +128,8 @@ public class requestMemberController extends AbstractController {
 			else
 				result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -154,7 +161,8 @@ public class requestMemberController extends AbstractController {
 			 } else
 				result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

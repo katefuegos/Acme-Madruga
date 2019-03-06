@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.AreaService;
+import services.ConfigurationService;
 import domain.Area;
 
 @Controller
@@ -24,6 +25,9 @@ public class AreaController extends AbstractController {
 	// Services-----------------------------------------------------------
 	@Autowired
 	private AreaService areaService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Constructor---------------------------------------------------------
 
@@ -44,6 +48,8 @@ public class AreaController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/area/list.do");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -53,6 +59,8 @@ public class AreaController extends AbstractController {
 		Area area;
 		area = this.areaService.create();
 		result = this.createEditModelAndView(area);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -78,6 +86,8 @@ public class AreaController extends AbstractController {
 			}
 		}
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -96,6 +106,8 @@ public class AreaController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(area, "area.commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -113,6 +125,8 @@ public class AreaController extends AbstractController {
 			else
 				result = this.createEditModelAndView(area, "area.commit.error");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -132,7 +146,9 @@ public class AreaController extends AbstractController {
 		result.addObject("area", area);
 
 		result.addObject("message", messageCode);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		
 		return result;
 	}
 

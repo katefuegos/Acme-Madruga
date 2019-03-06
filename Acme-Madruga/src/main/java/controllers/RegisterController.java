@@ -20,6 +20,7 @@ import security.Authority;
 import security.UserAccount;
 import services.ActorService;
 import services.AreaService;
+import services.ConfigurationService;
 import domain.Actor;
 import forms.ActorForm;
 
@@ -35,6 +36,8 @@ public class RegisterController extends AbstractController {
 	@Autowired
 	private AreaService		areaService;
 
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Constructor---------------------------------------------------------
 
@@ -80,7 +83,8 @@ public class RegisterController extends AbstractController {
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 		}
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 	// Save
@@ -114,6 +118,8 @@ public class RegisterController extends AbstractController {
 					result = this.createEditModelAndView(actorForm, "message.commit.error");
 
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 	// CreateModelAndView
@@ -151,6 +157,8 @@ public class RegisterController extends AbstractController {
 		result.addObject("areas", this.areaService.findAll());
 		result.addObject("message", message);
 		result.addObject("isRead", false);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

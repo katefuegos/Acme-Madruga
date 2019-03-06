@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AdministratorService;
+import services.ConfigurationService;
 import controllers.AbstractController;
 import domain.Member;
 import domain.Procession;
@@ -26,6 +27,9 @@ public class DashboardAdministratorController extends AbstractController {
 	//Services-----------------------------------------------------------
 	@Autowired
 	private AdministratorService	administratorService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 
 	//Constructor-------------------------------------------------------
@@ -215,6 +219,8 @@ public class DashboardAdministratorController extends AbstractController {
 		else
 			modelAndView.addObject("queryB3FinderResultNotEmpty", nulo);
 
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 }

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.ActorService;
+import services.ConfigurationService;
 import controllers.AbstractController;
 import domain.Actor;
 
@@ -25,6 +26,8 @@ public class ActorAdministratorController extends AbstractController {
 	@Autowired
 	private ActorService	actorService;
 
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Constructor-----------------------------------------------------
 
@@ -43,6 +46,8 @@ public class ActorAdministratorController extends AbstractController {
 		modelAndView = this.listCalculateModelAndView(banneds, true);
 
 		modelAndView.addObject("requestURI", "actor/administrator/listBanneds.do");
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 
 	}
@@ -52,7 +57,8 @@ public class ActorAdministratorController extends AbstractController {
 		ModelAndView result = new ModelAndView();
 
 		result = this.listCalculateModelAndView(this.actorService.findAll(), false);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 	// Ban-------------------------------------------------------------
@@ -67,8 +73,12 @@ public class ActorAdministratorController extends AbstractController {
 			Assert.isTrue((actor.getIsBanned() == false) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0)));
 			this.actorService.ban(actor);
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message", "actor.error.unexist");
@@ -92,9 +102,13 @@ public class ActorAdministratorController extends AbstractController {
 			Assert.isTrue((actor.getIsBanned() == true) && (actor.getIsSpammer() == true));
 			this.actorService.unban(actor);
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message", "actor.error.unexist");
@@ -111,8 +125,12 @@ public class ActorAdministratorController extends AbstractController {
 		try {
 			this.actorService.asignSpammers();
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		}
 
 		return modelAndView;
@@ -126,8 +144,12 @@ public class ActorAdministratorController extends AbstractController {
 
 			this.actorService.updatePolarity();
 			modelAndView = this.listCalculateModelAndView(this.actorService.findAll(), false, "actor.commit.ok");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Exception e) {
 			modelAndView = this.listCalculateModelAndView(this.actorService.findAll(), false, "actor.commit.error");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		}
 
 		return modelAndView;
@@ -156,6 +178,8 @@ public class ActorAdministratorController extends AbstractController {
 		result.addObject("actors", actors);
 		result.addObject("message", message);
 		result.addObject("requestURI", "actor/administrator/list.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
