@@ -17,6 +17,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="box/actor/edit.do" modelAttribute="box">
 
@@ -25,14 +26,8 @@
 	<form:hidden path="subboxes" />
 	<form:hidden path="actor" />
 
-
-
-	<form:label path="name">
-		<spring:message code="box.name" />:
-	</form:label>
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
-	<br />
+<acme:textbox code="box.name" path="name"/>
+	
 
 	<jstl:choose>
 		<jstl:when test="${box.id == 0}">
@@ -54,20 +49,13 @@
 		</jstl:otherwise>
 	</jstl:choose>
 
-
-	<input type="submit" name="save"
-		value="<spring:message code="box.save" />" />&nbsp; 
+ 
+	<acme:submit name="save" code="box.save"/>
 	
 	<jstl:if test="${box.id != 0}">
-
-		<input type="submit" name="delete"
-			value="<spring:message code="box.delete" />"
-			onclick="javascript: return confirm('<spring:message code="box.confirm.delete" />')" />
-
+	<acme:delete confirmDelete="box.confirm.delete" name="delete" code="box.delete"/>
 	</jstl:if>
 
-	<input type="button" name="cancel"
-		value="<spring:message code="box.cancel" />"
-		onclick="javascript: relativeRedir('box/actor/list.do');" />
+	<acme:cancel url="box/actor/list.do" code="box.cancel"/>
 	<br />
 </form:form>

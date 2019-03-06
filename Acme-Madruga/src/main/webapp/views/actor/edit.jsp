@@ -20,6 +20,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
 
@@ -38,49 +39,17 @@
 		<br />
 	</jstl:if>
 
-	<form:label path="name">
-		<spring:message code="actor.name" />
-	</form:label>
-	<form:input path="name" readonly="${isRead}" />
-	<form:errors cssClass="error" path="name" />
-	<br />
-
-	<form:label path="middleName">
-		<spring:message code="actor.middleName" />
-	</form:label>
-	<form:input path="middleName" readonly="${isRead}" />
-	<form:errors cssClass="error" path="middleName" />
-	<br />
-
-	<form:label path="surname">
-		<spring:message code="actor.surname" />
-	</form:label>
-	<form:input path="surname" readonly="${isRead}" />
-	<form:errors cssClass="error" path="surname" />
-	<br />
+	<acme:textbox code="actor.name" path="name"/>
+	<acme:textbox code="actor.middleName" path="middleName"/>
+	<acme:textbox code="actor.surname" path="surname"/>
 
 	<jstl:if test="${isRead == false}">
-		<form:label path="photo">
-			<spring:message code="actor.photo" />
-		</form:label>
-		<form:input path="photo" />
-		<form:errors cssClass="error" path="photo" />
-		<br />
+		<acme:textbox code="actor.photo" path="photo"/>
 	</jstl:if>
 
-	<form:label path="email">
-		<spring:message code="actor.email" />
-	</form:label>
-	<form:input path="email" readonly="${isRead}" />
-	<form:errors cssClass="error" path="email" />
-	<br />
+	<acme:textbox code="actor.email" path="email"/>
 
-	<form:label path="address">
-		<spring:message code="actor.address" />
-	</form:label>
-	<form:input path="address" readonly="${isRead}" />
-	<form:errors cssClass="error" path="address" />
-	<br />
+	<acme:textbox code="actor.address" path="address"/>
 
 	<jstl:if test="${isRead == true}">
 		<jstl:if test="${title != null}">
@@ -130,19 +99,9 @@
 </jstl:if>
 	<jstl:if test="${actorForm.auth == 'BROTHERHOOD'}">
 
-		<form:label path="title">
-			<spring:message code="actor.title" />
-		</form:label>
-		<form:input path="title" readonly="${isRead}" />
-		<form:errors cssClass="error" path="title" />
-		<br />
+		<acme:textbox code="actor.title" path="title"/>
 
-		<form:label path="pictures">
-			<spring:message code="actor.pictures" />
-		</form:label>
-		<form:textarea path="pictures" readonly="${isRead}" />
-		<form:errors cssClass="error" path="pictures" />
-		<br />
+		<acme:textbox code="actor.pictures" path="pictures"/>
 
 		
 
@@ -151,21 +110,14 @@
 
 	<jstl:if test="${isRead == false}">
 		<br />
-		<input type="submit" name="save"
-		value='<spring:message code="actor.save"/>'
-		onclick=" javascript: return isValid();" />
+		<acme:submit name="save" code="actor.save"/>
 
-		<input type="button" name="cancel"
-			value="<spring:message code="actor.cancel" />"
-			onclick="javascript: relativeRedir('welcome/index.do');" />
+		<acme:cancel url="welcome/index.do" code="actor.back"/>
 		<br />
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
-		<input type="button" name="back"
-			value="<spring:message code="actor.back" />"
-			onclick="javascript: relativeRedir('welcome/index.do');" />
-		<br />
+		<acme:cancel url="welcome/index.do" code="actor.back"/>
 
 	</jstl:if>
 

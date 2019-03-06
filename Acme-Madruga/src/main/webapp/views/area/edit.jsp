@@ -20,40 +20,18 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="area/edit.do" modelAttribute="area">
 
 <form:hidden path="id" />
 	<form:hidden path="version" />
-
-	<form:label path="name">
-		<spring:message code="area.name" />
-	</form:label>
-	<form:input path="name"/>
-	<form:errors cssClass="error" path="name" />
-	<br />
-
-	<form:label path="pictures">
-		<spring:message code="area.pictures" />
-	</form:label>
-	<form:textarea path="pictures" />
-	<form:errors cssClass="error" path="pictures" />
-	<br />
-
-		<input type="submit" name="save"
-			value="<spring:message code="area.save" />" 
-			onclick="javascript: relativeRedir('area/administrator/list.do');" />
-			
+	<acme:textbox code="area.name" path="name"/>
+	<acme:textarea code="area.pictures" path="pictures"/>
+	<acme:submit name="save" code="area.save"/>
 		<jstl:if test="${area.id != 0}">
-
-		<input type="submit" name="delete"
-			value="<spring:message code="area.delete" />"
-			onclick="javascript: return confirm('<spring:message code="area.confirm.delete" />')" />
-
+			<acme:delete confirmDelete="area.confirm.delete" name="delete" code="area.delete"/>
 		</jstl:if>
-
-		<input type="button" name="cancel"
-			value="<spring:message code="area.cancel" />"
-			onclick="javascript: relativeRedir('area/list.do');" />
+		<acme:cancel url="area/list.do" code="area.cancel"/>
 
 </form:form>
