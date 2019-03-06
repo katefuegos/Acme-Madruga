@@ -28,6 +28,13 @@
 		<img src="${configurationForm.banner}" height="250px" width="350px" />
 		<br />
 	</jstl:if>
+	<form:label path="systemName">
+		<spring:message code="configuration.systemName" />
+	</form:label>
+	<form:input path="systemName" readonly="${isRead}" />
+	<form:errors cssClass="error" path="systemName" />
+	<br />
+
 
 	<form:label path="varTax">
 		<spring:message code="configuration.varTax" />
@@ -120,7 +127,7 @@
 	<form:input path="positiveWordsEN" readonly="${isRead}" />
 	<form:errors cssClass="error" path="positiveWordsEN" />
 	<br />
-<%-- 
+	<%-- 
 	<form:label path="positionES">
 		<spring:message code="configuration.positionES" />
 	</form:label>
@@ -137,21 +144,21 @@
  --%>
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
-			value="<spring:message code="configuration.save" />" 
+			value="<spring:message code="configuration.save" />"
 			onclick="javascript: relativeRedir('configuration/administrator/list.do');" />
 
 		<input type="button" name="cancel"
 			value="<spring:message code="configuration.cancel" />"
 			onclick="javascript: relativeRedir('configuration/administrator/list.do');" />
 	</jstl:if>
-	
+
 	<jstl:if test="${configuration.id != 0}">
 
 		<input type="submit" name="delete"
 			value="<spring:message code="configuration.delete" />"
 			onclick="javascript: return confirm('<spring:message code="configuration.confirm.delete" />')" />
 
-		</jstl:if>
+	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
 		<input type="button" name="cancel"

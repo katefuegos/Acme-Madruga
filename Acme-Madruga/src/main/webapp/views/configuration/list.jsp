@@ -40,6 +40,9 @@
 		<display:column property= "positions.EN" titleKey="configuration.positionEN">
 		</display:column>
 	--%>	
+		<display:column property= "systemName" titleKey="configuration.systemName">
+		</display:column>
+	
 		<display:column property= "positiveWords.ES" titleKey="configuration.positiveES">
 		</display:column>
 		

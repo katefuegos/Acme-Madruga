@@ -44,6 +44,8 @@ public class ConfigurationForm {
 	private Collection<String>	positiveWordsES;
 
 	private Collection<String>	positiveWordsEN;
+	
+	private String 				systemName;
 
 
 	//	private Collection<String>	positionEN;
@@ -60,6 +62,15 @@ public class ConfigurationForm {
 
 	//Getter and Setters------------------------------------------------------------
 
+	@NotBlank
+	public String getSystemName() {
+		return systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+	
 	public int getId() {
 
 		return this.id;
