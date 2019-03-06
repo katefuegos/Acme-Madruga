@@ -170,6 +170,13 @@
 		<security:intercept-url pattern="/message/administrator/broadcastMessage.do"
 			access="hasRole('ADMIN')" />
 
+		<security:intercept-url
+			pattern="/message/administrator/broadcastMessageMembers.do" access="hasRole('ADMIN')" />
+
+		<security:intercept-url
+			pattern="/message/administrator/broadcastMessageBrotherhoods.do"
+			access="hasRole('ADMIN')" />
+
 		<security:intercept-url pattern="/message/actor/list.do"
 			access="isAuthenticated()" />
 

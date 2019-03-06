@@ -91,6 +91,12 @@
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="message/administrator/broadcastMessage.do"><spring:message
 									code="master.page.message.broadcast" /></a></li>
+						<li><a
+							href="message/administrator/broadcastMessageMembers.do"><spring:message
+									code="master.page.message.notifyMembers" /></a></li>
+						<li><a
+							href="message/administrator/broadcastMessageBrotherhoods.do"><spring:message
+									code="master.page.message.notifyBrotherhoods" /></a></li>
 					</security:authorize>
 
 				</ul></li>
