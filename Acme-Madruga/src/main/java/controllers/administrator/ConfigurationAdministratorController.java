@@ -72,13 +72,13 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		Assert.notNull(configuration);
 
+		configurationForm.setBannerr(configuration.getBanner());
+		
 		configurationForm.setId(configuration.getId());
 
 		configurationForm.setSystemName(configuration.getSystemName());
 		
 		configurationForm.setVarTax(configuration.getFinderMaxResults());
-
-		configurationForm.setBanner(configuration.getBanner());
 
 		configurationForm.setCountryCode(configuration.getCountryCode());
 
@@ -156,7 +156,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 			final Configuration configuration = this.configurationService.findOne();
 
-			configuration.setBanner(configurationForm.getBanner());
+			configuration.setBanner(configurationForm.getBannerr());
 
 			configuration.setCountryCode(configurationForm.getCountryCode());
 
@@ -206,7 +206,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		configurationForm.setVarTax(configuration.getFinderMaxResults());
 
-		configurationForm.setBanner(configuration.getBanner());
+		configurationForm.setBannerr(configuration.getBanner());
 
 		configurationForm.setCountryCode(configuration.getCountryCode());
 
@@ -292,7 +292,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 				final Configuration configuration = this.configurationService.findOne();
 
-				configuration.setBanner(configurationForm.getBanner());
+				configuration.setBanner(configurationForm.getBannerr());
 
 				configuration.setCountryCode(configurationForm.getCountryCode());
 

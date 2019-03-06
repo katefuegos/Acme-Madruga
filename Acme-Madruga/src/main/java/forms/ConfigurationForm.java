@@ -27,7 +27,7 @@ public class ConfigurationForm {
 
 	private int					finderMaxResults;
 
-	private String				banner;
+	private String				bannerr;
 
 	private String				welcomeMessageES;
 
@@ -137,15 +137,15 @@ public class ConfigurationForm {
 
 	@NotBlank
 	@URL
-	public String getBanner() {
+	public String getBannerr() {
 
-		return this.banner;
+		return this.bannerr;
 
 	}
 
-	public void setBanner(final String banner) {
+	public void setBannerr(final String bannerr) {
 
-		this.banner = banner;
+		this.bannerr = bannerr;
 
 	}
 

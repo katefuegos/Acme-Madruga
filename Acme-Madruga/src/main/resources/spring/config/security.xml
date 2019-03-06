@@ -271,6 +271,8 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/configuration/administrator/edit.do"
 			access="hasRole('ADMIN')" />
+			<security:intercept-url pattern="/configuration/administrator/show.do"
+			access="hasRole('ADMIN')" />
 
 		<!-- OTHERS -->
 		<security:intercept-url pattern="/welcome/terms.do"
