@@ -93,11 +93,11 @@
 	<br />
 
 
-<jstl:if test="${actorForm.auth != 'BROTHERHOOD'}">
-	<form:hidden path="title" />
-	<form:hidden path="pictures" />
-	<form:hidden path="area" />
-</jstl:if>
+	<jstl:if test="${actorForm.auth != 'BROTHERHOOD'}">
+		<form:hidden path="title" />
+		<form:hidden path="pictures" />
+		<form:hidden path="area" />
+	</jstl:if>
 	<jstl:if test="${actorForm.auth == 'BROTHERHOOD'}">
 
 
@@ -132,7 +132,11 @@
 	<form:checkbox path="checkTerms" readonly="${isRead}" />
 	<form:errors cssClass="error" path="checkTerms" />
 	<br />
-
+	<input type="button" name="viewPolicy"
+		value="<spring:message code="actor.viewPolicy" />"
+		onclick="javascript: relativeRedir('welcome/terms.do');" />
+	<br />
+	<br />
 	<script type="text/javascript">
 		function isValid() {
 			var phoneRe = /^(((\+[1-9][0-9]{0,2}) \(([1-9][0-9]{0,2})\) (\d\d\d\d+))|((\+[1-9][0-9]{0,2}) (\d\d\d\d+))|((\d\d\d\d+)))$/;

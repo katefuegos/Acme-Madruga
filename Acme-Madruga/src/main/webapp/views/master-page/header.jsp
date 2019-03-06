@@ -132,6 +132,15 @@
 						code="master.page.finder" /></a></li>
 		</security:authorize>
 
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="welcome/terms.do"><spring:message
+						code="master.page.privacyPolicy" /></a></li>
+		</security:authorize>
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="welcome/terms.do"><spring:message
+						code="master.page.privacyPolicy" /></a></li>
+		</security:authorize>
+
 
 	</ul>
 </div>

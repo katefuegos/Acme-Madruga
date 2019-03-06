@@ -38,14 +38,13 @@ import forms.ActorForm;
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private BrotherhoodService brotherhoodService;
 
 	@Autowired
-	private AreaService			areaService;
-
+	private AreaService areaService;
 
 	// Edit ---------------------------------------------------------------
 
@@ -66,14 +65,16 @@ public class ActorController extends AbstractController {
 		actorForm.setArea(this.areaService.findAll().iterator().next());
 
 		try {
-			final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+			final Actor a = this.actorService.findByUserAccount(LoginService
+					.getPrincipal());
 			Assert.notNull(a);
 
 			if (a.getUserAccount().getAuthorities().contains(member))
 				actorForm.setAuth("MEMBER");
 			else if (a.getUserAccount().getAuthorities().contains(brotherhood)) {
 				actorForm.setAuth("BROTHERHOOD");
-				final Brotherhood bro = this.brotherhoodService.findByUserAccountId(a.getUserAccount().getId());
+				final Brotherhood bro = this.brotherhoodService
+						.findByUserAccountId(a.getUserAccount().getId());
 				actorForm.setTitle(bro.getTitle());
 				actorForm.setPictures(bro.getPictures());
 				actorForm.setArea(bro.getArea());
@@ -103,10 +104,12 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
+
 	//
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final ActorForm actorForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final ActorForm actorForm,
+			final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -116,10 +119,12 @@ public class ActorController extends AbstractController {
 			try {
 
 				this.actorService.update(actorForm);
-				result = this.createEditModelAndView(actorForm, "actor.commit.ok");
+				result = this.createEditModelAndView(actorForm,
+						"actor.commit.ok");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(actorForm, "actor.commit.error");
+				result = this.createEditModelAndView(actorForm,
+						"actor.commit.error");
 
 			}
 		return result;
@@ -136,13 +141,15 @@ public class ActorController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final ActorForm actorForm, final String message) {
+	protected ModelAndView createEditModelAndView(final ActorForm actorForm,
+			final String message) {
 		ModelAndView result;
 		final Authority brotherhood = new Authority();
 		brotherhood.setAuthority(Authority.BROTHERHOOD);
 		if (actorForm.getUserAccount().getAuthorities().contains(brotherhood)) {
 			actorForm.setAuth("BROTHERHOOD");
-			final Brotherhood bro = this.brotherhoodService.findByUserAccountId(actorForm.getUserAccount().getId());
+			final Brotherhood bro = this.brotherhoodService
+					.findByUserAccountId(actorForm.getUserAccount().getId());
 			actorForm.setTitle(bro.getTitle());
 			actorForm.setPictures(bro.getPictures());
 			actorForm.setArea(bro.getArea());
@@ -158,8 +165,10 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
+
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int actorId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView show(@RequestParam final int actorId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView = new ModelAndView("actor/edit");
 
 		final Actor actor = this.actorService.findOne(actorId);
@@ -177,12 +186,14 @@ public class ActorController extends AbstractController {
 			modelAndView.addObject("isRead", true);
 			modelAndView.addObject("establishmentDate", estDate);
 			modelAndView.addObject("title", title);
-			modelAndView.addObject("requestURI", "/actor/administrator/show.do?actorId=" + actorId);
+			modelAndView.addObject("requestURI",
+					"/actor/administrator/show.do?actorId=" + actorId);
 		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:list.do");
 
 			if (actor == null)
-				redirectAttrs.addFlashAttribute("message1", "actor.error.unexist");
+				redirectAttrs.addFlashAttribute("message1",
+						"actor.error.unexist");
 		}
 		return modelAndView;
 
