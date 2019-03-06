@@ -45,11 +45,11 @@ public class AreaController extends AbstractController {
 			result = new ModelAndView("area/list");
 			result.addObject("areas", areas);
 			result.addObject("requestURI", "area/list.do");
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/area/list.do");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -59,8 +59,6 @@ public class AreaController extends AbstractController {
 		Area area;
 		area = this.areaService.create();
 		result = this.createEditModelAndView(area);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -85,9 +83,6 @@ public class AreaController extends AbstractController {
 						"area.error.unexist");
 			}
 		}
-
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -106,8 +101,6 @@ public class AreaController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(area, "area.commit.error");
 			}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -125,8 +118,6 @@ public class AreaController extends AbstractController {
 			else
 				result = this.createEditModelAndView(area, "area.commit.error");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

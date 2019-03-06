@@ -183,8 +183,6 @@ public class ConfigurationAdministratorController extends AbstractController {
 		} catch (final Throwable oops) {
 
 			result = this.createEditModelAndView(configurationForm, "configuration.commit.error");
-			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		}
 		return result;
 	}
@@ -239,8 +237,6 @@ public class ConfigurationAdministratorController extends AbstractController {
 		result.addObject("isRead", true);
 
 		result.addObject("requestURI", "configuration/administrator/show.do?configurationId=" + configurationId);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 
@@ -324,8 +320,6 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 			}
 
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 
 	}

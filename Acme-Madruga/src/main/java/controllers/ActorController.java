@@ -54,7 +54,7 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private ConfigurationService configurationService;
-	
+
 	@Autowired
 	private MemberService memberService;
 
@@ -112,10 +112,6 @@ public class ActorController extends AbstractController {
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("banner", this.configurationService.findAll()
-					.iterator().next().getBanner());
-			result.addObject("systemName", this.configurationService.findAll()
-					.iterator().next().getSystemName());
 		}
 
 		return result;
@@ -141,10 +137,6 @@ public class ActorController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actorForm,
 						"actor.commit.error");
-				result.addObject("banner", this.configurationService.findAll()
-						.iterator().next().getBanner());
-				result.addObject("systemName", this.configurationService
-						.findAll().iterator().next().getSystemName());
 
 			}
 		return result;
@@ -236,10 +228,6 @@ public class ActorController extends AbstractController {
 
 		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
-			modelAndView.addObject("banner", this.configurationService
-					.findAll().iterator().next().getBanner());
-			modelAndView.addObject("systemName", this.configurationService
-					.findAll().iterator().next().getSystemName());
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message1",
 						"actor.error.unexist");
@@ -258,15 +246,16 @@ public class ActorController extends AbstractController {
 
 		try {
 			Assert.notNull(m);
-			b = brotherhoodService.findByUserAccountId(LoginService.getPrincipal().getId());
+			b = brotherhoodService.findByUserAccountId(LoginService
+					.getPrincipal().getId());
 			Assert.notNull(b);
 			Collection<Enrolment> enrolments = m.getEnrolments();
-			if(!enrolments.isEmpty()){
-				for(Enrolment e:enrolments){
-					brotherhoods.add(e.getBrotherhood());	
+			if (!enrolments.isEmpty()) {
+				for (Enrolment e : enrolments) {
+					brotherhoods.add(e.getBrotherhood());
 				}
 			}
-			
+
 			Assert.isTrue(brotherhoods.contains(b));
 			final ActorForm actorForm = new ActorForm();
 
@@ -281,20 +270,20 @@ public class ActorController extends AbstractController {
 
 			modelAndView.addObject("actorForm", actorForm);
 			modelAndView.addObject("isRead", true);
+			modelAndView.addObject("banner", this.configurationService
+					.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService
+					.findAll().iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 			if (m == null)
 				redirectAttrs.addFlashAttribute("message1",
 						"actor.error.unexist");
-			else if(!brotherhoods.contains(b)){
+			else if (!brotherhoods.contains(b)) {
 				redirectAttrs.addFlashAttribute("message1",
 						"actor.error.notFromBrotherhood");
 			}
 		}
-		modelAndView.addObject("banner", this.configurationService.findAll()
-				.iterator().next().getBanner());
-		modelAndView.addObject("systemName", this.configurationService
-				.findAll().iterator().next().getSystemName());
 		return modelAndView;
 
 	}

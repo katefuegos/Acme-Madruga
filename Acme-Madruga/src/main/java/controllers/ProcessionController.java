@@ -25,7 +25,7 @@ public class ProcessionController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService brotherhoodService;
-	
+
 	@Autowired
 	private ConfigurationService configurationService;
 
@@ -43,19 +43,23 @@ public class ProcessionController extends AbstractController {
 
 		try {
 			Assert.notNull(brotherhoodService.findOne(brotherhoodId));
-			final Collection<Procession> processions = processionService.findByBrotherhoodIdAndNotDraft(brotherhoodId);
+			final Collection<Procession> processions = processionService
+					.findByBrotherhoodIdAndNotDraft(brotherhoodId);
 			result = new ModelAndView("procession/list");
 			result.addObject("processions", processions);
 			result.addObject("requestURI", "procession/list.do?brotherhoodId="
 					+ brotherhoodId);
+			result.addObject("banner", this.configurationService.findAll()
+					.iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll()
+					.iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (brotherhoodService.findOne(brotherhoodId) == null)
 				redirectAttrs.addFlashAttribute("message",
 						"procession.error.unexist");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+
 		return result;
 	}
 }

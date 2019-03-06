@@ -32,7 +32,7 @@ public class MemberController extends AbstractController {
 
 	@Autowired
 	private EnrolmentService enrolmentService;
-	
+
 	@Autowired
 	private ConfigurationService configurationService;
 
@@ -63,14 +63,16 @@ public class MemberController extends AbstractController {
 			result.addObject("members", members);
 			result.addObject("requestURI", "members/list.do?brotherhoodId="
 					+ brotherhoodId);
+			result.addObject("banner", this.configurationService.findAll()
+					.iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll()
+					.iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (brotherhood == null)
 				redirectAttrs.addFlashAttribute("message",
 						"member.error.unexist");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

@@ -258,15 +258,6 @@
 		<security:intercept-url pattern="/position/administrator/create.do"
 			access="hasRole('ADMIN')" />
 
-		<!-- FINDER MEMBER -->
-
-		<security:intercept-url pattern="/finder/member.do"
-			access="hasRole('MEMBER')" />
-		<security:intercept-url pattern="/finder/member/listProcessions.do"
-			access="hasRole('MEMBER')" />
-		<security:intercept-url pattern="/finder/member/update.do"
-			access="hasRole('MEMBER')" />
-
 		<!-- CONFIGURATION -->
 
 		<security:intercept-url pattern="/configuration/administrator/list.do"

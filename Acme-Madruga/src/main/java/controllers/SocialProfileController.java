@@ -63,8 +63,6 @@ public class SocialProfileController extends AbstractController {
 		socialProfileForm.setId(0);
 
 		result = this.createModelAndView(socialProfileForm);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -99,8 +97,6 @@ public class SocialProfileController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"socialProfile.error.notFromActor");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 
 	}
@@ -136,8 +132,6 @@ public class SocialProfileController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"socialProfile.error.notFromActor");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -169,8 +163,6 @@ public class SocialProfileController extends AbstractController {
 				result = this.editModelAndView(socialProfileForm,
 						"socialProfile.commit.error");
 			}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -199,8 +191,6 @@ public class SocialProfileController extends AbstractController {
 				result = this.createModelAndView(socialProfileForm,
 						"socialProfile.commit.error");
 			}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -225,8 +215,6 @@ public class SocialProfileController extends AbstractController {
 			result = this.editModelAndView(socialProfileForm,
 					"socialProfile.commit.error");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

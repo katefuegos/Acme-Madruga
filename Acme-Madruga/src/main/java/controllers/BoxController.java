@@ -66,8 +66,6 @@ public class BoxController extends AbstractController {
 
 		modelAndView = this.createEditModelAndView(box);
 
-		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -95,9 +93,6 @@ public class BoxController extends AbstractController {
 			else if (!(box.getActor().equals(actor)))
 				redirectAttrs.addFlashAttribute("message", "box.error.notFromThisActor");
 		}
-
-		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -122,8 +117,6 @@ public class BoxController extends AbstractController {
 				else
 					result = this.createEditModelAndView(box, "box.commit.error");
 			}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -137,8 +130,6 @@ public class BoxController extends AbstractController {
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(box, "box.commit.error");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

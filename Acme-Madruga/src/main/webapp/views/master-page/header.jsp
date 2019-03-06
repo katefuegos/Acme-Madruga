@@ -17,12 +17,25 @@
 
 
 <div align="left">
-	<a href="#"><img src="${banner}"/></a>
+	<a href="#"><img src="${banner}" /></a>
 </div>
 
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
+
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv"> <spring:message
+						code="master.page.profile" /> (<security:authentication
+						property="principal.username" />)
+			</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="j_spring_security_logout"><spring:message
+								code="master.page.logout" /> </a></li>
+				</ul></li>
+		</security:authorize>
+
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.administrator" /></a>
@@ -38,6 +51,46 @@
 								code="master.page.administrator.configuration" /></a></li>
 					<li><a class="fNiv" href="position/administrator/list.do"><spring:message
 								code="master.page.administrator.positions" /></a> <br></li>
+				</ul></li>
+
+		</security:authorize>
+
+		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+
+					<li><a
+						href="register/administrator/newActor.do?authority=ADMIN"><spring:message
+								code="master.page.register.admin" /></a></li>
+
+				</ul></li>
+		</security:authorize>
+
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="actor/edit.do"><spring:message
+						code="master.page.actor.edit" /></a></li>
+			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
+						code="master.page.brotherhood" /></a></li>
+			<li><a class="fNiv" href="socialProfile/list.do"><spring:message
+						code="master.page.socialProfile" /></a></li>
+			<li><a class="fNiv" href="box/actor/list.do"><spring:message
+						code="master.page.box" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="message/actor/exchangeMessage.do"><spring:message
+								code="master.page.message.exchange" /></a></li>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="message/administrator/broadcastMessage.do"><spring:message
+									code="master.page.message.broadcast" /></a></li>
+						<li><a
+							href="message/administrator/broadcastMessageMembers.do"><spring:message
+									code="master.page.message.notifyMembers" /></a></li>
+						<li><a
+							href="message/administrator/broadcastMessageBrotherhoods.do"><spring:message
+									code="master.page.message.notifyBrotherhoods" /></a></li>
+					</security:authorize>
+
 				</ul></li>
 
 		</security:authorize>
@@ -64,58 +117,6 @@
 
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
 						code="master.page.brotherhood" /></a></li>
-		</security:authorize>
-
-
-
-		<security:authorize access="isAuthenticated()">
-			<li><a class="fNiv"> <spring:message
-						code="master.page.profile" /> (<security:authentication
-						property="principal.username" />)
-			</a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="j_spring_security_logout"><spring:message
-								code="master.page.logout" /> </a></li>
-				</ul></li>
-			<li><a class="fNiv" href="brotherhood/list.do"><spring:message
-						code="master.page.brotherhood" /></a></li>
-			<li><a class="fNiv" href="socialProfile/list.do"><spring:message
-						code="master.page.socialProfile" /></a></li>
-			<li><a class="fNiv" href="box/actor/list.do"><spring:message
-						code="master.page.box" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="message/actor/exchangeMessage.do"><spring:message
-								code="master.page.message.exchange" /></a></li>
-					<security:authorize access="hasRole('ADMIN')">
-						<li><a href="message/administrator/broadcastMessage.do"><spring:message
-									code="master.page.message.broadcast" /></a></li>
-						<li><a
-							href="message/administrator/broadcastMessageMembers.do"><spring:message
-									code="master.page.message.notifyMembers" /></a></li>
-						<li><a
-							href="message/administrator/broadcastMessageBrotherhoods.do"><spring:message
-									code="master.page.message.notifyBrotherhoods" /></a></li>
-					</security:authorize>
-
-				</ul></li>
-
-			<li><a class="fNiv" href="actor/edit.do"><spring:message
-						code="master.page.actor.edit" /></a></li>
-
-		</security:authorize>
-
-		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.register" /></a>
-				<ul>
-
-					<li><a
-						href="register/administrator/newActor.do?authority=ADMIN"><spring:message
-								code="master.page.register.admin" /></a></li>
-
-				</ul></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
