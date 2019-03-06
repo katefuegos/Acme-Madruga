@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -17,6 +19,7 @@ import services.ActorService;
 import services.SocialProfileService;
 import domain.Actor;
 import domain.SocialProfile;
+import forms.SocialProfileForm;
 
 @Controller
 @RequestMapping("/socialProfile")
@@ -51,9 +54,10 @@ public class SocialProfileController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		final SocialProfile socialProfile = this.socialProfileService.create();
+		SocialProfileForm socialProfileForm = new SocialProfileForm();
+		socialProfileForm.setId(0);
 
-		result = this.createModelAndView(socialProfile);
+		result = this.createModelAndView(socialProfileForm);
 
 		return result;
 	}
@@ -61,18 +65,35 @@ public class SocialProfileController extends AbstractController {
 	// Show------------------------------------------------------------
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int socialProfileId) {
-		final ModelAndView modelAndView = new ModelAndView("socialProfile/show");
-
-		final SocialProfile socialProfile = this.socialProfileService
+	public ModelAndView show(@RequestParam final int socialProfileId,
+			final RedirectAttributes redirectAttrs) {
+		ModelAndView result;
+		SocialProfile socialProfile = socialProfileService
 				.findOne(socialProfileId);
-
-		modelAndView.addObject("socialProfile", socialProfile);
-		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI",
-				"/socialProfile/show.do?socialProfileId=" + socialProfileId);
-
-		return modelAndView;
+		SocialProfileForm socialProfileForm = new SocialProfileForm();
+		Actor actor = null;
+		try {
+			Assert.notNull(socialProfile);
+			actor = this.actorService.findByUserAccount(LoginService
+					.getPrincipal());
+			Assert.isTrue(actor.getId() == socialProfile.getActor().getId());
+			socialProfileForm.setId(socialProfileId);
+			socialProfileForm.setLinkSocialNetwork(socialProfile
+					.getLinkSocialNetwork());
+			socialProfileForm.setNameSocialNetwork(socialProfile
+					.getNameSocialNetwork());
+			socialProfileForm.setNick(socialProfile.getNick());
+			result = this.showModelAndView(socialProfileForm);
+		} catch (final Throwable e) {
+			result = new ModelAndView("redirect:/socialProfile/list.do");
+			if (socialProfile == null)
+				redirectAttrs.addFlashAttribute("message",
+						"socialProfile.error.unexist");
+			else if (actor.getId() != socialProfile.getActor().getId())
+				redirectAttrs.addFlashAttribute("message",
+						"socialProfile.error.notFromActor");
+		}
+		return result;
 
 	}
 
@@ -82,45 +103,88 @@ public class SocialProfileController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int socialProfileId,
 			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		SocialProfile socialProfile;
+		SocialProfile socialProfile = socialProfileService
+				.findOne(socialProfileId);
+		SocialProfileForm socialProfileForm = new SocialProfileForm();
+		Actor actor = null;
 		try {
-			final Actor a = this.actorService.findByUserAccount(LoginService
-					.getPrincipal());
-			socialProfile = this.socialProfileService.findOne(socialProfileId);
 			Assert.notNull(socialProfile);
-			result = this.editModelAndView(socialProfile);
-			result.addObject("actorId", a.getId());
+			actor = this.actorService.findByUserAccount(LoginService
+					.getPrincipal());
+			Assert.isTrue(actor.getId() == socialProfile.getActor().getId());
+			socialProfileForm.setId(socialProfileId);
+			socialProfileForm.setLinkSocialNetwork(socialProfile
+					.getLinkSocialNetwork());
+			socialProfileForm.setNameSocialNetwork(socialProfile
+					.getNameSocialNetwork());
+			socialProfileForm.setNick(socialProfile.getNick());
+			result = this.editModelAndView(socialProfileForm);
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/socialProfile/list.do");
-			if (this.socialProfileService.findOne(socialProfileId) == null)
+			if (socialProfile == null)
 				redirectAttrs.addFlashAttribute("message",
 						"socialProfile.error.unexist");
-			else if (this.socialProfileService.findOne(socialProfileId)
-					.getActor() == null)
+			else if (actor.getId() != socialProfile.getActor().getId())
 				redirectAttrs.addFlashAttribute("message",
 						"socialProfile.error.notFromActor");
-
 		}
 		return result;
 	}
 
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final SocialProfile socialProfile,
+	public ModelAndView save(@Valid SocialProfileForm socialProfileForm,
 			final BindingResult binding) {
 
 		ModelAndView result;
+		SocialProfile socialProfile = socialProfileService
+				.findOne(socialProfileForm.getId());
+		Actor actor = null;
 		if (binding.hasErrors())
-			result = this.editModelAndView(socialProfile);
+			result = this.editModelAndView(socialProfileForm);
 		else
 			try {
-				// Llamar al reconstruct y rellenarlos con los atributos que
-				// no se han modificado en la vista
-				this.socialProfileService.reconstruct(socialProfile, binding);
+				Assert.notNull(socialProfile);
+				actor = this.actorService.findByUserAccount(LoginService
+						.getPrincipal());
+				Assert.isTrue(actor.getId() == socialProfile.getActor().getId());
+				socialProfile.setLinkSocialNetwork(socialProfileForm
+						.getLinkSocialNetwork());
+				socialProfile.setNameSocialNetwork(socialProfileForm
+						.getNameSocialNetwork());
+				socialProfile.setNick(socialProfileForm.getNick());
 				this.socialProfileService.save(socialProfile);
 				result = new ModelAndView("redirect:/socialProfile/list.do");
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(socialProfile,
+				result = this.editModelAndView(socialProfileForm,
+						"socialProfile.commit.error");
+			}
+		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView save2(@Valid final SocialProfileForm socialProfileForm,
+			final BindingResult binding) {
+
+		ModelAndView result;
+		SocialProfile socialProfile = socialProfileService.create();
+		if (binding.hasErrors())
+			result = this.createModelAndView(socialProfileForm);
+		else
+			try {
+				Actor actor = actorService.findByUserAccount(LoginService
+						.getPrincipal());
+				Assert.notNull(actor);
+				socialProfile.setActor(actor);
+				socialProfile.setLinkSocialNetwork(socialProfileForm
+						.getLinkSocialNetwork());
+				socialProfile.setNameSocialNetwork(socialProfileForm
+						.getNameSocialNetwork());
+				socialProfile.setNick(socialProfileForm.getNick());
+				this.socialProfileService.save(socialProfile);
+				result = new ModelAndView("redirect:/socialProfile/list.do");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(socialProfileForm,
 						"socialProfile.commit.error");
 			}
 		return result;
@@ -129,14 +193,22 @@ public class SocialProfileController extends AbstractController {
 	// delete
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final SocialProfile socialProfile,
+	public ModelAndView delete(final SocialProfileForm socialProfileForm,
 			final BindingResult binding) {
 		ModelAndView result;
+		SocialProfile socialProfile = socialProfileService
+				.findOne(socialProfileForm.getId());
+		Actor actor = actorService.findByUserAccount(LoginService
+				.getPrincipal());
 		try {
+			Assert.notNull(socialProfile);
+			actor = this.actorService.findByUserAccount(LoginService
+					.getPrincipal());
+			Assert.isTrue(actor.getId() == socialProfile.getActor().getId());
 			this.socialProfileService.delete(socialProfile);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.editModelAndView(socialProfile,
+			result = this.editModelAndView(socialProfileForm,
 					"socialProfile.commit.error");
 		}
 		return result;
@@ -144,21 +216,22 @@ public class SocialProfileController extends AbstractController {
 
 	// CreateModelAndView
 
-	protected ModelAndView createModelAndView(final SocialProfile socialProfile) {
+	protected ModelAndView createModelAndView(
+			final SocialProfileForm socialProfileForm) {
 		ModelAndView result;
 
-		result = this.createModelAndView(socialProfile, null);
+		result = this.createModelAndView(socialProfileForm, null);
 
 		return result;
 
 	}
 
-	protected ModelAndView createModelAndView(final SocialProfile socialProfile,
-			final String message) {
+	protected ModelAndView createModelAndView(
+			final SocialProfileForm socialProfileForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("socialProfile/create");
-		result.addObject("socialProfile", socialProfile);
+		result.addObject("socialProfileForm", socialProfileForm);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 
@@ -167,50 +240,52 @@ public class SocialProfileController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final SocialProfile socialProfile) {
+	protected ModelAndView editModelAndView(
+			final SocialProfileForm socialProfileForm) {
 		ModelAndView result;
 
-		result = this.editModelAndView(socialProfile, null);
+		result = this.editModelAndView(socialProfileForm, null);
 
 		return result;
 
 	}
 
-	protected ModelAndView editModelAndView(final SocialProfile socialProfile,
-			final String message) {
+	protected ModelAndView editModelAndView(
+			final SocialProfileForm socialProfileForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("socialProfile/edit");
-		result.addObject("socialProfile", socialProfile);
+		result.addObject("socialProfileForm", socialProfileForm);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 
 		result.addObject("requestURI", "socialProfile/edit.do?socialProfileId="
-				+ socialProfile.getId());
+				+ socialProfileForm.getId());
 
 		return result;
 	}
 
-	protected ModelAndView showModelAndView(final SocialProfile socialProfile) {
+	protected ModelAndView showModelAndView(
+			final SocialProfileForm socialProfileForm) {
 		ModelAndView result;
 
-		result = this.showModelAndView(socialProfile, null);
+		result = this.showModelAndView(socialProfileForm, null);
 
 		return result;
 
 	}
 
-	protected ModelAndView showModelAndView(final SocialProfile socialProfile,
-			final String message) {
+	protected ModelAndView showModelAndView(
+			final SocialProfileForm socialProfileForm, final String message) {
 		final ModelAndView result;
 
-		result = new ModelAndView("socialProfile/display");
-		result.addObject("socialProfile", socialProfile);
+		result = new ModelAndView("socialProfile/show");
+		result.addObject("socialProfileForm", socialProfileForm);
 		result.addObject("message", message);
 		result.addObject("isRead", true);
 
 		result.addObject("requestURI", "socialProfile/show.do?socialProfileId="
-				+ socialProfile.getId());
+				+ socialProfileForm.getId());
 
 		return result;
 	}

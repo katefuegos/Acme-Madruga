@@ -85,7 +85,7 @@
 		<security:intercept-url pattern="/socialProfile/edit.do"
 			access="isAuthenticated()" />
 			
-		<security:intercept-url pattern="/socialProfile/display.do"
+		<security:intercept-url pattern="/socialProfile/show.do"
 			access="isAuthenticated()" />
 			
 		<!-- BROTHERHOOD -->

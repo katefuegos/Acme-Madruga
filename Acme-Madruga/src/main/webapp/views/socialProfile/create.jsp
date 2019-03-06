@@ -25,22 +25,17 @@
 <form:form action="${requestURI}" modelAttribute="socialProfileForm">
 	<form:hidden path="id" />
 
-	<acme:textbox code="socialProfile.nick" path="nick"/>
-	
-	<acme:textbox code="socialProfile.nameSocialNetwork" path="nameSocialNetwork"/>
-	
-	<acme:textbox code="socialProfile.linkSocialNetwork" path="linkSocialNetwork"/>
+	<acme:textbox code="socialProfile.nick" path="nick" />
+
+	<acme:textbox code="socialProfile.nameSocialNetwork"
+		path="nameSocialNetwork" />
+
+	<acme:textbox code="socialProfile.linkSocialNetwork"
+		path="linkSocialNetwork" />
 
 
 	<jstl:if test="${isRead==false}">
-		<acme:submit name="save" code="socialProfile.save"/>
-		<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>
+		<acme:submit name="save" code="socialProfile.save" />
+		<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel" />
 	</jstl:if>
-	<jstl:if test="${(row.id != 0) and (isRead==false)}">
-	<acme:delete confirmDelete="socialProfile.confirm.delete" name="delete" code="socialProfile.delete"/>
-	</jstl:if>
-	<jstl:if test="${isRead == true }">
-	<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>
-	</jstl:if>
-
 </form:form>
