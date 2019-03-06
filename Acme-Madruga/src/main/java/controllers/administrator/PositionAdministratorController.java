@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.ConfigurationService;
 import services.PositionService;
 import controllers.AbstractController;
 import domain.Position;
@@ -30,6 +31,9 @@ public class PositionAdministratorController extends AbstractController {
 
 	@Autowired
 	private PositionService	positionService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 
 	// Constructor---------------------------------------------------------
@@ -50,6 +54,8 @@ public class PositionAdministratorController extends AbstractController {
 		result.addObject("lang", lang);
 		result.addObject("positions", positions);
 		result.addObject("requestURI", "position/administrator/list.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -79,9 +85,13 @@ public class PositionAdministratorController extends AbstractController {
 
 				this.positionService.save(position);
 				result = new ModelAndView("redirect:/position/administrator/list.do");
+				result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+				result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 			} catch (final Throwable oops) {
 
 				result = this.editModelAndView(positionForm, "commit.error");
+				result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+				result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 			}
 		return result;
 	}
@@ -115,6 +125,8 @@ public class PositionAdministratorController extends AbstractController {
 			if (position == null)
 				redirectAttrs.addFlashAttribute("message", "position.error.unexist");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -141,6 +153,8 @@ public class PositionAdministratorController extends AbstractController {
 					result = this.editModelAndView(positionForm, "commit.error");
 			}
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -160,6 +174,8 @@ public class PositionAdministratorController extends AbstractController {
 				result = this.editModelAndView(positionForm, "commit.error");
 		}
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -181,6 +197,8 @@ public class PositionAdministratorController extends AbstractController {
 		result.addObject("requestURI", "position/administrator/create.do");
 		result.addObject("positionForm", positionForm);
 		result.addObject("positions", positions);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
@@ -204,6 +222,8 @@ public class PositionAdministratorController extends AbstractController {
 		result.addObject("requestURI", "position/administrator/edit.do");
 		result.addObject("positionForm", positionForm);
 		result.addObject("positions", positions);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}

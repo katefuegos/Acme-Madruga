@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import security.LoginService;
 import services.ActorService;
 import services.BoxService;
+import services.ConfigurationService;
 import domain.Actor;
 import domain.Box;
 
@@ -31,6 +32,9 @@ public class BoxController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -48,6 +52,8 @@ public class BoxController extends AbstractController {
 		result = new ModelAndView("box/actor/list");
 		result.addObject("boxes", boxes);
 		result.addObject("requestURI", "box/actor/list.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -60,6 +66,8 @@ public class BoxController extends AbstractController {
 
 		modelAndView = this.createEditModelAndView(box);
 
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -88,6 +96,8 @@ public class BoxController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message", "box.error.notFromThisActor");
 		}
 
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -112,6 +122,8 @@ public class BoxController extends AbstractController {
 				else
 					result = this.createEditModelAndView(box, "box.commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -125,6 +137,8 @@ public class BoxController extends AbstractController {
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(box, "box.commit.error");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -155,6 +169,8 @@ public class BoxController extends AbstractController {
 		result.addObject("box", box);
 		result.addObject("boxes", boxes);
 		result.addObject("message", message);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

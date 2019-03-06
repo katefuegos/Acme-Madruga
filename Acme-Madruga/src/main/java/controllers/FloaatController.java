@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import security.LoginService;
 import security.UserAccount;
 import services.BrotherhoodService;
+import services.ConfigurationService;
 import services.FloaatService;
 import domain.Brotherhood;
 import domain.Floaat;
@@ -33,6 +34,8 @@ public class FloaatController extends AbstractController {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Constructor---------------------------------------------------------
 
@@ -48,7 +51,7 @@ public class FloaatController extends AbstractController {
 		try {
 			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
 			final Collection<Floaat> floaats = this.floaatService.findByBrotherhoodId(brotherhoodId);
-			result = new ModelAndView("float/list");
+			result = new ModelAndView("floaat/list");
 			result.addObject("floaats", floaats);
 			result.addObject("requestURI", "float/list.do?brotherhoodId=" + brotherhoodId);
 		} catch (final Throwable e) {
@@ -56,6 +59,8 @@ public class FloaatController extends AbstractController {
 			if (this.brotherhoodService.findOne(brotherhoodId) == null)
 				redirectAttrs.addFlashAttribute("message", "floaat.error.unexist");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -75,6 +80,8 @@ public class FloaatController extends AbstractController {
 			if (this.brotherhoodService.findOne(brotherhoodId) == null)
 				redirectAttrs.addFlashAttribute("message", "floaat.error.unexist");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 	//Edit
@@ -88,6 +95,8 @@ public class FloaatController extends AbstractController {
 		Assert.notNull(floaat);
 		result = this.createEditModelAndView(floaat);
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 	//Save
@@ -105,6 +114,8 @@ public class FloaatController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(floaat, "floaat.commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -119,6 +130,8 @@ public class FloaatController extends AbstractController {
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(floaat, "floaat.commit.error");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -127,6 +140,7 @@ public class FloaatController extends AbstractController {
 
 		result = this.createEditModelAndView(floaat, null);
 
+		
 		return result;
 	}
 
@@ -141,7 +155,8 @@ public class FloaatController extends AbstractController {
 		result.addObject("brotherhoods", brotherhoods);
 
 		result.addObject("message", messageCode);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

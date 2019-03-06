@@ -54,6 +54,8 @@ public class WelcomeController extends AbstractController {
 		result.addObject("moment", moment);
 		result.addObject("welomeMessage", configurationService.findAll()
 				.iterator().next().getWelcomeMessage().get(LocaleContextHolder.getLocale().toString().toUpperCase()));
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
@@ -67,6 +69,8 @@ public class WelcomeController extends AbstractController {
 		String lang = LocaleContextHolder.getLocale().getLanguage().toString().toUpperCase();
 		result = new ModelAndView("misc/terms");
 		result.addObject("lang", lang);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}

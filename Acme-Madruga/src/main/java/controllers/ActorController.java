@@ -29,6 +29,7 @@ import security.LoginService;
 import services.ActorService;
 import services.AreaService;
 import services.BrotherhoodService;
+import services.ConfigurationService;
 import domain.Actor;
 import domain.Brotherhood;
 import forms.ActorForm;
@@ -45,6 +46,9 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private AreaService areaService;
+
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Edit ---------------------------------------------------------------
 
@@ -100,6 +104,10 @@ public class ActorController extends AbstractController {
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("banner", this.configurationService.findAll()
+					.iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll()
+					.iterator().next().getSystemName());
 		}
 
 		return result;
@@ -125,9 +133,14 @@ public class ActorController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actorForm,
 						"actor.commit.error");
+				result.addObject("banner", this.configurationService.findAll()
+						.iterator().next().getBanner());
+				result.addObject("systemName", this.configurationService
+						.findAll().iterator().next().getSystemName());
 
 			}
 		return result;
+
 	}
 
 	// CreateModelAndView
@@ -162,6 +175,8 @@ public class ActorController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "actor/edit.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
@@ -204,9 +219,13 @@ public class ActorController extends AbstractController {
 			modelAndView.addObject("title", title);
 			modelAndView.addObject("requestURI",
 					"/actor/administrator/show.do?actorId=" + actorId);
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+			
 		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
-
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message1", "actor.error.unexist");
 		}
@@ -238,7 +257,9 @@ public class ActorController extends AbstractController {
 			modelAndView.addObject("isRead", true);
 		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
-
+			modelAndView = new ModelAndView("redirect:list.do");
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message1",
 						"actor.error.unexist");

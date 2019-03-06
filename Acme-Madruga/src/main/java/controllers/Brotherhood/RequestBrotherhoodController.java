@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.BrotherhoodService;
+import services.ConfigurationService;
 import services.ProcessionService;
 import services.RequestService;
 import controllers.AbstractController;
@@ -36,6 +37,9 @@ public class RequestBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private RequestService requestService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Constructor---------------------------------------------------------
 
@@ -83,6 +87,8 @@ public class RequestBrotherhoodController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -131,7 +137,8 @@ public class RequestBrotherhoodController extends AbstractController {
 			else
 				result = this.acceptModelAndView(requestForm, "commit.error");
 		}
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -183,6 +190,8 @@ public class RequestBrotherhoodController extends AbstractController {
 					result = this.acceptModelAndView(requestForm,
 							"commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -219,7 +228,8 @@ public class RequestBrotherhoodController extends AbstractController {
 			else
 				result = this.declineModelAndView(requestForm, "commit.error");
 		}
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -265,6 +275,8 @@ public class RequestBrotherhoodController extends AbstractController {
 					result = this.declineModelAndView(requestForm,
 							"commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -286,6 +298,8 @@ public class RequestBrotherhoodController extends AbstractController {
 				"request/brotherhood/accept.do?requestId="
 						+ requestForm.getId());
 		result.addObject("requestForm", requestForm);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -306,6 +320,8 @@ public class RequestBrotherhoodController extends AbstractController {
 				"request/brotherhood/decline.do?requestId="
 						+ requestForm.getId());
 		result.addObject("requestForm", requestForm);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

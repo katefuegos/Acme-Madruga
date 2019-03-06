@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.ActorService;
+import services.ConfigurationService;
 import services.SocialProfileService;
 import domain.Actor;
 import domain.SocialProfile;
@@ -30,6 +31,9 @@ public class SocialProfileController extends AbstractController {
 
 	@Autowired
 	private ActorService actorService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// List------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -45,7 +49,8 @@ public class SocialProfileController extends AbstractController {
 		modelAndView.addObject("socialProfiles", socialProfiles);
 		modelAndView.addObject("requestURI", "/socialProfile/list.do");
 		modelAndView.addObject("username", a.getUserAccount().getUsername());
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 
 	}
@@ -58,7 +63,8 @@ public class SocialProfileController extends AbstractController {
 		socialProfileForm.setId(0);
 
 		result = this.createModelAndView(socialProfileForm);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -93,6 +99,8 @@ public class SocialProfileController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"socialProfile.error.notFromActor");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 
 	}
@@ -128,6 +136,8 @@ public class SocialProfileController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"socialProfile.error.notFromActor");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -159,6 +169,8 @@ public class SocialProfileController extends AbstractController {
 				result = this.editModelAndView(socialProfileForm,
 						"socialProfile.commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -187,6 +199,8 @@ public class SocialProfileController extends AbstractController {
 				result = this.createModelAndView(socialProfileForm,
 						"socialProfile.commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -211,6 +225,8 @@ public class SocialProfileController extends AbstractController {
 			result = this.editModelAndView(socialProfileForm,
 					"socialProfile.commit.error");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -236,7 +252,8 @@ public class SocialProfileController extends AbstractController {
 		result.addObject("isRead", false);
 
 		result.addObject("requestURI", "socialProfile/create.do");
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -261,7 +278,8 @@ public class SocialProfileController extends AbstractController {
 
 		result.addObject("requestURI", "socialProfile/edit.do?socialProfileId="
 				+ socialProfileForm.getId());
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -286,7 +304,8 @@ public class SocialProfileController extends AbstractController {
 
 		result.addObject("requestURI", "socialProfile/show.do?socialProfileId="
 				+ socialProfileForm.getId());
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

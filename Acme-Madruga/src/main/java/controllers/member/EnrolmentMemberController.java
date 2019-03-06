@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.BrotherhoodService;
+import services.ConfigurationService;
 import services.EnrolmentService;
 import services.MemberService;
 import controllers.AbstractController;
@@ -35,6 +36,9 @@ public class EnrolmentMemberController extends AbstractController {
 	@Autowired
 	private BrotherhoodService brotherhoodService;
 
+	@Autowired
+	private ConfigurationService configurationService;
+	
 	// Constructor---------------------------------------------------------
 
 	public EnrolmentMemberController() {
@@ -87,6 +91,8 @@ public class EnrolmentMemberController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -128,6 +134,8 @@ public class EnrolmentMemberController extends AbstractController {
 			} else
 				result = new ModelAndView("redirect:/enrolment/member/list.do");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
@@ -171,7 +179,8 @@ public class EnrolmentMemberController extends AbstractController {
 			} else
 				result = new ModelAndView("redirect:/enrolment/member/list.do");
 		}
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -210,7 +219,8 @@ public class EnrolmentMemberController extends AbstractController {
 			} else
 				result = new ModelAndView("redirect:/enrolment/member/list.do");
 		}
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

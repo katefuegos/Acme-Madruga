@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.BrotherhoodService;
+import services.ConfigurationService;
 import services.ProcessionService;
 import controllers.AbstractController;
 import domain.Brotherhood;
@@ -31,6 +32,9 @@ public class ProcessionBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService brotherhoodService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 	// Constructor---------------------------------------------------------
 
 	public ProcessionBrotherhoodController() {
@@ -56,6 +60,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -68,6 +74,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 
 		result = this.createModelAndView(processionForm);
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -93,6 +101,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 				result = this
 						.createModelAndView(processionForm, "commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -135,6 +145,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"procession.error.notFromActor");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -165,6 +177,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(processionForm, "commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -192,6 +206,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 
 				result = this.editModelAndView(processionForm, "commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -232,6 +248,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"procession.error.notFromActor");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -253,7 +271,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		result.addObject("processionForm", processionForm);
 		result.addObject("isRead", false);
 		result.addObject("id", 0);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -275,7 +294,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 						+ processionForm.getId());
 		result.addObject("processionForm", processionForm);
 		result.addObject("isRead", false);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -297,7 +317,8 @@ public class ProcessionBrotherhoodController extends AbstractController {
 						+ processionForm.getId());
 		result.addObject("processionForm", processionForm);
 		result.addObject("isRead", true);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

@@ -81,7 +81,8 @@ public class MessageController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"box.error.notFromThisActor");
 		}
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -101,7 +102,8 @@ public class MessageController extends AbstractController {
 		modelAndView = this.createEditModelAndView(messageForm);
 
 		modelAndView.setViewName("message/administrator/broadcastMessage");
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -127,6 +129,8 @@ public class MessageController extends AbstractController {
 						"message.commit.error");
 				result.setViewName("message/administrator/broadcastMessage");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -150,7 +154,8 @@ public class MessageController extends AbstractController {
 
 		modelAndView
 				.setViewName("message/administrator/broadcastMessageMembers");
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -176,6 +181,8 @@ public class MessageController extends AbstractController {
 						"message.commit.error");
 				result.setViewName("message/administrator/broadcastMessageMembers");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -199,7 +206,8 @@ public class MessageController extends AbstractController {
 
 		modelAndView
 				.setViewName("message/administrator/broadcastMessageBrotherhoods");
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -225,6 +233,8 @@ public class MessageController extends AbstractController {
 						"message.commit.error");
 				result.setViewName("message/administrator/broadcastMessageBrotherhoods");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -239,7 +249,8 @@ public class MessageController extends AbstractController {
 		messageForm.setMessage(message);
 
 		modelAndView = this.createEditModelAndView(messageForm);
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -253,7 +264,8 @@ public class MessageController extends AbstractController {
 		messageForm.setMessage(message);
 
 		modelAndView = this.createEditModelAndViewMembers(messageForm);
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 	
@@ -267,7 +279,8 @@ public class MessageController extends AbstractController {
 		messageForm.setMessage(message);
 
 		modelAndView = this.createEditModelAndViewBrotherhoods(messageForm);
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -302,7 +315,8 @@ public class MessageController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"message.error.notFromThisActor");
 		}
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -345,7 +359,8 @@ public class MessageController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"message.commit.error");
 		}
-
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
@@ -381,6 +396,8 @@ public class MessageController extends AbstractController {
 
 				}
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -401,6 +418,8 @@ public class MessageController extends AbstractController {
 			result.addObject("isRead", true);
 			result.addObject("isMove", true);
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -433,7 +452,8 @@ public class MessageController extends AbstractController {
 		result.addObject("priorities", priorities);
 		result.addObject("isRead", false);
 		result.addObject("action", action);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -462,7 +482,8 @@ public class MessageController extends AbstractController {
 		result.addObject("priorities", priorities);
 		result.addObject("isRead", false);
 		result.addObject("action", action);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 	
@@ -491,7 +512,8 @@ public class MessageController extends AbstractController {
 		result.addObject("priorities", priorities);
 		result.addObject("isRead", false);
 		result.addObject("action", action);
-
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

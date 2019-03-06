@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.BrotherhoodService;
+import services.ConfigurationService;
 import services.ProcessionService;
 import domain.Procession;
 
@@ -24,6 +25,9 @@ public class ProcessionController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService brotherhoodService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Constructor---------------------------------------------------------
 
@@ -50,6 +54,8 @@ public class ProcessionController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"procession.error.unexist");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

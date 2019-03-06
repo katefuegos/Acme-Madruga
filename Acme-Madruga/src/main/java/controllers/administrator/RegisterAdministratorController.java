@@ -1,4 +1,3 @@
-
 package controllers.administrator;
 
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import security.Authority;
 import security.UserAccount;
 import services.ActorService;
 import services.AreaService;
+import services.ConfigurationService;
 import controllers.AbstractController;
 import domain.Actor;
 import forms.ActorForm;
@@ -29,15 +29,18 @@ import forms.ActorForm;
 public class RegisterAdministratorController extends AbstractController {
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private AreaService		areaService;
+	private AreaService areaService;
 
+	@Autowired
+	private ConfigurationService configurationService;
 
-	//Register handyWorker
+	// Register handyWorker
 	@RequestMapping(value = "/newActor", method = RequestMethod.GET)
-	public ModelAndView createHandyWorker(@RequestParam(required = false, defaultValue = "default") final String authority) {
+	public ModelAndView createHandyWorker(
+			@RequestParam(required = false, defaultValue = "default") final String authority) {
 		ModelAndView modelAndView;
 		final ActorForm actorForm = new ActorForm();
 		final UserAccount userAccount = new UserAccount();
@@ -48,7 +51,7 @@ public class RegisterAdministratorController extends AbstractController {
 			// Faltan actores
 			switch (authority) {
 			case "ADMIN":
-				//actor = this.actorService.create("ADMIN");
+				// actor = this.actorService.create("ADMIN");
 				a.setAuthority(Authority.ADMIN);
 				actorForm.setAuth("ADMIN");
 				actorForm.setTitle("---");
@@ -71,12 +74,17 @@ public class RegisterAdministratorController extends AbstractController {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 		}
 
+		modelAndView.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService
+				.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 
-	//Save
+	// Save
 	@RequestMapping(value = "/newActor", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final ActorForm actorForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final ActorForm actorForm,
+			final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -88,25 +96,31 @@ public class RegisterAdministratorController extends AbstractController {
 				final UserAccount userAccount = actorForm.getUserAccount();
 
 				final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-				userAccount.setPassword(encoder.encodePassword(userAccount.getPassword(), null));
+				userAccount.setPassword(encoder.encodePassword(
+						userAccount.getPassword(), null));
 				userAccount.setEnabled(true);
 				actorForm.setUserAccount(userAccount);
 				this.actorService.update(actorForm);
 
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
-				final Actor test = this.actorService.findActorByUsername(actorForm.getUserAccount().getUsername());
+				final Actor test = this.actorService
+						.findActorByUsername(actorForm.getUserAccount()
+								.getUsername());
 				if (test != null)
-					result = this.createEditModelAndView(actorForm, "actor.userExists");
+					result = this.createEditModelAndView(actorForm,
+							"actor.userExists");
 				else if (oops.getMessage() == "actor.check.true")
-					result = this.createEditModelAndView(actorForm, oops.getMessage());
+					result = this.createEditModelAndView(actorForm,
+							oops.getMessage());
 				else
-					result = this.createEditModelAndView(actorForm, "message.commit.error");
+					result = this.createEditModelAndView(actorForm,
+							"message.commit.error");
 			}
 		return result;
 	}
 
-	//CreateModelAndView
+	// CreateModelAndView
 	protected ModelAndView createEditModelAndView(final ActorForm actorForm) {
 		ModelAndView result;
 
@@ -116,11 +130,13 @@ public class RegisterAdministratorController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final ActorForm actorForm, final String message) {
+	protected ModelAndView createEditModelAndView(final ActorForm actorForm,
+			final String message) {
 		ModelAndView result = null;
 
-		//TODO faltan actores
-		final Collection<Authority> authorities = actorForm.getUserAccount().getAuthorities();
+		// TODO faltan actores
+		final Collection<Authority> authorities = actorForm.getUserAccount()
+				.getAuthorities();
 
 		final Authority admin = new Authority();
 		admin.setAuthority("ADMIN");
@@ -133,6 +149,10 @@ public class RegisterAdministratorController extends AbstractController {
 		result.addObject("actorForm", actorForm);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 
