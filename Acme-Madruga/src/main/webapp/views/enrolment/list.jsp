@@ -14,6 +14,11 @@
 	pagesize="5" class="displaytag">
 
 	<display:column property="member.name" titleKey="enrolment.member" />
+	<display:column>
+		<a href="actor/showMember.do?actorId=${row.member.id}">
+					<spring:message code="actor.profile" />
+				</a>
+	</display:column>
 	<display:column property="enrolment.momentEnrol"
 		titleKey="enrolment.momentEnrol" />
 

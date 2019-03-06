@@ -167,19 +167,67 @@ public class ActorController extends AbstractController {
 
 		try {
 			Assert.notNull(actor);
+			final ActorForm actorForm = new ActorForm();
 			String title = null;
 			Date estDate = null;
 			if (brother != null) {
 				title = brother.getTitle();
 				estDate = brother.getEstablishmentDate();
+
+				actorForm.setTitle(title);
+				actorForm.setPictures(brother.getPictures());
+				actorForm.setArea(brother.getArea());
+
 			}
+
+			actorForm.setUserAccount(actor.getUserAccount());
+			actorForm.setName(actor.getName());
+			actorForm.setMiddleName(actor.getMiddleName());
+			actorForm.setSurname(actor.getSurname());
+			actorForm.setPhoto(actor.getPhoto());
+			actorForm.setEmail(actor.getEmail());
+			actorForm.setPhone(actor.getPhone());
+			actorForm.setAddress(actor.getAddress());
+
 			modelAndView.addObject("actor", actor);
 			modelAndView.addObject("isRead", true);
 			modelAndView.addObject("establishmentDate", estDate);
 			modelAndView.addObject("title", title);
 			modelAndView.addObject("requestURI", "/actor/administrator/show.do?actorId=" + actorId);
 		} catch (final Throwable e) {
-			modelAndView = new ModelAndView("redirect:list.do");
+			modelAndView = new ModelAndView("redirect:/welcome/index.do");
+
+			if (actor == null)
+				redirectAttrs.addFlashAttribute("message1", "actor.error.unexist");
+		}
+		return modelAndView;
+
+	}
+
+	@RequestMapping(value = "/showMember", method = RequestMethod.GET)
+	public ModelAndView showMember(@RequestParam final int actorId, final RedirectAttributes redirectAttrs) {
+		ModelAndView modelAndView = new ModelAndView("actor/showMember");
+
+		final Actor actor = this.actorService.findOne(actorId);
+
+		try {
+			Assert.notNull(actor);
+
+			final ActorForm actorForm = new ActorForm();
+
+			actorForm.setUserAccount(actor.getUserAccount());
+			actorForm.setName(actor.getName());
+			actorForm.setMiddleName(actor.getMiddleName());
+			actorForm.setSurname(actor.getSurname());
+			actorForm.setPhoto(actor.getPhoto());
+			actorForm.setEmail(actor.getEmail());
+			actorForm.setPhone(actor.getPhone());
+			actorForm.setAddress(actor.getAddress());
+
+			modelAndView.addObject("actorForm", actorForm);
+			modelAndView.addObject("isRead", true);
+		} catch (final Throwable e) {
+			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message1", "actor.error.unexist");
