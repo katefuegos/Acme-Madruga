@@ -87,11 +87,12 @@ public class requestMemberController extends AbstractController {
 			result.addObject("requestsPending", requestsPending);
 			result.addObject("processions", processions);
 			result.addObject("requestURI", "request/member/listMember.do");
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		
 		return result;
 	}
 
@@ -128,8 +129,6 @@ public class requestMemberController extends AbstractController {
 			else
 				result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -161,8 +160,6 @@ public class requestMemberController extends AbstractController {
 			 } else
 				result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

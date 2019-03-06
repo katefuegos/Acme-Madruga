@@ -73,11 +73,6 @@ public class RegisterAdministratorController extends AbstractController {
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 		}
-
-		modelAndView.addObject("banner", this.configurationService.findAll()
-				.iterator().next().getBanner());
-		modelAndView.addObject("systemName", this.configurationService
-				.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 

@@ -37,7 +37,7 @@ public class FloaatBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private ProcessionService processionService;
-	
+
 	@Autowired
 	private ConfigurationService configurationService;
 
@@ -62,11 +62,13 @@ public class FloaatBrotherhoodController extends AbstractController {
 					.findByBrotherhoodId(brotherhoodId);
 			result.addObject("requestURI", "float/brotherhood/list.do");
 			result.addObject("floaats", floaats);
+			result.addObject("banner", this.configurationService.findAll()
+					.iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll()
+					.iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/float/brotherhood/list.do");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -78,9 +80,6 @@ public class FloaatBrotherhoodController extends AbstractController {
 		floaatForm.setId(0);
 
 		result = this.createModelAndView(floaatForm);
-
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -103,8 +102,6 @@ public class FloaatBrotherhoodController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(floaatForm, "commit.error");
 			}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -141,8 +138,6 @@ public class FloaatBrotherhoodController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"floaat.error.notFromActor");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -170,8 +165,7 @@ public class FloaatBrotherhoodController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(floaatForm, "commit.error");
 			}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+
 		return result;
 	}
 
@@ -206,8 +200,6 @@ public class FloaatBrotherhoodController extends AbstractController {
 
 				result = this.editModelAndView(floaatForm, "commit.error");
 			}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -243,8 +235,6 @@ public class FloaatBrotherhoodController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"floaat.error.notFromActor");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -266,8 +256,10 @@ public class FloaatBrotherhoodController extends AbstractController {
 		result.addObject("isRead", false);
 		result.addObject("id", 0);
 
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 
@@ -287,9 +279,11 @@ public class FloaatBrotherhoodController extends AbstractController {
 				+ floaatForm.getId());
 		result.addObject("floaatForm", floaatForm);
 		result.addObject("isRead", false);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
-		
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
+
 		return result;
 	}
 
@@ -309,8 +303,10 @@ public class FloaatBrotherhoodController extends AbstractController {
 				+ floaatForm.getId());
 		result.addObject("floaatForm", floaatForm);
 		result.addObject("isRead", true);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 
 		return result;
 	}

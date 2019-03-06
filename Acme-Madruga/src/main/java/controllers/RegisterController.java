@@ -83,8 +83,6 @@ public class RegisterController extends AbstractController {
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 		}
-		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return modelAndView;
 	}
 	// Save
@@ -118,8 +116,6 @@ public class RegisterController extends AbstractController {
 					result = this.createEditModelAndView(actorForm, "message.commit.error");
 
 			}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 	// CreateModelAndView

@@ -48,6 +48,8 @@ public class AbstractController {
 			result.addObject("name", ClassUtils.getShortName(oops.getClass()));
 			result.addObject("exception", oops.getMessage());
 			result.addObject("stackTrace", ExceptionUtils.getStackTrace(oops));
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} else {
 
 			result = new ModelAndView("welcome/index");

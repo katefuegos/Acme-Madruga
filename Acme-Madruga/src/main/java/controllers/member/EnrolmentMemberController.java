@@ -88,11 +88,12 @@ public class EnrolmentMemberController extends AbstractController {
 			result.addObject("enrolmentsDropedOut", enrolmentsDropedOut);
 			result.addObject("brotherhoods", brotherhoods);
 			result.addObject("requestURI", "enrolment/member/list.do");
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		
 		return result;
 	}
 
@@ -134,8 +135,6 @@ public class EnrolmentMemberController extends AbstractController {
 			} else
 				result = new ModelAndView("redirect:/enrolment/member/list.do");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
@@ -179,8 +178,6 @@ public class EnrolmentMemberController extends AbstractController {
 			} else
 				result = new ModelAndView("redirect:/enrolment/member/list.do");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -219,8 +216,6 @@ public class EnrolmentMemberController extends AbstractController {
 			} else
 				result = new ModelAndView("redirect:/enrolment/member/list.do");
 		}
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

@@ -14,17 +14,3 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
-<tiles-definitions>
-
-	<definition name="finder/member/update" extends="master.page">	
-		<put-attribute name="title" value="Update finder" />
-		<put-attribute name="body" value="/views/finder/edit.jsp" />
-	</definition>
-	
-	
-		<definition name="finder/member/listProcessions" extends="master.page">	
-		<put-attribute name="title" value="Finder results" />
-		<put-attribute name="body" value="/views/finder/list.jsp" />
-	</definition>
-	
-</tiles-definitions>
