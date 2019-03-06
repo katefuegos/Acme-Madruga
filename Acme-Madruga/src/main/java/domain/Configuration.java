@@ -30,6 +30,7 @@ public class Configuration extends DomainEntity {
 	private Map<String, Collection<String>>	negativeWords;
 	private Map<String, Collection<String>>	positiveWords;
 	private Collection<String>				priorities;
+	private String							systemName;
 
 
 	//private Map<String, Collection<String>>	positions;
@@ -43,6 +44,15 @@ public class Configuration extends DomainEntity {
 	//	public void setPositions(final Map<String, Collection<String>> positions) {
 	//		this.positions = positions;
 	//	}
+
+	@NotBlank
+	public String getSystemName() {
+		return systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
 
 	@NotNull
 	@ElementCollection

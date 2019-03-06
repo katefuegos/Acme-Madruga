@@ -91,6 +91,12 @@
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="message/administrator/broadcastMessage.do"><spring:message
 									code="master.page.message.broadcast" /></a></li>
+						<li><a
+							href="message/administrator/broadcastMessageMembers.do"><spring:message
+									code="master.page.message.notifyMembers" /></a></li>
+						<li><a
+							href="message/administrator/broadcastMessageBrotherhoods.do"><spring:message
+									code="master.page.message.notifyBrotherhoods" /></a></li>
 					</security:authorize>
 
 				</ul></li>
@@ -130,6 +136,15 @@
 						code="master.page.brotherhood.member" /></a></li>
 			<li><a class="fNiv" href="finder/member/listProcessions.do"><spring:message
 						code="master.page.finder" /></a></li>
+		</security:authorize>
+
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="welcome/terms.do"><spring:message
+						code="master.page.privacyPolicy" /></a></li>
+		</security:authorize>
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="welcome/terms.do"><spring:message
+						code="master.page.privacyPolicy" /></a></li>
 		</security:authorize>
 
 

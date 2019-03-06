@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="message/administrator/broadcastMessage.do" modelAttribute="messageForm">
+<form:form action="${action}" modelAttribute="messageForm">
 
 	<form:hidden path="message.id" />
 	<form:hidden path="message.version" />

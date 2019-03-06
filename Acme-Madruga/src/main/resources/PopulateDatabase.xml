@@ -338,7 +338,7 @@
 		<property name="actor" ref="brotherhood1" />
 		<property name="linkSocialNetwork" value="https://profileManolete.es/"></property>
 	</bean>
-	
+
 	<bean id="socialProfile2" class="domain.SocialProfile">
 
 		<property name="nick" value="Claudia"></property>
@@ -346,7 +346,7 @@
 		<property name="actor" ref="member1" />
 		<property name="linkSocialNetwork" value="https://profileClaudia.es/"></property>
 	</bean>
-	
+
 	<bean id="socialProfile3" class="domain.SocialProfile">
 
 		<property name="nick" value="Pablo"></property>
@@ -1586,5 +1586,6 @@
 				<value>NEUTRAL</value>
 			</list>
 		</property>
+		<property name="systemName" value="Acme Madrugá" />
 	</bean>
 </beans>

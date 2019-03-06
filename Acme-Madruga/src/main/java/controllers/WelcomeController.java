@@ -57,4 +57,17 @@ public class WelcomeController extends AbstractController {
 
 		return result;
 	}
+	
+	// Terms ------------------------------------------------------------------
+
+	@RequestMapping(value = "/terms")
+	public ModelAndView terms(){
+
+		ModelAndView result;
+		String lang = LocaleContextHolder.getLocale().getLanguage().toString().toUpperCase();
+		result = new ModelAndView("misc/terms");
+		result.addObject("lang", lang);
+
+		return result;
+	}
 }

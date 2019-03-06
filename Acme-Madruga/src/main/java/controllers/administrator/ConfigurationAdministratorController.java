@@ -72,6 +72,8 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		configurationForm.setId(configuration.getId());
 
+		configurationForm.setSystemName(configuration.getSystemName());
+		
 		configurationForm.setVarTax(configuration.getFinderMaxResults());
 
 		configurationForm.setBanner(configuration.getBanner());
@@ -301,6 +303,8 @@ public class ConfigurationAdministratorController extends AbstractController {
 				configuration.setPositiveWords(positiveWords);
 
 				configuration.setNegativeWords(negativeWords);
+				
+				configuration.setSystemName(configurationForm.getSystemName());
 
 				//configuration.setPositions(positions);
 
