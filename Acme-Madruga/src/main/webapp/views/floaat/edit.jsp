@@ -20,54 +20,28 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="${requestURI}" modelAttribute="floaatForm">
 	<form:hidden path="id" />
 	
-	<form:label path="title">
-		<spring:message code="floaat.title" />:
-	</form:label>
-	<form:input path="title" readonly="${isRead}" />
-	<form:errors cssClass="error" path="title" />
-	<br />
 
-	<form:label path="description">
-		<spring:message code="floaat.description" />:
-	</form:label>
-	<form:textarea path="description" readonly="${isRead}" />
-	<form:errors cssClass="error" path="description" />
-	<br />
-	
-	<form:label path="pictures">
-		<spring:message code="floaat.pictures" />:
-	</form:label>
-	<form:textarea path="pictures" readonly="${isRead}" />
-	<form:errors cssClass="error" path="pictures" />
-	<br />
-
+	<acme:textbox code="floaat.title" path="title"/>
+	<acme:textbox code="floaat.description" path="description"/>
+	<acme:textbox code="floaat.pictures" path="pictures"/>
 
 	<jstl:if test="${isRead == false}">
-		<input type="submit" name="save"
-			value="<spring:message code="floaat.save" />" />
+			<acme:submit name="save" code="floaat.save"/>
 		<jstl:if test="${id != 0}">
-			<input type="submit" name="delete"
-				value="<spring:message code="floaat.delete" />"
-				onclick="javascript: return confirm('<spring:message code="floaat.confirmDelete" />')" />
+			<acme:delete confirmDelete="floaat.confirmDelete" name="delete" code="floaat.delete"/>
 		</jstl:if>
-		<input type="button" name="cancel"
-			value="<spring:message code="floaat.cancel" />"
-			onclick="javascript: relativeRedir('float/brotherhood/list.do');" />
-		<br />
-
+		<acme:cancel url="float/brotherhood/list.do" code="floaat.cancel"/>
 	</jstl:if>
 
 
 	<jstl:if test="${isRead == true}">
 
-		<input type="button" name="back"
-			value="<spring:message code="floaat.back" />"
-			onclick="javascript: relativeRedir('/float/brotherhood/list.do');" />
-		<br />
+		<acme:cancel url="/float/brotherhood/list.do" code="floaat.back"/>
 
 	</jstl:if>
 

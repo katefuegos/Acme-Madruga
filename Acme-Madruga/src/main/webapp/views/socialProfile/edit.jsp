@@ -37,7 +37,7 @@
 		<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>
 	</jstl:if>
 	<jstl:if test="${(row.id != 0) and (isRead==false)}">
-	<acme:delete confirmDelete="socialProfile.confirm.delete" name="delete" code="socialProfile.delete"/>
+	<acme:delete confirmDelete="socialProfile.confirmDelete" name="delete" code="socialProfile.delete"/>
 	</jstl:if>
 	<jstl:if test="${isRead == true }">
 	<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>

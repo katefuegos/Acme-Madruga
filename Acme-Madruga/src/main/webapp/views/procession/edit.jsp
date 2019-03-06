@@ -9,22 +9,13 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="${requestURI}" modelAttribute="processionForm">
 	<form:hidden path="id" />
-	<form:label path="title">
-		<spring:message code="procession.title" />:
-	</form:label>
-	<form:input path="title" readonly="${isRead}" />
-	<form:errors cssClass="error" path="title" />
-	<br />
-
-	<form:label path="description">
-		<spring:message code="procession.description" />:
-	</form:label>
-	<form:textarea path="description" readonly="${isRead}" />
-	<form:errors cssClass="error" path="description" />
-	<br />
+	
+	<acme:textbox code="procession.title" path="title"/>
+	<acme:textbox code="procession.description" path="description"/>
 
 	<form:label path="moment">
 		<spring:message code="procession.moment" />:
@@ -42,27 +33,17 @@
 	<br />
 
 	<jstl:if test="${isRead == false}">
-		<input type="submit" name="save"
-			value="<spring:message code="procession.save" />" />
+			<acme:submit name="save" code="procession.save"/>
 		<jstl:if test="${id != 0}">
-			<input type="submit" name="delete"
-				value="<spring:message code="procession.delete" />"
-				onclick="javascript: return confirm('<spring:message code="procession.confirmDelete" />')" />
+			<acme:delete confirmDelete="procession.confirmDelete" name="delete" code="procession.delete"/>
+		
 		</jstl:if>
-		<input type="button" name="cancel"
-			value="<spring:message code="procession.cancel" />"
-			onclick="javascript: relativeRedir('procession/brotherhood/list.do');" />
-		<br />
-
+		<acme:cancel url="procession/brotherhood/list.do" code="procession.cancel"/>
 	</jstl:if>
 
 
 	<jstl:if test="${isRead == true}">
-
-		<input type="button" name="back"
-			value="<spring:message code="procession.back" />"
-			onclick="javascript: relativeRedir('/procession/brotherhood/list.do');" />
-		<br />
+		<acme:cancel url="procession/brotherhood/list.do" code="procession.cancel"/>
 
 	</jstl:if>
 

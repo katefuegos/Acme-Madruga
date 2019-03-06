@@ -9,6 +9,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="${requestURI}" modelAttribute="enrolmentForm">
 
@@ -22,14 +23,7 @@
 	</form:select>
 	<form:errors cssClass="error" path="position" />
 	
-	
-
-	<input type="submit" name="save"
-		value="<spring:message code="enrolment.save" />" />
-
-	<input type="button" name="cancel"
-		value="<spring:message code="enrolment.cancel" />"
-		onclick="javascript: relativeRedir('enrolment/brotherhood/list.do');" />
-	<br />
+	<acme:submit name="save" code="enrolment.save"/>
+	<acme:cancel url="enrolment/brotherhood/list.do" code="enrolment.cancel"/>
 
 </form:form>

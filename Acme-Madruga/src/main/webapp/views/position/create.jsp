@@ -9,34 +9,20 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="position/administrator/create.do"
 	modelAttribute="positionForm">
 
 	<form:hidden path="id" />
 	
-	<form:label path="nameEN">
-		<spring:message code="position.nameEN" />:
-	</form:label>
-	<form:input path="nameEN" />
-	<form:errors cssClass="error" path="nameEN" />
+	<acme:textbox code="position.nameEN" path="nameEN"/>
+	<acme:textbox code="position.nameES" path="nameES"/>
+
 	<br />
+
 	
-	<form:label path="nameES">
-		<spring:message code="position.nameES" />:
-	</form:label>
-	<form:input path="nameES" />
-	<form:errors cssClass="error" path="nameES" />
-	<br />
-
-	<br />
-
-	<input type="submit" name="save"
-		value="<spring:message code="position.save" />" />
-
-	<input type="button" name="cancel"
-		value="<spring:message code="position.cancel" />"
-		onclick="javascript: relativeRedir('position/administrator/list.do');" />
-	<br />
+	<acme:submit name="save" code="position.save"/>
+	<acme:cancel url="position/administrator/list.do" code="position.cancel"/>
 
 </form:form>

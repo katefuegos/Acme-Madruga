@@ -20,6 +20,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="${requestURI}" modelAttribute="configurationForm">
 
@@ -27,102 +28,23 @@
 	<img src="${configurationForm.bannerr}" height="250px" width="350px" />
 	<br />
 	<br />
-	<form:label path="bannerr">
-		<spring:message code="configuration.banner" />
-	</form:label>
-	<form:input path="bannerr" readonly="${isRead}" />
-	<form:errors cssClass="error" path="bannerr" />
-	<br />
-	<form:label path="systemName">
-		<spring:message code="configuration.systemName" />
-	</form:label>
-	<form:input path="systemName" readonly="${isRead}" />
-	<form:errors cssClass="error" path="systemName" />
-	<br />
 
+	<acme:textbox code="configuration.bannerr" path="bannerr"/>
+	<acme:textbox code="configuration.systemName" path="systemName"/>
+	<acme:textbox code="configuration.varTax" path="varTax"/>
+	<acme:textbox code="configuration.countryCode" path="countryCode"/>
+	<acme:textbox code="configuration.cache" path="finderCacheTime"/>
+	<acme:textbox code="configuration.maxResults" path="finderMaxResults"/>
+	<acme:textbox code="configuration.welcomeMessageES" path="welcomeMessageES"/>
+	<acme:textbox code="configuration.welcomeMessageEN" path="welcomeMessageEN"/>
+	<acme:textbox code="configuration.spamES" path="spamWordsES"/>
+	<acme:textbox code="configuration.spamEN" path="spamWordsEN"/>
+	<acme:textbox code="configuration.negativeEN" path="negativeWordsEN"/>
+	<acme:textbox code="configuration.negativeES" path="negativeWordsES"/>
+	<acme:textbox code="configuration.positiveES" path="positiveWordsES"/>
+	<acme:textbox code="configuration.positiveEN" path="positiveWordsEN"/>
+	
 
-	<form:label path="varTax">
-		<spring:message code="configuration.varTax" />
-	</form:label>
-	<form:input path="varTax" readonly="${isRead}" />
-	<form:errors cssClass="error" path="varTax" />
-	<br />
-
-	<form:label path="countryCode">
-		<spring:message code="configuration.countryCode" />
-	</form:label>
-	<form:input path="countryCode" readonly="${isRead}" />
-	<form:errors cssClass="error" path="countryCode" />
-	<br />
-	<form:label path="finderCacheTime">
-		<spring:message code="configuration.cache" />
-	</form:label>
-	<form:input path="finderCacheTime" readonly="${isRead}" />
-	<form:errors cssClass="error" path="finderCacheTime" />
-	<br />
-
-	<form:label path="finderMaxResults">
-		<spring:message code="configuration.maxResults" />
-	</form:label>
-	<form:input path="finderMaxResults" readonly="${isRead}" />
-	<form:errors cssClass="error" path="finderMaxResults" />
-	<br />
-
-	<form:label path="welcomeMessageES">
-		<spring:message code="configuration.welcomeMessageES" />
-	</form:label>
-	<form:input path="welcomeMessageES" readonly="${isRead}" />
-	<form:errors cssClass="error" path="welcomeMessageES" />
-	<br />
-
-	<form:label path="welcomeMessageEN">
-		<spring:message code="configuration.welcomeMessageEN" />
-	</form:label>
-	<form:input path="welcomeMessageEN" readonly="${isRead}" />
-	<form:errors cssClass="error" path="welcomeMessageEN" />
-	<br />
-
-	<form:label path="spamWordsES">
-		<spring:message code="configuration.spamES" />
-	</form:label>
-	<form:input path="spamWordsES" readonly="${isRead}" />
-	<form:errors cssClass="error" path="spamWordsES" />
-	<br />
-
-	<form:label path="spamWordsEN">
-		<spring:message code="configuration.spamEN" />
-	</form:label>
-	<form:input path="spamWordsEN" readonly="${isRead}" />
-	<form:errors cssClass="error" path="spamWordsEN" />
-	<br />
-
-	<form:label path="negativeWordsES">
-		<spring:message code="configuration.negativeES" />
-	</form:label>
-	<form:input path="negativeWordsES" readonly="${isRead}" />
-	<form:errors cssClass="error" path="negativeWordsES" />
-	<br />
-
-	<form:label path="negativeWordsEN">
-		<spring:message code="configuration.negativeEN" />
-	</form:label>
-	<form:input path="negativeWordsEN" readonly="${isRead}" />
-	<form:errors cssClass="error" path="negativeWordsEN" />
-	<br />
-
-	<form:label path="positiveWordsES">
-		<spring:message code="configuration.positiveES" />
-	</form:label>
-	<form:input path="positiveWordsES" readonly="${isRead}" />
-	<form:errors cssClass="error" path="positiveWordsES" />
-	<br />
-
-	<form:label path="positiveWordsEN">
-		<spring:message code="configuration.positiveEN" />
-	</form:label>
-	<form:input path="positiveWordsEN" readonly="${isRead}" />
-	<form:errors cssClass="error" path="positiveWordsEN" />
-	<br />
 	<%-- 
 	<form:label path="positionES">
 		<spring:message code="configuration.positionES" />
@@ -139,18 +61,11 @@
 	<br />
  --%>
 	<jstl:if test="${isRead == false}">
-		<input type="submit" name="save"
-			value="<spring:message code="configuration.save" />"
-			onclick="javascript: relativeRedir('configuration/administrator/list.do');" />
-
-		<input type="button" name="cancel"
-			value="<spring:message code="configuration.cancel" />"
-			onclick="javascript: relativeRedir('configuration/administrator/list.do');" />
+		<acme:submit name="save" code="configuration.save"/>
+		<acme:cancel url="configuration/administrator/list.do" code="configuration.cancel"/>
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
-		<input type="button" name="cancel"
-			value="<spring:message code="configuration.back" />"
-			onclick="javascript: relativeRedir('configuration/administrator/list.do');" />
+		<acme:cancel url="configuration/administrator/list.do" code="configuration.cancel"/>
 	</jstl:if>
 </form:form>

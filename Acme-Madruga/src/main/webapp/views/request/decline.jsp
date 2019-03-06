@@ -9,6 +9,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="${requestURI}" modelAttribute="requestForm">
 
@@ -16,19 +17,9 @@
 	<form:hidden path="roow" />
 	<form:hidden path="coluumn" />
 
-	<form:label path="reasonReject">
-		<spring:message code="request.reasonReject" />:
-	</form:label>
-	<form:input path="reasonReject" />
-	<form:errors cssClass="error" path="reasonReject" />
-	<br />
+	<acme:textbox code="request.reasonReject" path="reasonReject"/>
 	
-	<input type="submit" name="save"
-		value="<spring:message code="request.save" />" />
-
-	<input type="button" name="cancel"
-		value="<spring:message code="request.cancel" />"
-		onclick="javascript: relativeRedir('request/brotherhood/list.do');" />
-	<br />
+	<acme:submit name="save" code="request.save"/>
+	<acme:cancel url="request/brotherhood/list.do" code="request.cancel"/>
 	
 </form:form>

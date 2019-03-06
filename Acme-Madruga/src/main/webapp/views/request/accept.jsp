@@ -9,32 +9,18 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="${requestURI}" modelAttribute="requestForm">
 
 	<form:hidden path="id" />
 	<form:hidden path="reasonReject" />
 
-	<form:label path="roow">
-		<spring:message code="request.row" />:
-	</form:label>
-	<form:input path="roow" />
-	<form:errors cssClass="error" path="roow" />
-	<br />
 
-	<form:label path="coluumn">
-		<spring:message code="request.column" />:
-	</form:label>
-	<form:input path="coluumn" />
-	<form:errors cssClass="error" path="roow" />
-	<br />
+	<acme:textbox code="request.row" path="roow"/>
+	<acme:textbox code="request.column" path="coluumn"/>
 
-	<input type="submit" name="save"
-		value="<spring:message code="request.save" />" />
-
-	<input type="button" name="cancel"
-		value="<spring:message code="request.cancel" />"
-		onclick="javascript: relativeRedir('request/brotherhood/list.do');" />
-	<br />
+	<acme:submit name="save" code="request.save"/>
+	<acme:cancel url="request/brotherhood/list.do" code="request.cancel"/>
 	
 </form:form>

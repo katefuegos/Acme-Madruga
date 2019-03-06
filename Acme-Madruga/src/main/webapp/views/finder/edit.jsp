@@ -10,6 +10,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="finder/member/update.do" modelAttribute="finder">
 	<form:hidden path="id" />
@@ -18,48 +19,21 @@
 	<form:hidden path="processions" />
 
 
-
-
-	<form:label path="keyword">
-		<spring:message code="finder.keyword" />
-	</form:label>
-	<form:input path="keyword" />
-	<form:errors cssClass="error" path="keyword" />
-	<br />
-
-
-	<form:label path="dateMin">
-		<spring:message code="finder.dateMin" />
-	</form:label>
-	<form:input path="dateMin" placeholder="yyyy/mm/dd" />
-	<form:errors cssClass="error" path="dateMin" />
-	<br />
-
-	<form:label path="dateMax">
-		<spring:message code="finder.dateMax" />
-	</form:label>
-	<form:input path="dateMax" placeholder="yyyy/mm/dd" />
-	<form:errors cssClass="error" path="dateMax" />
-	<br />
+	<acme:textbox code="finder.keyword" path="keyword"/>
+	<acme:textbox code="finder.dateMin" path="dateMin"/>
+	<acme:textbox code="finder.dateMax" path="dateMax"/>
 
 	<form:label path="nameArea">
-		<spring:message code="finder.namearea" />
+		<spring:message code="finder.nameArea" />
 	</form:label>
-	<form:select id="areas" path="namearea">
+	<form:select id="areas" path="nameArea">
 		<form:option value="" label="------" />
 		<form:options items="${areas}" />
 	</form:select>
 
-	
 
-	<input type="submit" name="save"
-		value="<spring:message code="finder.save"/>" />
-
-	<input type="button" name="cancel"
-		value="<spring:message code="finder.cancel" />"
-		onclick="javascript: relativeRedir('finder/member/listProcessions.do');" />
-
-	<br />
+	<acme:submit name="save" code="finder.save"/>
+	<acme:cancel url="finder/member/listProcessions.do" code="finder.cancel"/>
 
 
 </form:form>

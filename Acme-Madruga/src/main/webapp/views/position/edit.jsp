@@ -9,37 +9,21 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="position/administrator/edit.do"
 	modelAttribute="positionForm">
 
 	<form:hidden path="id" />
+	<acme:textbox code="position.nameEN" path="nameEN"/>
+	<acme:textbox code="position.nameES" path="nameES"/>
 
-	<form:label path="nameEN">
-		<spring:message code="position.nameEN" />:
-	</form:label>
-	<form:input path="nameEN" />
-	<form:errors cssClass="error" path="nameEN" />
 	<br />
+
 	
-	<form:label path="nameES">
-		<spring:message code="position.nameES" />:
-	</form:label>
-	<form:input path="nameES" />
-	<form:errors cssClass="error" path="nameES" />
-	<br />
-
-
-	<input type="submit" name="save"
-		value="<spring:message code="position.save" />" />
-
-	<input type="submit" name="delete"
-		value="<spring:message code="position.delete" />"
-		onclick="javascript: return confirm('<spring:message code="position.confirmDelete" />')" />
-
-	<input type="button" name="cancel"
-		value="<spring:message code="position.cancel" />"
-		onclick="javascript: relativeRedir('position/administrator/list.do');" />
-	<br />
+	<acme:submit name="save" code="position.save"/>
+	<acme:cancel url="position/administrator/list.do" code="position.cancel"/>
+	<acme:delete confirmDelete="position.confirmDelete" name="delete" code="position.delete"/>
+		
 
 </form:form>

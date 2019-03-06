@@ -17,6 +17,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="message/actor/edit.do" modelAttribute="messageForm">
 
@@ -49,45 +50,17 @@
 			<form:errors cssClass="error" path="message.box" />
 			<br />
 		</jstl:if>
-		<form:label path="message.priority">
-			<spring:message code="message.priority" />:
-		</form:label>
-		<form:input path="message.priority" readonly="${isRead}" />
-		<form:errors cssClass="error" path="message.priority" />
-		<br />
+		
+		<acme:textbox code="message.priority" path="priority"/>
+		<acme:textbox code="message.moment" path="moment"/>
+		
 
-		<form:label path="message.moment">
-			<spring:message code="message.moment" />:
-	</form:label>
-		<form:input path="message.moment" readonly="${isRead}" />
-		<form:errors cssClass="error" path="message.moment" />
-		<br />
-
-
+	
 	</jstl:if>
-	<form:label path="message.subject">
-		<spring:message code="message.subject" />:
-	</form:label>
-	<form:textarea path="message.subject" readonly="${isRead}" />
-	<form:errors cssClass="error" path="message.subject" />
-	<br />
-
-	<form:label path="message.body">
-		<spring:message code="message.body" />:
-	</form:label>
-	<form:textarea path="message.body" readonly="${isRead}" />
-	<form:errors cssClass="error" path="message.body" />
-	<br />
-
-
-	<form:label path="message.tags">
-		<spring:message code="message.tags" />:
-	</form:label>
-	<form:textarea path="message.tags" readonly="${isRead}" />
-	<form:errors cssClass="error" path="message.tags" />
-	<br />
-
-
+	<acme:textbox code="message.subject" path="subject"/>
+	<acme:textbox code="message.body" path="body"/>
+	<acme:textbox code="message.tags" path="tags"/>
+	
 
 	<jstl:if test="${isRead!=true}">
 		<form:hidden path="message.box" />
@@ -111,18 +84,11 @@
 		<br />
 	</jstl:if>
 	<jstl:if test="${isRead!=true || (isMove==true && isRead==true)}">
-		<input type="submit" name="save"
-			value="<spring:message code="message.save" />" />&nbsp; 
-		
+		<acme:submit name="save" code="message.save"/>
 		<jstl:if test="${messageForm.message.id!=0}">
-			<input type="submit" name="delete"
-				value="<spring:message code="message.delete" />"
-				onclick="javascript: return confirm('<spring:message code="message.confirm.delete" />')" />
+			<acme:delete confirmDelete="message.confirmDelete" name="delete" code="message.delete"/>
 		</jstl:if>
-		<input type="button" name="cancel"
-			value="<spring:message code="message.cancel" />"
-			onclick="javascript: relativeRedir('box/actor/list.do');" />
-		<br />
+		<acme:cancel url="box/actor/list.do" code="message.cancel"/>
 
 	</jstl:if>
 
