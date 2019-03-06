@@ -52,6 +52,8 @@ public class ConfigurationAdministratorController extends AbstractController {
 		result.addObject("configuration", configuration);
 
 		result.addObject("requestURI", "configuration/administrator/list.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 
@@ -70,13 +72,13 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		Assert.notNull(configuration);
 
+		configurationForm.setBannerr(configuration.getBanner());
+		
 		configurationForm.setId(configuration.getId());
 
 		configurationForm.setSystemName(configuration.getSystemName());
 		
 		configurationForm.setVarTax(configuration.getFinderMaxResults());
-
-		configurationForm.setBanner(configuration.getBanner());
 
 		configurationForm.setCountryCode(configuration.getCountryCode());
 
@@ -154,7 +156,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 			final Configuration configuration = this.configurationService.findOne();
 
-			configuration.setBanner(configurationForm.getBanner());
+			configuration.setBanner(configurationForm.getBannerr());
 
 			configuration.setCountryCode(configurationForm.getCountryCode());
 
@@ -181,6 +183,8 @@ public class ConfigurationAdministratorController extends AbstractController {
 		} catch (final Throwable oops) {
 
 			result = this.createEditModelAndView(configurationForm, "configuration.commit.error");
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		}
 		return result;
 	}
@@ -202,7 +206,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		configurationForm.setVarTax(configuration.getFinderMaxResults());
 
-		configurationForm.setBanner(configuration.getBanner());
+		configurationForm.setBannerr(configuration.getBanner());
 
 		configurationForm.setCountryCode(configuration.getCountryCode());
 
@@ -235,6 +239,8 @@ public class ConfigurationAdministratorController extends AbstractController {
 		result.addObject("isRead", true);
 
 		result.addObject("requestURI", "configuration/administrator/show.do?configurationId=" + configurationId);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 
@@ -286,7 +292,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 				final Configuration configuration = this.configurationService.findOne();
 
-				configuration.setBanner(configurationForm.getBanner());
+				configuration.setBanner(configurationForm.getBannerr());
 
 				configuration.setCountryCode(configurationForm.getCountryCode());
 
@@ -318,6 +324,8 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 			}
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 
 	}
@@ -347,6 +355,8 @@ public class ConfigurationAdministratorController extends AbstractController {
 		result.addObject("isRead", false);
 
 		result.addObject("requestURI", "configuration/administrator/edit.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 

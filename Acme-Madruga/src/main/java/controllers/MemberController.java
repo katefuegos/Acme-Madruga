@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.BrotherhoodService;
+import services.ConfigurationService;
 import services.EnrolmentService;
 import services.MemberService;
 import domain.Brotherhood;
@@ -31,6 +32,9 @@ public class MemberController extends AbstractController {
 
 	@Autowired
 	private EnrolmentService enrolmentService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Constructor---------------------------------------------------------
 
@@ -65,6 +69,8 @@ public class MemberController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message",
 						"member.error.unexist");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

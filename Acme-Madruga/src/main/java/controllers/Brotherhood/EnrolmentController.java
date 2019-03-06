@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.BrotherhoodService;
+import services.ConfigurationService;
 import services.EnrolmentService;
 import services.MemberService;
 import services.PositionService;
@@ -43,6 +44,9 @@ public class EnrolmentController extends AbstractController {
 
 	@Autowired
 	private PositionService positionService;
+	
+	@Autowired
+	private ConfigurationService configurationService;
 
 	// Constructor---------------------------------------------------------
 
@@ -80,6 +84,8 @@ public class EnrolmentController extends AbstractController {
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/");
 		}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -119,6 +125,8 @@ public class EnrolmentController extends AbstractController {
 				result = this.enrolModelAndView(enrolmentForm, "commit.error");
 		}
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -164,6 +172,8 @@ public class EnrolmentController extends AbstractController {
 					result = this.enrolModelAndView(enrolmentForm,
 							"commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -204,6 +214,8 @@ public class EnrolmentController extends AbstractController {
 						.dropOutModelAndView(enrolmentForm, "commit.error");
 		}
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -249,6 +261,8 @@ public class EnrolmentController extends AbstractController {
 					result = this.dropOutModelAndView(enrolmentForm,
 							"commit.error");
 			}
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -271,6 +285,8 @@ public class EnrolmentController extends AbstractController {
 		result.addObject("enrolmentForm", enrolmentForm);
 		result.addObject("positions", this.positionService.findAll());
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -292,6 +308,8 @@ public class EnrolmentController extends AbstractController {
 				"enrolment/brotherhood/dropout.do?enrolmentId="
 						+ enrolmentForm.getId());
 		result.addObject("enrolmentForm", enrolmentForm);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 }

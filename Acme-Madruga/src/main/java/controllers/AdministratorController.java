@@ -10,14 +10,22 @@
 
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.ConfigurationService;
 
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController extends AbstractController {
 
+	
+	//Services --------------------------------------------------------
+	@Autowired
+	private ConfigurationService configurationService;
+	
 	// Constructors -----------------------------------------------------------
 
 	public AdministratorController() {
@@ -32,6 +40,8 @@ public class AdministratorController extends AbstractController {
 
 		result = new ModelAndView("administrator/action-1");
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
@@ -43,6 +53,8 @@ public class AdministratorController extends AbstractController {
 
 		result = new ModelAndView("administrator/action-2");
 
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

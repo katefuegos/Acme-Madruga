@@ -35,7 +35,9 @@
 
 
 	<jstl:if test="${isRead==true}">
-		<img src="${actor.photo}" height="200px" width="200px" />
+		
+	
+		<img src="${actorForm.photo}" height="200px" width="200px" />
 		<br />
 	</jstl:if>
 

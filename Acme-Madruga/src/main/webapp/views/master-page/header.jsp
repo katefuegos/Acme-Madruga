@@ -16,8 +16,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <div align="left">
-	<a href="#"><img src="images/logo2.png"
-		alt="Acme-madruga Co., Inc." /></a>
+	<a href="#"><img src=${banner}/></a>
 </div>
 
 <div>
