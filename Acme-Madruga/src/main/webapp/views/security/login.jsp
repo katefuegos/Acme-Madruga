@@ -21,7 +21,7 @@
 
 
 	<acme:textbox code="security.username" path="username"/>
-	<acme:textbox code="security.password" path="password"/>
+	<acme:password code="security.password" path="password"/>
 
 	
 	<jstl:if test="${showError == true}">

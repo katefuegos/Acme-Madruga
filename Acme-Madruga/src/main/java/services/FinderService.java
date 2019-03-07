@@ -54,6 +54,13 @@ public class FinderService {
 	// Simple CRUD----------------------------------------------
 
 	public Finder create() {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+
+		final Authority handyAuthority = new Authority();
+		handyAuthority.setAuthority("MEMBER");
+		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(handyAuthority), "Solo los member tiene finder");
+
 		final Finder res = new Finder();
 		final Date lastUpdate = new Date();
 
@@ -61,7 +68,7 @@ public class FinderService {
 
 		res.setKeyword("");
 		res.setNameArea("");
-		res.setLastUpdate(lastUpdate);
+		res.setLastUpdate(null);
 		res.setProcessions(processions);
 
 		final Date current = new Date();
@@ -77,11 +84,14 @@ public class FinderService {
 
 	public Finder findOne(final Integer finderId) {
 		Assert.notNull(finderId);
-		return this.finderRepository.findOne(finderId);
+		final Finder finder = this.finderRepository.findOne(finderId);
+		this.check(finder);
+		return finder;
 	}
 
 	public Finder save(Finder finder) {
 		Assert.notNull(finder);
+		this.check(finder);
 
 		finder.setLastUpdate(this.updateTime());
 		finder = this.updateFinder(finder);
@@ -133,7 +143,7 @@ public class FinderService {
 		final Date updateFinder = new Date(currentDate.getTime() - configuration.getFinderCacheTime() * 1000 * 60 * 60);
 		final Date lastUpdate = new Date(currentDate.getTime() - 1000);
 
-		if (!finder.getLastUpdate().after(updateFinder)) {
+		if (!finder.getLastUpdate().after(updateFinder) || finder.getId() == 0) {
 			result.setProcessions(this.searchProcession(finder, configuration.getFinderMaxResults()));
 			result.setLastUpdate(lastUpdate);
 			// result = this.finderRepository.save(result);
