@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.Collection;
@@ -28,13 +29,14 @@ public class FloaatController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
-	private FloaatService floaatService;
+	private FloaatService			floaatService;
 
 	@Autowired
-	private BrotherhoodService brotherhoodService;
+	private BrotherhoodService		brotherhoodService;
 
 	@Autowired
-	private ConfigurationService configurationService;
+	private ConfigurationService	configurationService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -44,27 +46,21 @@ public class FloaatController extends AbstractController {
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(final int brotherhoodId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView list(final int brotherhoodId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 
 		try {
 			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
-			final Collection<Floaat> floaats = this.floaatService
-					.findByBrotherhoodId(brotherhoodId);
+			final Collection<Floaat> floaats = this.floaatService.findByBrotherhoodId(brotherhoodId);
 			result = new ModelAndView("floaat/list");
 			result.addObject("floaats", floaats);
-			result.addObject("requestURI", "float/list.do?brotherhoodId="
-					+ brotherhoodId);
-			result.addObject("banner", this.configurationService.findAll()
-					.iterator().next().getBanner());
-			result.addObject("systemName", this.configurationService.findAll()
-					.iterator().next().getSystemName());
+			result.addObject("requestURI", "float/list.do?brotherhoodId=" + brotherhoodId);
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (this.brotherhoodService.findOne(brotherhoodId) == null)
-				redirectAttrs.addFlashAttribute("message",
-						"floaat.error.unexist");
+				redirectAttrs.addFlashAttribute("message", "floaat.error.unexist");
 		}
 		return result;
 	}
@@ -73,24 +69,19 @@ public class FloaatController extends AbstractController {
 	public ModelAndView listOwn(final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		final UserAccount uA = LoginService.getPrincipal();
-		final int brotherhoodId = this.brotherhoodService.findByUserAccountId(
-				uA.getId()).getId();
+		final int brotherhoodId = this.brotherhoodService.findByUserAccountId(uA.getId()).getId();
 		try {
 			Assert.notNull(this.brotherhoodService.findOne(brotherhoodId));
-			final Collection<Floaat> floaats = this.floaatService
-					.findByBrotherhoodId(brotherhoodId);
+			final Collection<Floaat> floaats = this.floaatService.findByBrotherhoodId(brotherhoodId);
 			result = new ModelAndView("float/list");
 			result.addObject("floaats", floaats);
 			result.addObject("requestURI", "float/listOwn.do");
-			result.addObject("banner", this.configurationService.findAll()
-					.iterator().next().getBanner());
-			result.addObject("systemName", this.configurationService.findAll()
-					.iterator().next().getSystemName());
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/brotherhood/list.do");
 			if (this.brotherhoodService.findOne(brotherhoodId) == null)
-				redirectAttrs.addFlashAttribute("message",
-						"floaat.error.unexist");
+				redirectAttrs.addFlashAttribute("message", "floaat.error.unexist");
 		}
 		return result;
 	}
@@ -112,8 +103,7 @@ public class FloaatController extends AbstractController {
 	// Save
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Floaat floaat,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final Floaat floaat, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -123,8 +113,7 @@ public class FloaatController extends AbstractController {
 				this.floaatService.save(floaat);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(floaat,
-						"floaat.commit.error");
+				result = this.createEditModelAndView(floaat, "floaat.commit.error");
 			}
 		return result;
 	}
@@ -132,7 +121,7 @@ public class FloaatController extends AbstractController {
 	// delete
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Floaat floaat, final BindingResult binding) {
+	public ModelAndView delete(final Floaat floaat) {
 		ModelAndView result;
 		try {
 			this.floaatService.delete(floaat);
@@ -151,8 +140,7 @@ public class FloaatController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Floaat floaat,
-			final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Floaat floaat, final String messageCode) {
 		final ModelAndView result;
 		Collection<Brotherhood> brotherhoods;
 
@@ -163,10 +151,8 @@ public class FloaatController extends AbstractController {
 		result.addObject("brotherhoods", brotherhoods);
 
 		result.addObject("message", messageCode);
-		result.addObject("banner", this.configurationService.findAll()
-				.iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll()
-				.iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 

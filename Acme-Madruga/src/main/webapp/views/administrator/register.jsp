@@ -32,7 +32,7 @@
 
 
 	<acme:textbox code="actor.userAccount.username" path="userAccount.username"/>
-	<acme:textbox code="actor.userAccount.password" path="userAccount.password"/>
+	<acme:password code="actor.userAccount.password" path="userAccount.password"/>
 	<acme:textbox code="actor.name" path="name"/>
 	<acme:textbox code="actor.middleName" path="middleName"/>
 	<acme:textbox code="actor.surname" path="surname"/>
