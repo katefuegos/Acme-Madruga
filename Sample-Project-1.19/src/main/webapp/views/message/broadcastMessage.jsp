@@ -55,7 +55,12 @@
 	<form:errors cssClass="error" path="message.priority" />
 	<br />
 
-	<acme:submit name="save" code="message.save" />
-	<acme:cancel url="welcome/index.do" code="message.cancel" />
+	<input type="submit" name="save"
+		value="<spring:message code="message.save" />" />&nbsp; 
+
+	<input type="button" name="cancel"
+		value="<spring:message code="message.cancel" />"
+		onclick="javascript: relativeRedir('welcome/index.do');" />
+	<br />
 
 </form:form>

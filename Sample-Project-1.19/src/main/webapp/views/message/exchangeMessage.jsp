@@ -111,12 +111,17 @@
 		<br />
 	</jstl:if>
 	<jstl:if test="${isRead!=true || (isMove==true && isRead==true)}">
-		<acme:submit name="save" code="message.save" />
+		<input type="submit" name="save"
+			value="<spring:message code="message.save" />" />&nbsp; 
 		<jstl:if test="${messageForm.message.id!=0}">
-			<acme:delete confirmDelete="message.confirmDelete" name="delete"
-				code="message.delete" />
+			<input type="submit" name="delete"
+				value="<spring:message code="message.delete" />"
+				onclick="javascript: return confirm('<spring:message code="message.confirm.delete" />')" />
 		</jstl:if>
-		<acme:cancel url="box/actor/list.do" code="message.cancel" />
+		<input type="button" name="cancel"
+			value="<spring:message code="message.cancel" />"
+			onclick="javascript: relativeRedir('box/actor/list.do');" />
+		<br />
 
 	</jstl:if>
 
@@ -126,7 +131,3 @@
 <p>
 	<jstl:out value="${oops }" />
 </p>
-
-
-
-
