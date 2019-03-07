@@ -62,7 +62,7 @@ public class FinderService {
 		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(handyAuthority), "Solo los member tiene finder");
 
 		final Finder res = new Finder();
-		final Date lastUpdate = new Date();
+		// final Date lastUpdate = new Date();
 
 		final Collection<Procession> processions = new ArrayList<Procession>();
 

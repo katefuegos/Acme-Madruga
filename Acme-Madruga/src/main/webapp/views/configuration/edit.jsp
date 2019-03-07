@@ -31,7 +31,6 @@
 
 	<acme:textbox code="configuration.bannerr" path="bannerr"/>
 	<acme:textbox code="configuration.systemName" path="systemName"/>
-	<acme:textbox code="configuration.varTax" path="varTax"/>
 	<acme:textbox code="configuration.countryCode" path="countryCode"/>
 	<acme:textbox code="configuration.cache" path="finderCacheTime"/>
 	<acme:textbox code="configuration.maxResults" path="finderMaxResults"/>

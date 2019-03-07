@@ -78,8 +78,6 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		configurationForm.setSystemName(configuration.getSystemName());
 		
-		configurationForm.setVarTax(configuration.getFinderMaxResults());
-
 		configurationForm.setCountryCode(configuration.getCountryCode());
 
 		configurationForm.setFinderCacheTime(configuration.getFinderCacheTime());
@@ -164,8 +162,6 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 			configuration.setFinderMaxResults(configurationForm.getFinderMaxResults());
 
-			configuration.setFinderMaxResults(configurationForm.getVarTax());
-
 			configuration.setWelcomeMessage(welcomeMessage);
 
 			configuration.setSpamWords(spamWords);
@@ -201,8 +197,6 @@ public class ConfigurationAdministratorController extends AbstractController {
 		Assert.notNull(configuration);
 
 		configurationForm.setId(configuration.getId());
-
-		configurationForm.setVarTax(configuration.getFinderMaxResults());
 
 		configurationForm.setBannerr(configuration.getBanner());
 
@@ -295,8 +289,6 @@ public class ConfigurationAdministratorController extends AbstractController {
 				configuration.setFinderCacheTime(configurationForm.getFinderCacheTime());
 
 				configuration.setFinderMaxResults(configurationForm.getFinderMaxResults());
-
-				configuration.setFinderMaxResults(configurationForm.getVarTax());
 
 				configuration.setWelcomeMessage(welcomeMessage);
 

@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.AreaService;
+import services.ConfigurationService;
 import services.FinderService;
 import services.MemberService;
 import controllers.AbstractController;
@@ -45,6 +46,9 @@ public class FinderMemberController extends AbstractController {
 
 	@Autowired
 	private AreaService		areaService;
+	
+	@Autowired
+	private ConfigurationService		configurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -72,6 +76,8 @@ public class FinderMemberController extends AbstractController {
 		result.addObject("finder", finder);
 		result.addObject("areas", nameArea);
 		result.addObject("lang", lang);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
@@ -118,6 +124,8 @@ public class FinderMemberController extends AbstractController {
 		result.addObject("lang", lang);
 		result.addObject("memberId", member.getId());
 		result.addObject("requestURI", "finder/member/listProcessions.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
 	}
 
