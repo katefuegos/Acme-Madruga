@@ -74,8 +74,6 @@
 						code="master.page.box" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="message/actor/exchangeMessage.do"><spring:message
-								code="master.page.message.exchange" /></a></li>
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="message/administrator/broadcastMessage.do"><spring:message
 									code="master.page.message.broadcast" /></a></li>
