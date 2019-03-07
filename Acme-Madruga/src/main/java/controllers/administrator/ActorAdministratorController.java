@@ -1,4 +1,3 @@
-
 package controllers.administrator;
 
 import java.util.Collection;
@@ -24,7 +23,7 @@ public class ActorAdministratorController extends AbstractController {
 	// Service---------------------------------------------------------
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService actorService;
 
 	@Autowired
 	private ConfigurationService configurationService;
@@ -41,13 +40,17 @@ public class ActorAdministratorController extends AbstractController {
 	public ModelAndView listBanneds() {
 		final ModelAndView modelAndView;
 
-		final Collection<Actor> banneds = this.actorService.findPossibleBanned();
+		final Collection<Actor> banneds = this.actorService
+				.findPossibleBanned();
 
 		modelAndView = this.listCalculateModelAndView(banneds, true);
 
-		modelAndView.addObject("requestURI", "actor/administrator/listBanneds.do");
-		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		modelAndView.addObject("requestURI",
+				"actor/administrator/listBanneds.do");
+		modelAndView.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService
+				.findAll().iterator().next().getSystemName());
 		return modelAndView;
 
 	}
@@ -56,32 +59,39 @@ public class ActorAdministratorController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result = new ModelAndView();
 
-		result = this.listCalculateModelAndView(this.actorService.findAll(), false);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result = this.listCalculateModelAndView(this.actorService.findAll(),
+				false);
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
+
 	// Ban-------------------------------------------------------------
 
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
-	public ModelAndView ban(@RequestParam final int actorId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView ban(@RequestParam final int actorId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		final Actor actor = this.actorService.findOne(actorId);
 		try {
 			Assert.notNull(actor);
-			Assert.isTrue((actor.getIsBanned() == false) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0)));
-			Assert.isTrue(actor.getIsBanned()==false);
+			Assert.isTrue(actor.getIsBanned() == false);
+			Assert.isTrue(actor.getIsSpammer() == true || actor.getPolarityScore() == -1.0);
 			this.actorService.ban(actor);
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
 			if (actor == null)
-				redirectAttrs.addFlashAttribute("message", "actor.error.unexist");
-			else if(actor.getIsBanned()==true){
-				redirectAttrs.addFlashAttribute("message", "actor.error.alreadyBanned");
-			}
-			else if (!((actor.getIsBanned() == false) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0))))
+				redirectAttrs.addFlashAttribute("message",
+						"actor.error.unexist");
+			else if (actor.getIsBanned() == true) {
+				redirectAttrs.addFlashAttribute("message",
+						"actor.error.alreadyBanned");
+			} else if (!((actor.getIsBanned() == false) && ((actor
+					.getIsSpammer() == true) || (actor.getPolarityScore() <= -1.0))))
 				redirectAttrs.addFlashAttribute("message", "actor.error.toBan");
 		}
 
@@ -92,14 +102,14 @@ public class ActorAdministratorController extends AbstractController {
 	// UnBan-------------------------------------------------------------
 
 	@RequestMapping(value = "/unban", method = RequestMethod.GET)
-	public ModelAndView unban(@RequestParam final int actorId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView unban(@RequestParam final int actorId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView = null;
 
 		final Actor actor = this.actorService.findOne(actorId);
 		try {
 			Assert.notNull(actor);
-			Assert.isTrue((actor.getIsBanned() == true) && (actor.getIsSpammer() == true));
-			Assert.isTrue(actor.getIsBanned()==true);
+			Assert.isTrue(actor.getIsBanned() == true);
 			this.actorService.unban(actor);
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
 
@@ -107,17 +117,21 @@ public class ActorAdministratorController extends AbstractController {
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
 
 			if (actor == null)
-				redirectAttrs.addFlashAttribute("message", "actor.error.unexist");
-			else if(actor.getIsBanned()==true){
-				redirectAttrs.addFlashAttribute("message", "actor.error.notBanned");
-			}
-			else if (!((actor.getIsBanned() == true) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0))))
-				redirectAttrs.addFlashAttribute("message", "actor.error.toUnban");
+				redirectAttrs.addFlashAttribute("message",
+						"actor.error.unexist");
+			else if (actor.getIsBanned() == true) {
+				redirectAttrs.addFlashAttribute("message",
+						"actor.error.notBanned");
+			} else if (!((actor.getIsBanned() == true) && ((actor
+					.getIsSpammer() == true) || (actor.getPolarityScore() <= -1.0))))
+				redirectAttrs.addFlashAttribute("message",
+						"actor.error.toUnban");
 		}
 
 		return modelAndView;
 
 	}
+
 	@RequestMapping(value = "/findSpammers", method = RequestMethod.GET)
 	public ModelAndView find() {
 		ModelAndView modelAndView;
@@ -130,7 +144,8 @@ public class ActorAdministratorController extends AbstractController {
 
 		return modelAndView;
 	}
-	// Polarity 
+
+	// Polarity
 
 	@RequestMapping(value = "/calculatePolarity", method = RequestMethod.GET)
 	public ModelAndView edit() {
@@ -138,15 +153,18 @@ public class ActorAdministratorController extends AbstractController {
 		try {
 
 			this.actorService.updatePolarity();
-			modelAndView = this.listCalculateModelAndView(this.actorService.findAll(), false, "actor.commit.ok");
+			modelAndView = this.listCalculateModelAndView(
+					this.actorService.findAll(), false, "actor.commit.ok");
 		} catch (final Exception e) {
-			modelAndView = this.listCalculateModelAndView(this.actorService.findAll(), false, "actor.commit.error");
+			modelAndView = this.listCalculateModelAndView(
+					this.actorService.findAll(), false, "actor.commit.error");
 		}
 
 		return modelAndView;
 	}
 
-	protected ModelAndView listCalculateModelAndView(final Collection<Actor> actors, final boolean banneds) {
+	protected ModelAndView listCalculateModelAndView(
+			final Collection<Actor> actors, final boolean banneds) {
 		ModelAndView result;
 
 		result = this.listCalculateModelAndView(actors, banneds, null);
@@ -155,7 +173,8 @@ public class ActorAdministratorController extends AbstractController {
 
 	}
 
-	protected ModelAndView listCalculateModelAndView(Collection<Actor> actors, final Boolean banneds, final String message) {
+	protected ModelAndView listCalculateModelAndView(Collection<Actor> actors,
+			final Boolean banneds, final String message) {
 		ModelAndView result;
 
 		if (banneds == true)
@@ -169,8 +188,10 @@ public class ActorAdministratorController extends AbstractController {
 		result.addObject("actors", actors);
 		result.addObject("message", message);
 		result.addObject("requestURI", "actor/administrator/list.do");
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 
