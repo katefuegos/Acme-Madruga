@@ -16,6 +16,9 @@
 
 	<display:column property="actor.userAccount.username"
 		titleKey="socialProfile.username" />
+		
+		<display:column property="nameSocialNetwork"
+		titleKey="socialProfile.nameSocialNetwork" />
 
 	<display:column titleKey="socialProfile.social">
 	
