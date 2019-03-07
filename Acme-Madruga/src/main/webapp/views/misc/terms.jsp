@@ -67,7 +67,7 @@ any other personal information that you send to us.
 11.any other personal information that you send to us.
 <br>
 	<br>
-Before you disclose to us the personal information of another person, you must obtain that person’s consent to both the disclosure and the processing of that personal information in accordance with this policy
+Before you disclose to us the personal information of another person, you must obtain that person's consent to both the disclosure and the processing of that personal information in accordance with this policy
 <br>
 	<br>
 	<h2>D. Using your personal information</h2>
@@ -162,15 +162,7 @@ Except as provided in this policy, we will not provide your personal information
 <br>
 2.Personal information that we process for any purpose or purposes shall not be kept for longer than is necessary for that purpose or those purposes.
 <br>
-3.Without prejudice to article G-2, we will usually delete personal data falling within the categories set out below at the date/time set out below:
-<br>
-	<br>
-	a.personal data type will be deleted {ENTER DATE/TIME}; and
-<br>
-	b.{ENTER ADDITIONAL DATES/TIMES}.
-<br>
-	<br>
-4.Notwithstanding the other provisions of this Section G, we will retain documents (including electronic documents) containing personal data:
+3.Notwithstanding the other provisions of this Section G, we will retain documents (including electronic documents) containing personal data:
 <br>
 	<br>
 	a.to the extent that we are required to do so by law;
@@ -206,9 +198,7 @@ We may update this policy from time to time by publishing a new version on our w
 You may instruct us to provide you with any personal information we hold about you; provision of such information will be subject to the following:
 <br>
 	<br>
-1.the payment of a fee {ENTER FEE IF RELEVANT}; and
-<br>
-2.the supply of appropriate evidence of your identity ({ADJUST TEXT TO REFLECT YOUR POLICY for this purpose, we will usually accept a photocopy of your passport certified by a notary plus an original copy of a utility bill showing your current address}).
+1.the supply of appropriate evidence of your identity. For this purpose, we will usually accept a photocopy of your passport certified by a notary plus an original copy of a utility bill showing your current address.
 <br>
 	<br>
 We may withhold personal information that you request to the extent permitted by law.
@@ -235,13 +225,13 @@ Please let us know if the personal information that we hold about you needs to b
 	<h2>M. Cookies</h2>
 	<br>
 	<br>
-Our website uses cookies. A cookie is a file containing an identifier (a string of letters and numbers) that is sent by a web server to a web browser and is stored by the browser. The identifier is then sent back to the server each time the browser requests a page from the server. Cookies may be either 'persistent' cookies or 'session' cookies: a persistent cookie will be stored by a web browser and will remain valid until its set expiry date, unless deleted by the user before the expiry date; a session cookie, on the other hand, will expire at the end of the user session, when the web browser is closed. Cookies do not typically contain any information that personally identifies a user, but personal information that we store about you may be linked to the information stored in and obtained from cookies. {SELECT ACCURATE PHRASING We use only session cookies / only persistent cookies / both session and persistent cookies on our website.}
+Our website uses cookies. A cookie is a file containing an identifier (a string of letters and numbers) that is sent by a web server to a web browser and is stored by the browser. The identifier is then sent back to the server each time the browser requests a page from the server. Cookies may be either 'persistent' cookies or 'session' cookies: a persistent cookie will be stored by a web browser and will remain valid until its set expiry date, unless deleted by the user before the expiry date; a session cookie, on the other hand, will expire at the end of the user session, when the web browser is closed. Cookies do not typically contain any information that personally identifies a user, but personal information that we store about you may be linked to the information stored in and obtained from cookies. {SELECT ACCURATE PHRASING We use both session and persistent cookies on our website.
 <br>
 	<br>
 1.The names of the cookies that we use on our website, and the purposes for which they are used, are set out below:
 <br>
 	<br>
-	a.we use Google Analytics and Adwords on our website to recognize a computer when a user {INCLUDE ALL USES THAT COOKIES ARE USED FOR ON YOUR SITE visits the website / track users as they navigate the website / enable the use of a shopping cart on the website / improve the website’s usability / analyze the use of the website / administer the website / prevent fraud and improve the security of the website / personalize the website for each user / target advertisements which may be of particular interest to specific users / describe purpose(s)};
+	a.we use Google Analytics and Adwords on our website to recognize a computer when a user visits the website / track users as they navigate the website / enable the use of a shopping cart on the website / improve the website’s usability / analyze the use of the website / administer the website / prevent fraud and improve the security of the website / personalize the website for each user / target advertisements which may be of particular interest to specific users / describe purpose(s);
 <br>
 	<br>
 2.Most browsers allow you to refuse to accept cookies—for example:
@@ -409,15 +399,8 @@ Con excepción de lo establecido por la ley, no proporcionaremos su información
 <br>
 2.La información personal que procesamos para cualquier fin o fines no debe ser almacenada más tiempo de lo necesario para ese fin o fines.
 <br>
-3.Sin perjuicio del artículo G-2, usualmente eliminaremos los datos personales que estén dentro de las categorías mencionadas a continuación en la fecha y hora determinadas a continuación:
-<br>
 	<br>
-	a.los datos personales se eliminarán el {INTRODUCE FECHA/HORA}; y
-<br>
-	b.{INTRODUCE FECHAS/HORAS ADICIONALES}.
-<br>
-	<br>
-4.A pesar de las otras cláusulas de esta sección G, conservaremos los documentos (incluidos documentos electrónicos) que contengan datos personales:
+3.A pesar de las otras cláusulas de esta sección G, conservaremos los documentos (incluidos documentos electrónicos) que contengan datos personales:
 <br>
 	<br>
 	a.en medida de lo que sea requerido por la ley;
@@ -452,10 +435,8 @@ Es posible que actualicemos esta política de vez en cuando al publicar una nuev
 	<br>
 Usted puede solicitarnos que le proporcionemos cualquier información personal que tengamos de usted; la entrega de dicha información estará sujeta a lo siguiente:
 <br>
-	<br>
-1.el pago de una tarifa de {INTRODUCE LA TARIFA SI APLICA}; y
 <br>
-2.que usted presenté evidencia apropiada sobre su identidad ({AJUSTA EL TEXTO PARA REFLEJAR TU POLÍTICA para este fin, usualmente aceptaremos una fotocopia del pasaporte certificada por un notario y una copia original de una factura que muestre su dirección actual}).
+1.que usted presenté evidencia apropiada sobre su identidad. Para este fin, usualmente aceptaremos una fotocopia del pasaporte certificada por un notario y una copia original de una factura que muestre su dirección actual.
 <br>
 	<br>
 Podemos retener información personal que usted nos solicite en la medida de lo permitido por la ley.
@@ -481,13 +462,13 @@ Por favor, infórmenos si la información personal que tenemos de usted necesita
 	<h2>M. Cookies</h2>
 	<br>
 	<br>
-Nuestro sitio web usa cookies. Una cookie es un fichero que contiene un identificador (una cadena de letras y números) que se envía desde un servidor web a un navegador web y se almacena en el navegador. El identificador es enviado de vuelta al servidor cada vez que el navegador solicita una página del servidor. Las cookies pueden ser 'persistentes' o de 'sesión'. Una cookie persistente será almacenada por una navegador web y permanecerá válida hasta su fecha de caducidad, a menos que el usuario la elimine antes de la fecha de caducidad. Una cookie de sesión caducará al final de la sesión del usuario, cuando se cierre el navegador. Las cookies típicamente no contienen ninguna información que identifique personalmente al usuario sino información personal que almacenamos sobre usted que puede relacionarse con la información almacenada y obtenida de las cookies. {SELECCIONA LA FORMA DE DECIRLO MÁS PRECISA Solo usamos cookies de sesión / Solo usamos cookies persistentes / Solo usamos cookies de sesión y persistentes en nuestro sitio web.}
+Nuestro sitio web usa cookies. Una cookie es un fichero que contiene un identificador (una cadena de letras y números) que se envía desde un servidor web a un navegador web y se almacena en el navegador. El identificador es enviado de vuelta al servidor cada vez que el navegador solicita una página del servidor. Las cookies pueden ser 'persistentes' o de 'sesión'. Una cookie persistente será almacenada por una navegador web y permanecerá válida hasta su fecha de caducidad, a menos que el usuario la elimine antes de la fecha de caducidad. Una cookie de sesión caducará al final de la sesión del usuario, cuando se cierre el navegador. Las cookies típicamente no contienen ninguna información que identifique personalmente al usuario sino información personal que almacenamos sobre usted que puede relacionarse con la información almacenada y obtenida de las cookies. Solo usamos cookies de sesión y persistentes en nuestro sitio web.
 <br>
 	<br>
 1.Los nombres de las cookies que podemos usar en nuestro sitio web y los fines para las que son usadas, están especificadas a continuación:
 <br>
 	<br>
-	a.usamos Google Analytics y Adwords en nuestro sitio web para reconocer un ordenador cuando un usuario {INCLUYE TODO PARA LO QUE SON USADAS LAS COOKIES EN TU SITIO visita el sitio web / monitorizar usuarios mientras navegan por el sitio web / permitir el uso de un carrito de compras en el sitio web / mejorar la usabilidad del sitio / analizar el uso del sitio web / administrar el sitio web / evitar fraude y mejorar la seguridad del sitio web / personalizar el sitio web para cada usuario / personalizar los anuncios que sean de interés particular a usuarios específicos / describe fin(es)};
+	a.usamos Google Analytics y Adwords en nuestro sitio web para reconocer un ordenador cuando un usuario visita el sitio web / monitorizar usuarios mientras navegan por el sitio web / permitir el uso de un carrito de compras en el sitio web / mejorar la usabilidad del sitio / analizar el uso del sitio web / administrar el sitio web / evitar fraude y mejorar la seguridad del sitio web / personalizar el sitio web para cada usuario / personalizar los anuncios que sean de interés particular a usuarios específicos;
 <br>
 	<br>
 2.La mayoría de navegadores permiten que te niegues a aceptar cookies, por ejemplo:
