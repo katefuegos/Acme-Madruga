@@ -62,9 +62,6 @@
 
 		<!-- MESSAGE -->
 
-		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
-			access="isAuthenticated()" />
-
 		<security:intercept-url pattern="/message/administrator/broadcastMessage.do"
 			access="hasRole('ADMIN')" />
 
