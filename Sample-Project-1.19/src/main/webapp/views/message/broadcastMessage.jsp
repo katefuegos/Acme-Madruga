@@ -45,6 +45,9 @@
 	<form:label path="message.tags">
 		<spring:message code="message.tags" />:
 	</form:label>
+	<form:textarea path="message.tags" readonly="${isRead}" />
+	<form:errors cssClass="error" path="message.tags" />
+	<br />
 
 	<form:label path="message.priority">
 		<spring:message code="message.priority" />:

@@ -30,8 +30,8 @@
 	<form:hidden path="version" />
 	<form:hidden path="userAccount" />
 	<form:hidden path="auth" />
-	<form:hidden path="auth" />
 	<form:hidden path="area" />
+	
 
 
 	<jstl:if test="${isRead==true}">
