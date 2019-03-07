@@ -1,4 +1,3 @@
-
 package controllers.member;
 
 import java.util.ArrayList;
@@ -28,17 +27,16 @@ public class requestMemberController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 	@Autowired
-	private RequestService		requestService;
+	private RequestService requestService;
 
 	@Autowired
-	private MemberService		memberService;
+	private MemberService memberService;
 
 	@Autowired
-	private ProcessionService	processionService;
-	
+	private ProcessionService processionService;
+
 	@Autowired
 	private ConfigurationService configurationService;
-
 
 	// Constructor---------------------------------------------------------
 
@@ -52,10 +50,12 @@ public class requestMemberController extends AbstractController {
 		ModelAndView result;
 
 		try {
-			final int memberId = this.memberService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+			final int memberId = this.memberService.findByUserAccountId(
+					LoginService.getPrincipal().getId()).getId();
 			Assert.notNull(this.memberService.findOne(memberId));
 
-			final Collection<Request> requests = this.requestService.findRequestByMemberId(memberId);
+			final Collection<Request> requests = this.requestService
+					.findRequestByMemberId(memberId);
 
 			final Collection<Request> requestsPending = new ArrayList<Request>();
 			final Collection<Request> requestsRejected = new ArrayList<Request>();
@@ -70,7 +70,8 @@ public class requestMemberController extends AbstractController {
 					else
 						requestsRejected.add(r);
 
-			final Collection<Procession> processions = this.processionService.findAll();
+			final Collection<Procession> processions = this.processionService
+					.findAll();
 			if (!requestsPending.isEmpty())
 				for (final Request r : requestsPending)
 					processions.remove(r.getProcession());
@@ -87,28 +88,35 @@ public class requestMemberController extends AbstractController {
 			result.addObject("requestsPending", requestsPending);
 			result.addObject("processions", processions);
 			result.addObject("requestURI", "request/member/listMember.do");
-			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+			result.addObject("banner", this.configurationService.findAll()
+					.iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll()
+					.iterator().next().getSystemName());
 		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/request/member/listMember.do");
 		}
-		
+
 		return result;
 	}
 
 	// REQUEST
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
-	public ModelAndView request(final int processionId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView request(final int processionId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final Procession procession = this.processionService.findOne(processionId);
+		final Procession procession = this.processionService
+				.findOne(processionId);
 		Member member = null;
 		final Request request = this.requestService.create();
+		final Collection<Procession> processions = new ArrayList<Procession>();
 		try {
 			Assert.notNull(procession);
-			member = this.memberService.findByUserAccountId(LoginService.getPrincipal().getId());
+			member = this.memberService.findByUserAccountId(LoginService
+					.getPrincipal().getId());
 			Assert.notNull(member);
-			final Collection<Request> requests = this.requestService.findRequestByMemberId(member.getId());
-			final Collection<Procession> processions = new ArrayList<Procession>();
+			final Collection<Request> requests = this.requestService
+					.findRequestByMemberId(member.getId());
+
 			if (!requests.isEmpty())
 				for (final Request r : requests)
 					processions.add(r.getProcession());
@@ -122,25 +130,32 @@ public class requestMemberController extends AbstractController {
 
 			result = new ModelAndView("redirect:/request/member/listMember.do");
 			if (procession == null)
-				redirectAttrs.addFlashAttribute("message", "request.error.processionUnexists");
+				redirectAttrs.addFlashAttribute("message",
+						"request.error.processionUnexists");
 			else if (!request.getMember().equals(member)) {
-				 redirectAttrs.addFlashAttribute("message",
-				 "request.error.nobrotherhood");}
-			else
-				result = new ModelAndView("redirect:/request/member/listMember.do");
+				redirectAttrs.addFlashAttribute("message",
+						"request.error.nobrotherhood");
+			} else if (processions.contains(procession)) {
+				redirectAttrs.addFlashAttribute("message",
+						"request.error.alreadyRequest");
+			} else
+				result = new ModelAndView(
+						"redirect:/request/member/listMember.do");
 		}
 		return result;
 	}
 
 	// REQUEST
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(final int requestId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView delete(final int requestId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		final Request request = this.requestService.findOne(requestId);
 		Member member = null;
 		try {
 			Assert.notNull(request);
-			member = this.memberService.findByUserAccountId(LoginService.getPrincipal().getId());
+			member = this.memberService.findByUserAccountId(LoginService
+					.getPrincipal().getId());
 			Assert.notNull(member);
 			Assert.isTrue(request.getMember().getId() == member.getId());
 			Assert.isTrue(request.getStatus().equals("PENDING"));
@@ -151,14 +166,15 @@ public class requestMemberController extends AbstractController {
 		} catch (final Throwable e) {
 
 			result = new ModelAndView("redirect:/request/member/listMember.do");
-			 if (request == null)
-			 redirectAttrs.addFlashAttribute("message",
-			 "request.error.unexist");
-			 else if (!request.getMember().equals(member)) {
-			 redirectAttrs.addFlashAttribute("message",
-			 "request.error.nobrotherhood");
-			 } else
-				result = new ModelAndView("redirect:/request/member/listMember.do");
+			if (request == null)
+				redirectAttrs.addFlashAttribute("message",
+						"request.error.unexist");
+			else if (!request.getMember().equals(member)) {
+				redirectAttrs.addFlashAttribute("message",
+						"request.error.nobrotherhood");
+			} else
+				result = new ModelAndView(
+						"redirect:/request/member/listMember.do");
 		}
 		return result;
 	}

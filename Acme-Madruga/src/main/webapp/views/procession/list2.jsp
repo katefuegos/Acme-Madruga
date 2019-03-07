@@ -35,7 +35,7 @@
 	</security:authorize>
 
 </display:table>
-
+<br>
 <a href="procession/brotherhood/create.do"> <spring:message
 		code="procession.create" />
 </a>

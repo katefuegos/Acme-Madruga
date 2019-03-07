@@ -208,6 +208,8 @@ public class RequestBrotherhoodController extends AbstractController {
 			Assert.isTrue(request.getProcession().getBrotherhood().getId() == brotherhoodId);
 			Assert.isTrue(request.getStatus().equals("PENDING"));
 			requestForm.setId(request.getId());
+			requestForm.setColuumn(1);
+			requestForm.setRoow(1);
 
 			result = this.declineModelAndView(requestForm);
 
