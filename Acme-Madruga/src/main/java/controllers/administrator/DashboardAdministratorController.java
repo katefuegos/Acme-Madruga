@@ -19,6 +19,7 @@ import controllers.AbstractController;
 import domain.Member;
 import domain.Procession;
 import forms.AreaQueryB1Form;
+import forms.PositionCountForm;
 
 @Controller
 @RequestMapping("/dashboard/administrator")
@@ -27,9 +28,9 @@ public class DashboardAdministratorController extends AbstractController {
 	//Services-----------------------------------------------------------
 	@Autowired
 	private AdministratorService	administratorService;
-	
+
 	@Autowired
-	private ConfigurationService configurationService;
+	private ConfigurationService	configurationService;
 
 
 	//Constructor-------------------------------------------------------
@@ -137,7 +138,7 @@ public class DashboardAdministratorController extends AbstractController {
 
 		//QueryC8
 
-		final Map<domain.Position, Long> queryC8 = this.administratorService.queryC8();
+		final Collection<PositionCountForm> queryC8 = this.administratorService.queryC8();
 
 		if (queryC8 != null) {
 			modelAndView.addObject("position", queryC8);

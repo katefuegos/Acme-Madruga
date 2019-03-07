@@ -104,17 +104,23 @@
 <h3>
 	<spring:message code="administrator.dashboard.C8" />
 </h3>
+<display:table name="position" id="row" class="displaytag">
+	<display:column >
 
-<jstl:forEach var="entry1" items="${position}">
-
-	<jstl:forEach var="entry2" items="${entry1.key.name}">
+	<jstl:forEach var="entry" items="${row.position.name}">
 		<jstl:if test="${lang==entry.key}">
 			<jstl:out value="${entry.value}" />
 		</jstl:if>
 	</jstl:forEach>
-	--- <jstl:out value="${entry.value}" />
-	<br>
-</jstl:forEach>
+ 
+	</display:column>
+	<display:column property="count"
+		/>
+	
+</display:table>
+
+
+
 
 
 <br />

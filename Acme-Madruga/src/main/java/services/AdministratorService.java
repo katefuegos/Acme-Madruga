@@ -6,8 +6,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.transaction.Transactional;
 
@@ -26,6 +24,7 @@ import domain.Member;
 import domain.Position;
 import domain.Procession;
 import forms.AreaQueryB1Form;
+import forms.PositionCountForm;
 
 @Service
 @Transactional
@@ -179,23 +178,32 @@ public class AdministratorService {
 		return result;
 	}
 
-	public Map<Position, Long> queryC8() {
+	public Collection<PositionCountForm> queryC8() {
 		Collection<Object[]> queryC8 = null;
 		queryC8 = this.administratorRepository.queryC8();
-		Map<Position, Long> result = new TreeMap<>();
+		Collection<PositionCountForm> result = new ArrayList<>();
+
 		final Collection<Position> positions = this.positionService.findAll();
 		if (queryC8 != null)
 			for (final Object[] objects : queryC8) {
 				final Position p = (domain.Position) objects[0];
 				positions.remove(p);
-				result.put(p, (Long) objects[1]);
+				final PositionCountForm countForm = new PositionCountForm();
+				countForm.setPosition(p);
+				countForm.setCount((Long) objects[1]);
+
+				result.add(countForm);
 			}
 		else
 			result = null;
 
-		for (final Position p : positions)
-			result.put(p, 0L);
+		for (final Position p : positions) {
+			final PositionCountForm countForm = new PositionCountForm();
+			countForm.setPosition(p);
+			countForm.setCount(0L);
 
+			result.add(countForm);
+		}
 		return result;
 	}
 

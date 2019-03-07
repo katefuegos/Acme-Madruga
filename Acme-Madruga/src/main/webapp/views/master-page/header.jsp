@@ -41,6 +41,8 @@
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a class="fNiv" href="dashboard/administrator/dashboard.do"><spring:message
+								code="master.page.administrator.dashboard" /></a> <br></li>
 					<li><a href="area/list.do"><spring:message
 								code="master.page.administrator.areas" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message
@@ -65,6 +67,7 @@
 								code="master.page.register.admin" /></a></li>
 
 				</ul></li>
+			
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
