@@ -70,7 +70,7 @@
 		</display:column>
 	</security:authorize>
 </display:table>
-
+<br>
 <a href="actor/administrator/findSpammers.do"> <spring:message
 		code="master.page.administrator.findSpammers" />
 </a>
