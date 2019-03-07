@@ -71,12 +71,16 @@ public class ActorAdministratorController extends AbstractController {
 		try {
 			Assert.notNull(actor);
 			Assert.isTrue((actor.getIsBanned() == false) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0)));
+			Assert.isTrue(actor.getIsBanned()==false);
 			this.actorService.ban(actor);
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message", "actor.error.unexist");
+			else if(actor.getIsBanned()==true){
+				redirectAttrs.addFlashAttribute("message", "actor.error.alreadyBanned");
+			}
 			else if (!((actor.getIsBanned() == false) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0))))
 				redirectAttrs.addFlashAttribute("message", "actor.error.toBan");
 		}
@@ -95,6 +99,7 @@ public class ActorAdministratorController extends AbstractController {
 		try {
 			Assert.notNull(actor);
 			Assert.isTrue((actor.getIsBanned() == true) && (actor.getIsSpammer() == true));
+			Assert.isTrue(actor.getIsBanned()==true);
 			this.actorService.unban(actor);
 			modelAndView = new ModelAndView("redirect:listBanneds.do");
 
@@ -103,6 +108,9 @@ public class ActorAdministratorController extends AbstractController {
 
 			if (actor == null)
 				redirectAttrs.addFlashAttribute("message", "actor.error.unexist");
+			else if(actor.getIsBanned()==true){
+				redirectAttrs.addFlashAttribute("message", "actor.error.notBanned");
+			}
 			else if (!((actor.getIsBanned() == true) && ((actor.getIsSpammer() == true) || (actor.getPolarityScore() == -1.0))))
 				redirectAttrs.addFlashAttribute("message", "actor.error.toUnban");
 		}

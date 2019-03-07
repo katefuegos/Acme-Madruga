@@ -19,8 +19,6 @@ public class ConfigurationForm {
 
 	private int					id;
 
-	private int					varTax;
-
 	private int					countryCode;
 
 	private int					finderCacheTime;
@@ -80,19 +78,6 @@ public class ConfigurationForm {
 	public void setId(final int id) {
 
 		this.id = id;
-
-	}
-
-	@Range(min = 0, max = 100)
-	public int getVarTax() {
-
-		return this.varTax;
-
-	}
-
-	public void setVarTax(final int varTax) {
-
-		this.varTax = varTax;
 
 	}
 
