@@ -286,6 +286,7 @@ public class ActorService {
 
 			brother.setTitle(actorform.getTitle());
 			brother.setPictures(actorform.getPictures());
+			brother.setArea(actorform.getArea());
 
 			final Actor actor1 = this.brotherhoodService.save(brother);
 			this.boxService.addSystemBox(actor1);
