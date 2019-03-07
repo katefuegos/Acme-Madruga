@@ -46,6 +46,9 @@
 		<bean class="converters.ConfigurationToStringConverter" />
 		<bean class="converters.StringToConfigurationConverter" />
 		
+		<bean class="converters.FinderToStringConverter" />
+		<bean class="converters.StringToFinderConverter" />
+		
 		<bean class="converters.SocialProfileToStringConverter" />
 		<bean class="converters.StringToSocialProfileConverter" />
 		
